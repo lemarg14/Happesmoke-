@@ -1,0 +1,1162 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HappeSmoke Caen</title>
+<meta name="description" content="HappeSmoke Caen, boutique de cigarettes électroniques au centre commercial Les Rives de l'Orne. Conseil, matériel, e-liquides et accompagnement pour arrêter le tabac.">
+<meta name="theme-color" content="#244051">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout : barre type "app" + scène isométrique plein cadre pilotable (comme un jeu de gestion), puis sections calmes d'infos */
+:root{
+  --petrol:#244051;
+  --petrol-deep:#14293a;
+  --petrol-soft:#3e6479;
+  --gold:#F7C449;
+  --gold-deep:#c99418;
+  --mist:#EDF2F4;
+  --paper:#ffffff;
+  --ink:#122733;
+  --muted:#5a707c;
+  --line:#d7e1e6;
+  --ok:#17875c; --ok-bg:#e1f4eb;
+  --off:#a8432f; --off-bg:#f8e5e0;
+  --f-display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --f-body:"Figtree",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --shadow:0 1px 2px rgba(20,41,58,.06),0 8px 24px rgba(20,41,58,.10);
+  --radius:12px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--mist);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55}
+img{max-width:100%}
+[hidden]{display:none!important}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--gold-deep);outline-offset:2px}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* ---------- Top bar ---------- */
+.topbar{position:sticky;top:0;z-index:40;background:var(--paper);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+.topbar .wrap{max-width:none;display:flex;align-items:center;gap:14px;height:58px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
+.brand-mark{width:32px;height:32px;border-radius:9px;background:var(--petrol);display:grid;place-items:center}
+.brand-word{font-family:var(--f-display);font-weight:700;font-size:16px;letter-spacing:-.01em;color:var(--petrol)}
+.brand-word b{color:var(--gold-deep);font-weight:700}
+.site-chip{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:5px 10px 5px 6px;font-size:12.5px;line-height:1.2;white-space:nowrap}
+.site-chip .code{background:var(--petrol);color:#fff;font-family:var(--f-mono);font-size:10.5px;padding:3px 6px;border-radius:6px}
+.site-chip small{display:block;color:var(--muted);font-size:11px}
+.nav{display:flex;gap:4px;margin-left:auto}
+.nav a{text-decoration:none;font-weight:600;font-size:14px;padding:8px 12px;border-radius:8px;color:var(--petrol)}
+.nav a:hover{background:var(--mist)}
+.live{display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;padding:6px 10px;border-radius:999px;white-space:nowrap}
+.live.is-open{background:var(--ok-bg);color:var(--ok)}
+.live.is-closed{background:var(--off-bg);color:var(--off)}
+.live .dot{width:7px;height:7px;border-radius:50%;background:currentColor;box-shadow:0 0 0 0 currentColor;animation:ping 2s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(23,135,92,.45)}70%{box-shadow:0 0 0 7px rgba(23,135,92,0)}100%{box-shadow:0 0 0 0 rgba(23,135,92,0)}}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;cursor:pointer;text-decoration:none;font-weight:700;font-size:14px;border-radius:10px;padding:10px 16px;transition:transform .15s ease,background .15s ease}
+.btn:active{transform:translateY(1px)}
+.btn-gold{background:var(--gold);color:var(--petrol-deep)}
+.btn-gold:hover{background:#ffd264}
+.btn-petrol{background:var(--petrol);color:#fff}
+.btn-petrol:hover{background:var(--petrol-deep)}
+.btn-ghost{background:var(--paper);color:var(--petrol);border:1px solid var(--line)}
+.btn-ghost:hover{border-color:var(--petrol-soft)}
+
+/* ---------- Stage (scène 3D) ---------- */
+.stage{position:relative;height:clamp(620px,84vh,820px);overflow:hidden;background:linear-gradient(180deg,#e9eff2,#dde7ec);user-select:none;-webkit-user-select:none}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:none}
+.stage canvas.dragging{cursor:grabbing}
+.stage canvas.hovering{cursor:pointer}
+.layer{position:absolute;inset:0;pointer-events:none}
+.card{background:rgba(255,255,255,.96);border:1px solid rgba(215,225,230,.9);border-radius:var(--radius);box-shadow:var(--shadow);pointer-events:auto;backdrop-filter:blur(6px)}
+
+.hero-card{position:absolute;left:max(20px,env(safe-area-inset-left,0px));top:20px;width:min(390px,calc(100% - 32px));padding:20px 22px 20px}
+.eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--petrol-soft)}
+.hero-card h1{font-family:var(--f-display);font-weight:700;font-size:clamp(24px,2.6vw,31px);line-height:1.12;letter-spacing:-.02em;margin:8px 0 10px;color:var(--petrol);text-wrap:balance}
+.hero-card h1 em{font-style:normal;background:linear-gradient(transparent 62%,var(--gold) 62%,var(--gold) 92%,transparent 92%)}
+.hero-card p{margin:0 0 16px;color:var(--muted);font-size:14.5px}
+.hero-actions{display:flex;gap:8px;flex-wrap:wrap}
+
+.kpis{position:absolute;left:max(20px,env(safe-area-inset-left,0px));top:var(--kpi-top,300px);display:flex;gap:10px;flex-wrap:wrap;max-width:420px}
+.kpi{display:flex;align-items:center;gap:10px;padding:9px 14px 9px 10px}
+.kpi-ico{width:30px;height:30px;border-radius:8px;background:var(--mist);display:grid;place-items:center;color:var(--petrol)}
+.kpi small{display:block;font-size:11px;color:var(--muted);line-height:1.2}
+.kpi strong{font-size:17px;font-weight:700;color:var(--ink);line-height:1.25}
+.kpi .delta{font-size:11px;color:var(--ok);font-weight:600;margin-left:4px}
+
+.tools{position:absolute;top:20px;right:calc(20px + 312px + 12px);display:flex;flex-direction:column;padding:4px;gap:2px}
+.tools button{width:32px;height:32px;border:0;background:transparent;border-radius:8px;cursor:pointer;display:grid;place-items:center;color:var(--petrol)}
+.tools button:hover{background:var(--mist)}
+.tools hr{border:0;border-top:1px solid var(--line);margin:2px 4px}
+
+.detail{position:absolute;top:20px;right:max(20px,env(safe-area-inset-right,0px));width:312px;padding:14px 16px 16px;transition:opacity .25s ease,transform .25s ease}
+.detail.is-hidden{opacity:0;transform:translateY(-6px);pointer-events:none}
+.detail-head{display:flex;gap:10px;align-items:flex-start}
+.detail-ico{width:38px;height:38px;border-radius:10px;background:var(--petrol);color:var(--gold);display:grid;place-items:center;flex-shrink:0}
+.detail-head .eyebrow{font-size:10.5px}
+.detail-head h2{font-family:var(--f-display);font-size:16px;font-weight:700;margin:2px 0 0;line-height:1.2;color:var(--petrol)}
+.detail-close{margin-left:auto;border:0;background:transparent;cursor:pointer;width:28px;height:28px;border-radius:7px;display:grid;place-items:center;color:var(--muted)}
+.detail-close:hover{background:var(--mist)}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;padding:4px 9px;border-radius:999px;background:var(--mist);color:var(--petrol)}
+.chip.ok{background:var(--ok-bg);color:var(--ok)}
+.chip.off{background:var(--off-bg);color:var(--off)}
+.chip.gold{background:#fdf0cc;color:#7a5a06}
+.detail-chips{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0 4px}
+.detail p{font-size:13.5px;color:var(--muted);margin:10px 0 8px}
+.rows{margin:0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.rows li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px}
+.rows li span:first-child{color:var(--muted);flex-shrink:0}
+.rows li span:last-child{text-align:right;font-weight:600}
+.meter{margin-top:12px}
+.meter-top{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px}
+.meter-top b{color:var(--ink)}
+.meter-bar{height:7px;border-radius:99px;background:var(--mist);overflow:hidden}
+.meter-bar i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--petrol-soft),var(--petrol));transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.meter-scale{display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted);margin-top:4px}
+
+.tracker{position:absolute;left:max(20px,env(safe-area-inset-left,0px));bottom:20px;width:min(600px,calc(100% - 40px - 340px));padding:14px 16px}
+.tracker-head{display:flex;align-items:center;gap:8px;font-weight:700;font-size:13.5px;color:var(--petrol)}
+.tracker-head .mono{margin-left:auto;font-size:11px;color:var(--muted);font-weight:500}
+.tracker-body{display:grid;grid-template-columns:1fr 210px;gap:16px;align-items:center;margin-top:12px}
+.steps{position:relative;display:flex;justify-content:space-between;list-style:none;margin:0;padding:0}
+.steps::before{content:"";position:absolute;left:14px;right:14px;top:13px;height:3px;background:var(--line);border-radius:3px}
+.steps .fill{position:absolute;left:14px;top:13px;height:3px;background:var(--petrol);border-radius:3px;transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.step{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;background:none;border:0;cursor:pointer;padding:0;min-width:0;z-index:1}
+.step .b{width:29px;height:29px;border-radius:50%;background:var(--paper);border:2px solid var(--line);display:grid;place-items:center;font-family:var(--f-mono);font-size:11px;color:var(--muted);transition:all .3s ease}
+.step.done .b{background:var(--petrol);border-color:var(--petrol);color:#fff}
+.step.active .b{background:var(--gold);border-color:var(--gold);color:var(--petrol-deep);box-shadow:0 0 0 5px rgba(247,196,73,.3)}
+.step span.t{font-size:11.5px;font-weight:600;color:var(--ink);white-space:nowrap}
+.step-note{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--mist);min-height:74px}
+.step-note .mono{font-size:10.5px;color:var(--muted)}
+.step-note b{display:block;font-size:13.5px;color:var(--petrol);margin:2px 0 2px}
+.step-note span{font-size:12.5px;color:var(--muted);line-height:1.4;display:block}
+
+.zones{position:absolute;right:max(20px,env(safe-area-inset-right,0px));bottom:20px;width:312px;padding:10px 10px 6px}
+.zones-head{display:flex;align-items:center;justify-content:space-between;padding:2px 6px 8px;font-size:12px;color:var(--muted)}
+.zones-head b{color:var(--petrol);font-size:13px}
+.zone-row{display:grid;grid-template-columns:28px 1fr auto 14px;align-items:center;gap:10px;width:100%;border:0;background:transparent;text-align:left;padding:7px 6px;border-radius:8px;cursor:pointer;font-size:13px}
+.zone-row:hover,.zone-row.is-active{background:var(--mist)}
+.zone-row .n{font-family:var(--f-mono);font-size:10.5px;color:var(--muted)}
+.zone-row .nm{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.zone-row .chip{font-size:10.5px;padding:3px 7px}
+.zone-row svg{color:var(--muted)}
+
+.pins{position:absolute;inset:0;pointer-events:none}
+.pin{position:absolute;left:0;top:0;pointer-events:auto;border:0;background:none;padding:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;transform-origin:50% 100%;will-change:transform}
+.pin-head{width:30px;height:30px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--gold);box-shadow:0 4px 10px rgba(20,41,58,.25);display:grid;place-items:center;transition:transform .2s ease,background .2s ease}
+.pin-head i{width:10px;height:10px;border-radius:50%;background:var(--petrol);display:block}
+.pin.is-active .pin-head{background:var(--petrol)}
+.pin.is-active .pin-head i{background:var(--gold)}
+.pin:hover .pin-head{transform:rotate(-45deg) scale(1.12)}
+.pin-label{position:absolute;bottom:40px;white-space:nowrap;background:var(--petrol);color:#fff;font-size:11.5px;font-weight:700;padding:4px 8px;border-radius:7px;opacity:0;transform:translateY(4px);transition:all .2s ease;pointer-events:none}
+.pin:hover .pin-label,.pin.is-active .pin-label,.pin:focus-visible .pin-label{opacity:1;transform:none}
+.pin-shadow{width:14px;height:5px;border-radius:50%;background:rgba(20,41,58,.25);margin-top:6px}
+.tag{position:absolute;left:0;top:0;pointer-events:none;background:rgba(255,255,255,.92);border:1px solid var(--line);color:var(--petrol);font-size:11px;font-weight:700;padding:4px 8px;border-radius:7px;white-space:nowrap;display:flex;align-items:center;gap:6px;box-shadow:var(--shadow)}
+.tag .sw{width:8px;height:8px;border-radius:2px}
+
+.hint{position:absolute;left:50%;top:22px;transform:translateX(-50%);font-size:12px;font-weight:600;color:var(--petrol);background:rgba(255,255,255,.9);border:1px solid var(--line);padding:6px 12px;border-radius:999px;display:flex;gap:8px;align-items:center;transition:opacity .4s ease;pointer-events:none}
+.hint.gone{opacity:0}
+.no-webgl .hint{display:none}
+
+/* ---------- Sections ---------- */
+section{padding-block:72px}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:end;margin-bottom:32px}
+.sec-head h2{font-family:var(--f-display);font-weight:700;font-size:clamp(26px,3.4vw,40px);line-height:1.08;letter-spacing:-.025em;margin:8px 0 0;color:var(--petrol);text-wrap:balance}
+.sec-head p{margin:0;color:var(--muted);max-width:52ch;font-size:16px}
+
+.offer{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.offer-item{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;display:flex;flex-direction:column;gap:10px;cursor:pointer;text-align:left;transition:border-color .2s ease,transform .2s ease}
+.offer-item:hover{border-color:var(--petrol-soft);transform:translateY(-2px)}
+.offer-item .ico{width:42px;height:42px;border-radius:11px;background:var(--mist);display:grid;place-items:center;color:var(--petrol)}
+.offer-item h3{font-family:var(--f-display);font-size:16px;font-weight:700;margin:4px 0 0;color:var(--petrol);line-height:1.2}
+.offer-item p{margin:0;font-size:14px;color:var(--muted)}
+.offer-item .spec{margin-top:auto;padding-top:10px;border-top:1px dashed var(--line);font-family:var(--f-mono);font-size:11.5px;color:var(--petrol-soft)}
+.offer-item .go{font-size:12.5px;font-weight:700;color:var(--petrol);display:flex;align-items:center;gap:6px}
+
+.band{background:var(--petrol);color:#e9f0f3}
+.band .sec-head h2{color:#fff}
+.band .sec-head p{color:#b9cad3}
+.band .eyebrow{color:var(--gold)}
+.path{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;list-style:none;margin:0;padding:0;counter-reset:s}
+.path li{position:relative;padding:22px 20px 4px 0}
+.path li::before{counter-increment:s;content:counter(s,decimal-leading-zero);font-family:var(--f-mono);font-size:12px;color:var(--gold);display:block;margin-bottom:14px}
+.path li::after{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:rgba(255,255,255,.18)}
+.path li:first-child::after{background:linear-gradient(90deg,var(--gold) 0,var(--gold) 40%,rgba(255,255,255,.18) 40%)}
+.path h3{font-family:var(--f-display);font-size:17px;margin:0 0 6px;color:#fff;font-weight:700}
+.path p{margin:0;font-size:14px;color:#b9cad3;max-width:28ch}
+.band-note{margin-top:36px;display:flex;gap:12px;align-items:flex-start;font-size:13.5px;color:#b9cad3;max-width:70ch;border-top:1px solid rgba(255,255,255,.14);padding-top:18px}
+.band-note b{color:#fff}
+
+.info{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:20px}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:24px}
+.panel h3{font-family:var(--f-display);font-size:18px;margin:0 0 4px;color:var(--petrol)}
+.addr{font-size:17px;font-weight:600;margin:8px 0 18px;line-height:1.45}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:18px 0 20px}
+.fact{background:var(--mist);border-radius:12px;padding:12px}
+.fact svg{color:var(--petrol)}
+.fact b{display:block;font-size:13.5px;margin-top:6px}
+.fact span{font-size:12.5px;color:var(--muted)}
+.hours{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:10px}
+.hours td{padding:10px 0;border-bottom:1px solid var(--line)}
+.hours td:last-child{text-align:right;font-family:var(--f-mono);font-size:13px}
+.hours tr.today td{font-weight:700;color:var(--petrol)}
+.hours tr.today td:first-child::after{content:"Aujourd'hui";margin-left:10px;font-family:var(--f-body);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--gold);color:var(--petrol-deep);padding:2px 7px;border-radius:99px}
+.status-line{display:flex;align-items:center;gap:10px;margin-top:4px}
+
+footer{background:var(--petrol-deep);color:#9fb4bf;font-size:13px;padding-block:36px}
+footer .wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:start}
+footer .legal{max-width:70ch}
+footer .legal b{color:#fff}
+footer .brand-word{color:#fff}
+.age18{display:inline-grid;place-items:center;width:46px;height:46px;border:2px solid var(--gold);color:var(--gold);border-radius:50%;font-family:var(--f-display);font-weight:700;font-size:14px}
+
+/* ---------- Age gate ---------- */
+.gate{position:fixed;inset:0;z-index:100;background:rgba(20,41,58,.72);backdrop-filter:blur(6px);display:grid;place-items:center;padding:16px}
+.gate-box{background:var(--paper);border-radius:18px;max-width:420px;width:100%;padding:28px;text-align:left;box-shadow:0 30px 60px rgba(0,0,0,.25)}
+.gate-box h2{font-family:var(--f-display);color:var(--petrol);font-size:22px;margin:14px 0 8px;line-height:1.2}
+.gate-box p{color:var(--muted);margin:0 0 20px}
+.gate-actions{display:flex;gap:10px;flex-wrap:wrap}
+
+/* ---------- Responsive ---------- */
+@media (max-width:1100px){
+  .zones{display:none}
+  .tracker{width:min(600px,calc(100% - 40px))}
+  .nav{display:none}
+}
+@media (max-width:820px){
+  .site-chip{display:none}
+  .stage{height:720px}
+  .hero-card{left:12px;top:12px;width:calc(100% - 24px);padding:16px}
+  .hero-card p{font-size:13.5px;margin-bottom:12px}
+  .kpis{display:none}
+  .tools{right:12px;top:auto;bottom:206px}
+  .detail{left:12px;right:12px;top:auto;bottom:12px;width:auto;z-index:3;max-height:62%;overflow:auto}
+  .tracker{left:12px;right:12px;bottom:12px;width:auto;padding:12px}
+  .tracker-body{grid-template-columns:1fr;gap:10px}
+  .step-note{min-height:0}
+  .step span.t{font-size:10.5px}
+  .hint{top:auto;bottom:212px}
+  .sec-head{grid-template-columns:1fr;gap:12px}
+  .offer{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .path{grid-template-columns:1fr}
+  .path li{padding:18px 0 10px}
+  .info{grid-template-columns:1fr}
+  footer .wrap{grid-template-columns:1fr}
+  section{padding-block:56px}
+}
+@media (max-width:520px){
+  .offer{grid-template-columns:1fr}
+  .facts{grid-template-columns:1fr}
+  .live .lbl-long{display:none}
+  .topbar .btn span{display:none}
+  .brand-word{font-size:15px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+
+<!-- Contrôle d'âge -->
+<div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title" hidden>
+  <div class="gate-box">
+    <span class="age18">18+</span>
+    <h2 id="gate-title">Ce site présente des produits du vapotage</h2>
+    <p id="gate-text">Il est réservé aux personnes majeures. Avez-vous 18 ans ou plus ?</p>
+    <div class="gate-actions" id="gate-actions">
+      <button class="btn btn-petrol" id="gate-yes">J'ai 18 ans ou plus</button>
+      <button class="btn btn-ghost" id="gate-no">Non</button>
+    </div>
+  </div>
+</div>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="HappeSmoke Caen, accueil">
+      <span class="brand-mark" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M7 17.5h9.5a4 4 0 0 0 .6-7.95A5.5 5.5 0 0 0 6.6 9.1 4.2 4.2 0 0 0 7 17.5Z" fill="#F7C449"/><path d="M9 21h6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+      </span>
+      <span class="brand-word">Happe<b>Smoke</b></span>
+    </a>
+    <div class="site-chip">
+      <span class="code">CAEN</span>
+      <span>Les Rives de l'Orne<small>Quai Amiral Hamelin · 14000</small></span>
+    </div>
+    <nav class="nav" aria-label="Sections">
+      <a href="#boutique">La boutique</a>
+      <a href="#parcours">Arrêter le tabac</a>
+      <a href="#infos">Infos pratiques</a>
+    </nav>
+    <span class="live" id="live"><span class="dot"></span><span id="live-text">…</span></span>
+    <a class="btn btn-gold" href="https://www.google.com/maps/search/?api=1&query=Happesmoke%20Les%20Rives%20de%20l%27Orne%20Caen" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.1-7-11.5A7 7 0 0 1 19 9.5C19 14.9 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+      <span>Itinéraire</span>
+    </a>
+  </div>
+</header>
+
+<main id="top">
+  <!-- ======== Scène interactive ======== -->
+  <div class="stage" id="stage" aria-label="Plan interactif de la boutique HappeSmoke Caen">
+    <canvas id="scene"></canvas>
+
+    <div class="pins" id="pins" aria-label="Zones de la boutique"></div>
+
+    <div class="layer">
+      <div class="hint" id="hint">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 3v18M3 12h18M8 7l4-4 4 4M8 17l4 4 4-4M7 8l-4 4 4 4M17 8l4 4-4 4"/></svg>
+        Glissez pour explorer · cliquez sur un point
+      </div>
+
+      <div class="card hero-card" id="hero-card">
+        <div class="eyebrow">Caen · Centre commercial Les Rives de l'Orne</div>
+        <h1>Arrêter la cigarette, <em>ça se prépare</em> ici.</h1>
+        <p>Conseil, matériel et e-liquides pour les fumeurs adultes qui passent à la vape. Visitez la boutique avant de venir.</p>
+        <div class="hero-actions">
+          <button class="btn btn-petrol" data-zone-go="comptoir">Commencer la visite</button>
+          <a class="btn btn-ghost" href="#infos">Horaires & accès</a>
+        </div>
+      </div>
+
+      <div class="kpis" id="kpis">
+        <div class="card kpi">
+          <span class="kpi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+          <span><small>Aujourd'hui</small><strong id="kpi-hours">10:00 – 19:30</strong></span>
+        </div>
+        <div class="card kpi">
+          <span class="kpi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 4l9 6.5V20H3z"/><path d="M9 20v-6h6v6"/></svg></span>
+          <span><small>Réseau HappeSmoke</small><strong>+80 boutiques</strong></span>
+        </div>
+        <div class="card kpi">
+          <span class="kpi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5h11l-1.5 4L15 13H4"/></svg></span>
+          <span><small>Spécialiste vape</small><strong>depuis 2013</strong></span>
+        </div>
+      </div>
+
+      <div class="card tools" role="group" aria-label="Contrôles de la vue">
+        <button id="zoom-in" aria-label="Zoomer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+        <button id="zoom-out" aria-label="Dézoomer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14"/></svg></button>
+        <hr>
+        <button id="reset" aria-label="Recentrer la vue"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 4l9 6.5V20H3z"/></svg></button>
+      </div>
+
+      <aside class="card detail is-hidden" id="detail" aria-live="polite">
+        <div class="detail-head">
+          <span class="detail-ico" id="d-ico"></span>
+          <div>
+            <div class="eyebrow" id="d-eyebrow"></div>
+            <h2 id="d-title"></h2>
+          </div>
+          <button class="detail-close" id="d-close" aria-label="Fermer la fiche"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+        </div>
+        <div class="detail-chips" id="d-chips"></div>
+        <p id="d-desc"></p>
+        <ul class="rows" id="d-rows"></ul>
+        <div class="meter" id="d-meter" hidden>
+          <div class="meter-top"><span id="dm-label"></span><b class="mono" id="dm-value"></b></div>
+          <div class="meter-bar"><i id="dm-bar" style="width:0"></i></div>
+          <div class="meter-scale mono" id="dm-scale"></div>
+        </div>
+      </aside>
+
+      <div class="card tracker" id="tracker">
+        <div class="tracker-head">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h3l3-8 4 16 3-8h3"/></svg>
+          Votre passage à la vape
+          <span class="mono" id="tr-count">Étape 1/5</span>
+        </div>
+        <div class="tracker-body">
+          <ol class="steps" id="steps"><i class="fill" id="steps-fill"></i></ol>
+          <div class="step-note" id="step-note"></div>
+        </div>
+      </div>
+
+      <div class="card zones" id="zones">
+        <div class="zones-head"><b>Zones de la boutique</b><span class="mono">5 espaces</span></div>
+        <div id="zone-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== La boutique ======== -->
+  <section id="boutique">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow">La boutique</div>
+          <h2>Tout pour passer à la vape, au même endroit.</h2>
+        </div>
+        <p>La boutique HappeSmoke de Caen se trouve dans le centre commercial Les Rives de l'Orne, face au quai. Un conseiller vous reçoit, fait le point avec vous et vous repartez avec un équipement réglé.</p>
+      </div>
+      <div class="offer" id="offer"></div>
+    </div>
+  </section>
+
+  <!-- ======== Parcours ======== -->
+  <section class="band" id="parcours">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow">Arrêter le tabac</div>
+          <h2>Un parcours en cinq temps, à votre rythme.</h2>
+        </div>
+        <p>La cigarette électronique s'adresse aux fumeurs adultes qui veulent réduire ou arrêter le tabac. On commence par comprendre votre consommation, puis on ajuste jusqu'à ce que ce soit confortable.</p>
+      </div>
+      <ol class="path" id="path"></ol>
+      <div class="band-note">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F7C449" stroke-width="2" stroke-linecap="round" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg>
+        <span><b>Vous ne fumez pas ?</b> Alors ne commencez pas à vapoter. La nicotine crée une dépendance. Pour un accompagnement médical, parlez-en aussi à votre médecin ou appelez Tabac Info Service au 39 89.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== Infos pratiques ======== -->
+  <section id="infos">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow">Infos pratiques</div>
+          <h2>Passez nous voir.</h2>
+        </div>
+        <p>Pas besoin de rendez-vous. Le centre commercial est desservi par le tram et dispose d'un parking.</p>
+      </div>
+      <div class="info">
+        <div class="panel">
+          <h3>Adresse</h3>
+          <div class="addr">HappeSmoke Caen<br>Centre commercial Les Rives de l'Orne<br>Quai Amiral Hamelin, 14000 Caen</div>
+          <div class="facts">
+            <div class="fact">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="14" rx="3"/><path d="M5 11h14M8 21l2-4M16 21l-2-4"/><circle cx="9" cy="14" r=".5"/><circle cx="15" cy="14" r=".5"/></svg>
+              <b>Tram</b><span>Lignes T1, T2, T3 à proximité</span>
+            </div>
+            <div class="fact">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M10 16V8h3a2.5 2.5 0 0 1 0 5h-3"/></svg>
+              <b>Parking</b><span>Celui du centre commercial</span>
+            </div>
+            <div class="fact">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4.5" r="1.5"/><path d="M10 8h3l1 6h4l2 5"/><path d="M13 11H9"/><path d="M8.5 12.5a5 5 0 1 0 6.9 6"/></svg>
+              <b>Accès PMR</b><span>Boutique de plain-pied</span>
+            </div>
+          </div>
+          <a class="btn btn-gold" href="https://www.google.com/maps/search/?api=1&query=Happesmoke%20Les%20Rives%20de%20l%27Orne%20Caen" target="_blank" rel="noopener">Ouvrir l'itinéraire dans Google Maps</a>
+        </div>
+        <div class="panel">
+          <h3>Horaires</h3>
+          <div class="status-line"><span class="chip" id="status-chip">…</span></div>
+          <table class="hours" id="hours"><tbody></tbody></table>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="legal">
+      <span class="brand-word">Happe<b>Smoke</b> Caen</span>
+      <p><b>Vente interdite aux mineurs de moins de 18 ans.</b> Les produits du vapotage contenant de la nicotine sont destinés aux fumeurs adultes. La nicotine contenue dans ce produit crée une forte dépendance. Son utilisation par les non-fumeurs n'est pas recommandée.</p>
+      <p>Ce site présente la boutique et ne propose pas de vente en ligne. Boutique membre du réseau HappeSmoke.</p>
+    </div>
+    <span class="age18" aria-label="Réservé aux 18 ans et plus">18+</span>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+"use strict";
+
+/* =========================================================
+   CONTENU — à ajuster par la boutique
+   ========================================================= */
+// Horaires en minutes depuis minuit. 0 = dimanche.
+var HOURS = {0:null,1:[600,1170],2:[600,1170],3:[600,1170],4:[600,1170],5:[600,1170],6:[600,1170]};
+var DAYS = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
+var DAYS_SHORT = ["dim.","lun.","mar.","mer.","jeu.","ven.","sam."];
+
+var ICONS = {
+  comptoir:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21v-8h16v8"/><path d="M2 13h20"/><path d="M8 13V9a4 4 0 0 1 8 0v4"/></svg>',
+  liquides:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4v3l2 2v13a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2V7l2-2z"/><path d="M8 12h8"/></svg>',
+  test:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17.5h9.5a4 4 0 0 0 .6-7.95A5.5 5.5 0 0 0 6.6 9.1 4.2 4.2 0 0 0 7 17.5Z"/></svg>',
+  materiel:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="8" width="10" height="14" rx="2"/><path d="M10 8V4h4v4"/><path d="M10 13h4"/></svg>',
+  atelier:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg>'
+};
+
+var ZONES = [
+  { id:"comptoir", code:"ACC", name:"Comptoir conseil", short:"Conseil", chip:"live",
+    eyebrow:"Accueil · sans rendez-vous",
+    desc:"C'est ici que tout commence. On fait le point sur votre consommation et on vous montre comment utiliser votre matériel.",
+    rows:[["Le bilan","Cigarettes par jour, moments clés"],["On vous montre","Remplissage, charge, entretien"],["Horaires","Lun–sam · 10:00–19:30"]],
+    offer:{title:"Conseil personnalisé",text:"Un bilan de votre consommation et des explications claires avant de choisir.",spec:"Sans rendez-vous"},
+    pos:[-5.2,-0.3], pinY:3.4 },
+  { id:"liquides", code:"LIQ", name:"Mur des e-liquides", short:"E-liquides", chip:"gold:Rayon",
+    eyebrow:"Rayon e-liquides",
+    desc:"Fruité, classic, menthe, gourmand : les e-liquides sont rangés par famille de goût et par taux de nicotine.",
+    rows:[["Formats","10 ml · grands formats"],["Ratios PG/VG","50/50 · 30/70"],["Sels de nicotine","Pour un hit plus doux"]],
+    meter:{label:"Nicotine disponible",value:"0 – 20 mg/ml",pct:100,scale:["0","3","6","12","20 mg/ml"]},
+    offer:{title:"E-liquides",text:"Toutes les familles de goût, du 10 ml aux grands formats à booster.",spec:"0 à 20 mg/ml · PG/VG 50/50 à 30/70"},
+    pos:[-1,-5.3], pinY:4.4 },
+  { id:"test", code:"TST", name:"Espace test", short:"Test", chip:"gold:Essayer",
+    eyebrow:"Essayer avant de choisir",
+    desc:"Pour trouver la saveur et la sensation en gorge qui vous conviennent, avec un conseiller à côté de vous.",
+    rows:[["Pour qui","Fumeurs adultes"],["On règle","Saveur, tirage, hit"],["Le but","Ne pas manquer de la cigarette"]],
+    offer:{title:"Espace test",text:"Essayez les saveurs et les réglages avant de repartir avec votre équipement.",spec:"Avec un conseiller"},
+    pos:[1.6,1.6], pinY:3.4 },
+  { id:"materiel", code:"MAT", name:"Vitrine matériel", short:"Matériel", chip:"gold:Kits & box",
+    eyebrow:"Cigarettes électroniques",
+    desc:"Du pod prêt à l'emploi pour débuter à la box plus complète pour les vapoteurs confirmés.",
+    rows:[["Pour débuter","Kits et pods simples"],["Confirmés","Box et clearomiseurs"],["Pièces","Résistances, cartouches, batteries, chargeurs"]],
+    offer:{title:"Matériel",text:"Kits, pods, box, clearomiseurs et toutes les pièces de rechange.",spec:"Débutant → confirmé"},
+    pos:[5,-2.4], pinY:3.2 },
+  { id:"atelier", code:"SAV", name:"Atelier & entretien", short:"Atelier", chip:"gold:Entretien",
+    eyebrow:"Service après-vente",
+    desc:"Votre cigarette électronique fuit ou ne chauffe plus ? Apportez-la, on regarde avec vous.",
+    rows:[["Résistances","Changement et conseils"],["Entretien","Réservoir, joints, nettoyage"],["Diagnostic","Fuite, batterie, goût de brûlé"]],
+    offer:{title:"Atelier & entretien",text:"Changement de résistance, nettoyage et diagnostic de votre matériel.",spec:"Apportez votre matériel"},
+    pos:[-5.6,4.5], pinY:2.9 }
+];
+
+var STEPS = [
+  {t:"Accueil", d:"On fait connaissance, sans jugement."},
+  {t:"Bilan", d:"Combien de cigarettes, à quels moments de la journée."},
+  {t:"Matériel", d:"Un pod simple ou une box, selon vos habitudes."},
+  {t:"Nicotine", d:"Le bon dosage pour ne pas ressentir de manque."},
+  {t:"Suivi", d:"On ajuste ensemble au fil des semaines."}
+];
+
+/* =========================================================
+   HORAIRES & STATUT EN DIRECT (heure de Paris)
+   ========================================================= */
+function fmt(m){ var h=Math.floor(m/60), mi=m%60; return (h<10?"0":"")+h+":"+(mi<10?"0":"")+mi; }
+function parisNow(){
+  var parts = new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/Paris",weekday:"short",hour:"2-digit",minute:"2-digit",hour12:false}).formatToParts(new Date());
+  var o={}; parts.forEach(function(p){o[p.type]=p.value;});
+  var wd = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].indexOf(o.weekday);
+  return {day:wd, min:(parseInt(o.hour,10)%24)*60+parseInt(o.minute,10), clock:o.hour+":"+o.minute};
+}
+function status(){
+  var n=parisNow(), h=HOURS[n.day];
+  if(h && n.min>=h[0] && n.min<h[1]) return {open:true, text:"Ouvert", long:"ferme à "+fmt(h[1]), n:n};
+  if(h && n.min<h[0]) return {open:false, text:"Fermé", long:"ouvre à "+fmt(h[0]), n:n};
+  for(var i=1;i<=7;i++){ var d=(n.day+i)%7; if(HOURS[d]) return {open:false,text:"Fermé",long:"ouvre "+(i===1?"demain":DAYS_SHORT[d])+" à "+fmt(HOURS[d][0]),n:n}; }
+  return {open:false,text:"Fermé",long:"",n:n};
+}
+function renderStatus(){
+  var s=status();
+  var live=document.getElementById("live");
+  live.className="live "+(s.open?"is-open":"is-closed");
+  document.getElementById("live-text").innerHTML = s.text+'<span class="lbl-long"> · '+s.long+'</span>';
+  var chip=document.getElementById("status-chip");
+  chip.className="chip "+(s.open?"ok":"off");
+  chip.textContent=s.text+" · "+s.long;
+  var h=HOURS[s.n.day];
+  document.getElementById("kpi-hours").textContent = h? fmt(h[0])+" – "+fmt(h[1]) : "Fermé";
+  var tb=document.querySelector("#hours tbody"); tb.innerHTML="";
+  [1,2,3,4,5,6,0].forEach(function(d){
+    var tr=document.createElement("tr"); if(d===s.n.day) tr.className="today";
+    tr.innerHTML="<td>"+DAYS[d]+"</td><td>"+(HOURS[d]?fmt(HOURS[d][0])+" – "+fmt(HOURS[d][1]):"Fermé")+"</td>";
+    tb.appendChild(tr);
+  });
+  if(currentZone==="comptoir") renderDetail("comptoir");
+}
+
+/* =========================================================
+   CONTRÔLE D'ÂGE
+   ========================================================= */
+(function(){
+  var ok=false; try{ ok = localStorage.getItem("hs-age-ok")==="1"; }catch(e){}
+  var gate=document.getElementById("gate");
+  if(!ok) gate.hidden=false;
+  document.getElementById("gate-yes").onclick=function(){ try{localStorage.setItem("hs-age-ok","1");}catch(e){} gate.hidden=true; };
+  document.getElementById("gate-no").onclick=function(){
+    document.getElementById("gate-title").textContent="Ce site est réservé aux personnes majeures";
+    document.getElementById("gate-text").textContent="La vente de produits du vapotage est interdite aux moins de 18 ans.";
+    document.getElementById("gate-actions").hidden=true;
+  };
+})();
+
+/* =========================================================
+   UI : fiche zone, liste, offre, parcours
+   ========================================================= */
+var currentZone=null;
+var zoneById={}; ZONES.forEach(function(z){zoneById[z.id]=z;});
+
+function chipHTML(spec){
+  if(spec==="live"){ var s=status(); return '<span class="chip '+(s.open?"ok":"off")+'">'+s.text+'</span>'; }
+  var p=spec.split(":"); return '<span class="chip '+p[0]+'">'+p[1]+'</span>';
+}
+function renderDetail(id){
+  var z=zoneById[id];
+  document.getElementById("d-ico").innerHTML=ICONS[id];
+  document.getElementById("d-eyebrow").textContent=z.eyebrow;
+  document.getElementById("d-title").textContent=z.name;
+  var s=status();
+  document.getElementById("d-chips").innerHTML = chipHTML(z.chip)+'<span class="chip mono">'+z.code+'</span>'+(z.id==="comptoir"?'<span class="chip">'+s.long+'</span>':"");
+  document.getElementById("d-desc").textContent=z.desc;
+  document.getElementById("d-rows").innerHTML = z.rows.map(function(r){return "<li><span>"+r[0]+"</span><span>"+r[1]+"</span></li>";}).join("");
+  var m=document.getElementById("d-meter");
+  if(z.meter){
+    m.hidden=false;
+    document.getElementById("dm-label").textContent=z.meter.label;
+    document.getElementById("dm-value").textContent=z.meter.value;
+    document.getElementById("dm-scale").innerHTML=z.meter.scale.map(function(x){return "<span>"+x+"</span>";}).join("");
+    var bar=document.getElementById("dm-bar"); bar.style.width="0";
+    requestAnimationFrame(function(){requestAnimationFrame(function(){bar.style.width=z.meter.pct+"%";});});
+  } else m.hidden=true;
+}
+function openZone(id, fromScene){
+  currentZone=id;
+  renderDetail(id);
+  document.getElementById("detail").classList.remove("is-hidden");
+  document.querySelectorAll(".zone-row").forEach(function(r){r.classList.toggle("is-active",r.dataset.zone===id);});
+  document.querySelectorAll(".pin").forEach(function(p){p.classList.toggle("is-active",p.dataset.zone===id);});
+  if(window.__scene) window.__scene.focus(id);
+  hideHint();
+}
+function closeZone(){
+  currentZone=null;
+  document.getElementById("detail").classList.add("is-hidden");
+  document.querySelectorAll(".zone-row,.pin").forEach(function(r){r.classList.remove("is-active");});
+  if(window.__scene) window.__scene.focus(null);
+}
+document.getElementById("d-close").onclick=closeZone;
+document.addEventListener("keydown",function(e){ if(e.key==="Escape" && currentZone) closeZone(); });
+
+// Liste des zones
+var zl=document.getElementById("zone-list");
+ZONES.forEach(function(z){
+  var b=document.createElement("button"); b.className="zone-row"; b.dataset.zone=z.id;
+  b.innerHTML='<span class="n">'+z.code+'</span><span class="nm">'+z.name+'</span>'+chipHTML(z.chip)+'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg>';
+  b.onclick=function(){openZone(z.id);};
+  zl.appendChild(b);
+});
+// Offre (section boutique)
+var off=document.getElementById("offer");
+["comptoir","liquides","materiel","atelier"].forEach(function(id){
+  var z=zoneById[id];
+  var b=document.createElement("button"); b.className="offer-item"; b.type="button";
+  b.innerHTML='<span class="ico">'+ICONS[id]+'</span><h3>'+z.offer.title+'</h3><p>'+z.offer.text+'</p><span class="spec">'+z.offer.spec+'</span><span class="go">Voir dans la boutique <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span>';
+  b.onclick=function(){ document.getElementById("stage").scrollIntoView({behavior:"smooth",block:"start"}); setTimeout(function(){openZone(id);},350); };
+  off.appendChild(b);
+});
+document.querySelectorAll("[data-zone-go]").forEach(function(b){ b.onclick=function(){openZone(b.dataset.zoneGo);}; });
+
+// Parcours (section)
+document.getElementById("path").innerHTML = STEPS.map(function(s){return "<li><h3>"+s.t+"</h3><p>"+s.d+"</p></li>";}).join("");
+
+// Tracker animé
+var stepsEl=document.getElementById("steps"), stepIdx=0, stepTimer=null;
+var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+STEPS.forEach(function(s,i){
+  var li=document.createElement("li");
+  li.innerHTML='<button class="step" type="button" data-i="'+i+'"><span class="b">'+(i+1)+'</span><span class="t">'+s.t+'</span></button>';
+  stepsEl.appendChild(li);
+});
+function setStep(i){
+  stepIdx=i;
+  stepsEl.querySelectorAll(".step").forEach(function(b,j){ b.classList.toggle("done",j<i); b.classList.toggle("active",j===i); });
+  var first=stepsEl.querySelector(".step .b"), lis=stepsEl.querySelectorAll("li");
+  var a=lis[0].getBoundingClientRect(), c=lis[i].getBoundingClientRect(), root=stepsEl.getBoundingClientRect();
+  var x0=a.left+a.width/2-root.left, x1=c.left+c.width/2-root.left;
+  var fill=document.getElementById("steps-fill"); fill.style.left=x0+"px"; fill.style.width=Math.max(0,x1-x0)+"px";
+  document.getElementById("tr-count").textContent="Étape "+(i+1)+"/"+STEPS.length;
+  document.getElementById("step-note").innerHTML='<span class="mono">Étape '+(i+1)+' · '+(i===STEPS.length-1?"en continu":"en boutique")+'</span><b>'+STEPS[i].t+'</b><span>'+STEPS[i].d+'</span>';
+}
+stepsEl.addEventListener("click",function(e){ var b=e.target.closest(".step"); if(!b) return; setStep(+b.dataset.i); restartSteps(); });
+function restartSteps(){ clearInterval(stepTimer); if(!reduce) stepTimer=setInterval(function(){ setStep((stepIdx+1)%STEPS.length); },3400); }
+setStep(0); restartSteps();
+window.addEventListener("resize",function(){setStep(stepIdx);});
+
+renderStatus(); setInterval(renderStatus,30000);
+
+var hintEl=document.getElementById("hint");
+function hideHint(){ hintEl.classList.add("gone"); }
+
+/* =========================================================
+   SCÈNE 3D ISOMÉTRIQUE
+   ========================================================= */
+var stage=document.getElementById("stage"), canvas=document.getElementById("scene");
+if(typeof THREE==="undefined"){ stage.classList.add("no-webgl"); return; }
+var renderer;
+try{ renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true}); }catch(e){ stage.classList.add("no-webgl"); return; }
+renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+renderer.shadowMap.enabled=true;
+renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+
+var scene=new THREE.Scene();
+scene.background=new THREE.Color(0xe3eaee);
+scene.fog=new THREE.Fog(0xe3eaee,70,120);
+
+var camera=new THREE.OrthographicCamera(-10,10,10,-10,0.1,400);
+var OFF=new THREE.Vector3(30,27,30);
+var target=new THREE.Vector3(), want=new THREE.Vector3();
+var zoom=1, wantZoom=1;
+var RIGHT=new THREE.Vector3(1,0,-1).normalize(), FWD=new THREE.Vector3(-1,0,-1).normalize();
+var SIN_E=OFF.y/OFF.length();
+
+scene.add(new THREE.HemisphereLight(0xffffff,0xc4d2da,0.78));
+var sun=new THREE.DirectionalLight(0xffffff,0.62);
+sun.position.set(18,34,10); sun.castShadow=true;
+sun.shadow.mapSize.set(2048,2048);
+var sc=sun.shadow.camera; sc.left=-38; sc.right=38; sc.top=38; sc.bottom=-38; sc.near=1; sc.far=100;
+sun.shadow.bias=-0.0006; sun.shadow.radius=4;
+scene.add(sun); scene.add(sun.target);
+
+// ---------- helpers ----------
+function M(color,o){ return new THREE.MeshStandardMaterial(Object.assign({color:color,roughness:0.86,metalness:0},o||{})); }
+function add(mesh,parent,x,y,z,cast){ mesh.position.set(x||0,y||0,z||0); mesh.castShadow=cast!==false; mesh.receiveShadow=true; (parent||scene).add(mesh); return mesh; }
+function box(w,h,d,m,x,y,z,p,cast){ return add(new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m),p,x,y,z,cast); }
+function cyl(rt,rb,h,m,x,y,z,p,seg){ return add(new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,seg||24),m),p,x,y,z); }
+function textTex(lines,w,h,bg){
+  var c=document.createElement("canvas"); c.width=w; c.height=h; var g=c.getContext("2d");
+  if(bg){ g.fillStyle=bg; g.fillRect(0,0,w,h); }
+  lines.forEach(function(l){ g.font=l.font; g.fillStyle=l.color; g.textAlign=l.align||"center"; g.textBaseline="middle"; g.fillText(l.text,l.x,l.y); });
+  var t=new THREE.CanvasTexture(c); t.anisotropy=renderer.capabilities.getMaxAnisotropy(); return t;
+}
+
+var C={petrol:0x244051, petrolDeep:0x14293a, petrolSoft:0x3e6479, gold:0xF7C449, white:0xf6f8f9, wood:0xe2cfae, ground:0xe1e8ec, glass:0x9fc3d4};
+var F=0.3; // hauteur du sol de la boutique
+
+// ---------- sol & environnement ----------
+var ground=new THREE.Mesh(new THREE.PlaneGeometry(240,240),M(C.ground,{roughness:1}));
+ground.rotation.x=-Math.PI/2; ground.receiveShadow=true; scene.add(ground);
+var grid=new THREE.GridHelper(80,40,0xd3dde3,0xd3dde3); grid.position.set(0,0.01,0); grid.material.transparent=true; grid.material.opacity=0.55; scene.add(grid);
+// parvis devant la boutique
+var plaza=new THREE.Mesh(new THREE.PlaneGeometry(48,7),M(0xd8e1e6,{roughness:1})); plaza.rotation.x=-Math.PI/2; plaza.position.set(2,0.02,9.6); plaza.receiveShadow=true; scene.add(plaza);
+
+// bâtiment du centre commercial (fond)
+var mallM=M(0xeef2f4);
+box(70,7.5,12,mallM,-4,3.75,-13.4);
+box(70,0.5,12.4,M(0xdfe7eb),-4,7.75,-13.4);
+var mallSign=new THREE.Mesh(new THREE.PlaneGeometry(14,1.4),new THREE.MeshBasicMaterial({map:textTex([{text:"LES RIVES DE L'ORNE",font:"700 64px Unbounded, Arial Black, sans-serif",color:"#244051",x:512,y:64}],1024,128,"#eef2f4")}));
+mallSign.position.set(-18,6.2,-7.38); scene.add(mallSign);
+// verrière
+for(var gx=-36;gx<=28;gx+=4){ box(0.25,0.25,12,M(0xc9d6dd),gx,8.1,-13.4); }
+
+// boutique voisine (gauche)
+var nb=new THREE.Group(); scene.add(nb);
+box(15,4.6,12,M(0xf3f6f8),-17.5,2.3,0,nb);
+box(14,2.6,0.2,M(0x9cbac8,{roughness:0.2,metalness:0.1}),-17.5,1.6,6.05,nb);
+box(14.6,0.5,1.2,M(0x9fc0b4),-17.5,3.3,6.5,nb);
+box(15,4.6,12,M(0xf3f6f8),-33,2.3,0,nb);
+box(14,2.6,0.2,M(0x9cbac8,{roughness:0.2,metalness:0.1}),-33,1.6,6.05,nb);
+box(14.6,0.5,1.2,M(0xe2b9a6),-33,3.3,6.5,nb);
+
+// arbres & bancs
+var leafM=M(0x7fb88a), leafM2=M(0x93c79a), trunkM=M(0x9a7d62), potM=M(0xdbe3e7);
+function tree(x,z,s){
+  s=s||1; var g=new THREE.Group(); scene.add(g); g.position.set(x,0,z);
+  cyl(0.9*s,0.9*s,0.6,potM,0,0.3,0,g);
+  cyl(0.12*s,0.16*s,1.6*s,trunkM,0,1.3*s,0,g);
+  var f=new THREE.Mesh(new THREE.IcosahedronGeometry(1.15*s,1),Math.random()>.5?leafM:leafM2); add(f,g,0,2.6*s,0);
+  return g;
+}
+[[15.5,-8],[15.5,-1.5],[15.5,5],[-12,13],[-1,13],[10,13],[-24,13]].forEach(function(p){tree(p[0],p[1],0.9+Math.random()*0.25);});
+function bench(x,z,rot){
+  var g=new THREE.Group(); g.position.set(x,0,z); g.rotation.y=rot||0; scene.add(g);
+  box(2.4,0.15,0.7,M(0xb99a76),0,0.55,0,g); box(0.15,0.5,0.6,M(0x7d8d96),-1,0.27,0,g); box(0.15,0.5,0.6,M(0x7d8d96),1,0.27,0,g);
+}
+bench(15.6,1.8,Math.PI/2); bench(4.5,13,0); bench(-18,13,0);
+
+// tram (lignes T1 · T2 · T3)
+var railM=M(0xa8b5bc);
+box(240,0.06,0.18,railM,0,0.04,15.4,scene,false); box(240,0.06,0.18,railM,0,0.04,16.6,scene,false);
+var track=new THREE.Mesh(new THREE.PlaneGeometry(240,3.2),M(0xd2dbe0,{roughness:1})); track.rotation.x=-Math.PI/2; track.position.set(0,0.015,16); track.receiveShadow=true; scene.add(track);
+var tram=new THREE.Group(); scene.add(tram);
+var tramW=M(0xf7f9fa), tramWin=M(0x2c4655,{roughness:0.3}), tramStripe=M(C.gold);
+for(var ti=0;ti<3;ti++){
+  var cx=ti*6.4;
+  box(6,2.4,2.4,tramW,cx,1.5,16,tram);
+  box(6.04,0.85,2.44,tramWin,cx,1.95,16,tram);
+  box(6.04,0.14,2.44,tramStripe,cx,0.95,16,tram);
+  box(4.5,0.35,1.6,M(0xdfe6ea),cx,2.85,16,tram);
+}
+tram.position.x=-90;
+
+// l'Orne
+var quay=box(240,0.7,0.6,M(0xcfd9de),0,0.35,19.2);
+var river=new THREE.Mesh(new THREE.PlaneGeometry(240,30),M(0x8fbccf,{roughness:0.35,metalness:0.05}));
+river.rotation.x=-Math.PI/2; river.position.set(0,0.03,34.6); scene.add(river);
+var ripples=[]; var ripM=new THREE.MeshBasicMaterial({color:0xd5e8f0,transparent:true,opacity:0.7});
+for(var r=0;r<26;r++){ var rp=new THREE.Mesh(new THREE.PlaneGeometry(1.6+Math.random()*2.5,0.12),ripM); rp.rotation.x=-Math.PI/2; rp.position.set(-60+Math.random()*120,0.06,21+Math.random()*12); scene.add(rp); ripples.push(rp); }
+
+// ---------- la boutique ----------
+var shop=new THREE.Group(); scene.add(shop);
+box(16.4,F,12.4,M(C.wood,{roughness:0.7}),0,F/2,0,shop);
+// planches du parquet
+for(var px=-7.6;px<8;px+=1.2){ box(0.03,0.01,12.2,M(0xd4bf9b),px,F+0.005,0,shop,false); }
+var wallM=M(C.petrol,{roughness:0.9}), wallIn=M(0x2c4b5f,{roughness:0.9});
+var WH=4.2;
+box(16.8,WH,0.4,wallM,0,F+WH/2,-6.2,shop);
+box(0.4,WH,12.8,wallM,-8.2,F+WH/2,0,shop);
+// colonnes & bandeau
+var pilM=M(C.petrolDeep);
+box(0.6,WH,0.6,pilM,8.1,F+WH/2,6.1,shop);
+box(0.6,WH,0.6,pilM,-8.1,F+WH/2,6.1,shop);
+box(0.6,WH,0.6,pilM,8.1,F+WH/2,-6.1,shop);
+box(16.8,1,0.5,pilM,0,F+WH-0.5,6.15,shop);
+box(0.5,1,12.6,pilM,8.15,F+WH-0.5,0,shop);
+// enseigne
+var signTex=null, signMesh=null;
+function buildSign(){
+  var c=document.createElement("canvas"); c.width=1280; c.height=112; var g=c.getContext("2d");
+  g.fillStyle="#14293a"; g.fillRect(0,0,1280,112);
+  g.font="700 62px Unbounded, Arial Black, sans-serif"; g.textBaseline="middle";
+  var a="HAPPE", b="SMOKE", wa=g.measureText(a).width, wb=g.measureText(b).width, x=640-(wa+wb)/2;
+  g.fillStyle="#ffffff"; g.fillText(a,x,58); g.fillStyle="#F7C449"; g.fillText(b,x+wa,58);
+  g.fillStyle="#F7C449"; g.globalAlpha=.85;
+  g.beginPath(); g.arc(x-60,58,14,0,7); g.arc(x-40,50,18,0,7); g.arc(x-20,60,12,0,7); g.fill();
+  var t=new THREE.CanvasTexture(c); t.anisotropy=renderer.capabilities.getMaxAnisotropy();
+  if(!signMesh){ signMesh=new THREE.Mesh(new THREE.PlaneGeometry(11.4,1),new THREE.MeshBasicMaterial({map:t})); signMesh.position.set(0,F+WH-0.5,6.41); shop.add(signMesh); }
+  else { signMesh.material.map=t; signMesh.material.needsUpdate=true; }
+}
+buildSign();
+if(document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ buildSign(); });
+// bande LED or en haut des murs
+var ledM=new THREE.MeshBasicMaterial({color:C.gold});
+box(16,0.08,0.08,ledM,0,F+WH-0.15,-5.95,shop,false);
+box(0.08,0.08,12,ledM,-7.95,F+WH-0.15,0,shop,false);
+// tapis d'entrée
+box(3.2,0.04,1.2,M(C.petrolSoft),2,F+0.02,5.3,shop,false);
+// affiche murale (mur gauche)
+var posterTex=textTex([
+  {text:"VAPE",font:"700 88px Unbounded, Arial Black, sans-serif",color:"#F7C449",x:256,y:150},
+  {text:"CONSEIL",font:"700 54px Unbounded, Arial Black, sans-serif",color:"#ffffff",x:256,y:240},
+  {text:"SEVRAGE",font:"700 54px Unbounded, Arial Black, sans-serif",color:"#ffffff",x:256,y:310},
+  {text:"— CAEN —",font:"500 30px JetBrains Mono, monospace",color:"#9fc3d4",x:256,y:400}
+],512,512,"#1b3445");
+var poster=new THREE.Mesh(new THREE.PlaneGeometry(2.4,2.4),new THREE.MeshBasicMaterial({map:posterTex}));
+poster.rotation.y=Math.PI/2; poster.position.set(-7.98,F+2.4,1.4); shop.add(poster);
+
+// ---------- zones (cliquables) ----------
+var zoneGroups={}, zoneMats={}, pickables=[];
+function Z(id){ var g=new THREE.Group(); g.userData.zone=id; shop.add(g); zoneGroups[id]=g; zoneMats[id]=[]; return g; }
+function ZM(id,color,o){ var m=M(color,o); zoneMats[id].push(m); return m; }
+
+// Mur des e-liquides
+(function(){
+  var g=Z("liquides");
+  var frame=ZM("liquides",0xf3f6f8);
+  box(14.2,3.8,0.7,ZM("liquides",0xe9eef1),-0.6,F+1.9,-5.65,g);
+  for(var s=0;s<5;s++){ box(14.2,0.08,0.85,frame,-0.6,F+0.55+s*0.72,-5.6,g); }
+  for(var u=-7.7;u<=6.6;u+=2.85){ box(0.1,3.8,0.85,frame,u,F+1.9,-5.6,g); }
+  var bGeo=new THREE.CylinderGeometry(0.1,0.1,0.38,10);
+  var cGeo=new THREE.CylinderGeometry(0.05,0.07,0.14,8);
+  var palette=[0xe85d5d,0xf29b4b,0xf7c449,0x7cc36b,0x4fb3a5,0x5d8de0,0x9a6fd6,0xe77fb3,0xffffff,0x6b4f3a,0x2e8b57,0xd9534f];
+  var count=0, list=[];
+  for(var sh=0;sh<5;sh++){ for(var x=-7.5;x<=6.3;x+=0.28){ if(Math.random()<0.1) continue; list.push([x,F+0.59+sh*0.72+0.19,-5.55+(Math.random()-0.5)*0.15]); } }
+  var bm=ZM("liquides",0xffffff,{roughness:0.45});
+  var im=new THREE.InstancedMesh(bGeo,bm,list.length), cm=new THREE.InstancedMesh(cGeo,ZM("liquides",0x1d2a33),list.length);
+  var m4=new THREE.Matrix4(), col=new THREE.Color();
+  var block=0;
+  list.forEach(function(p,i){
+    m4.makeTranslation(p[0],p[1],p[2]); im.setMatrixAt(i,m4);
+    m4.makeTranslation(p[0],p[1]+0.26,p[2]); cm.setMatrixAt(i,m4);
+    if(i%6===0) block=Math.floor(Math.random()*palette.length);
+    col.setHex(palette[block]); im.setColorAt(i,col);
+  });
+  im.castShadow=true; cm.castShadow=true; g.add(im); g.add(cm);
+  // étiquettes de rayon
+  var lab=textTex([{text:"FRUITÉ · CLASSIC · MENTHE · GOURMAND",font:"600 40px JetBrains Mono, monospace",color:"#F7C449",x:1024,y:40}],2048,80,"#14293a");
+  var lm=new THREE.Mesh(new THREE.PlaneGeometry(10,0.4),new THREE.MeshBasicMaterial({map:lab})); lm.position.set(-0.6,F+3.95,-5.25); g.add(lm);
+})();
+
+// Comptoir conseil
+(function(){
+  var g=Z("comptoir");
+  box(1.5,1.15,5.6,ZM("comptoir",0xf4f6f7),-5.2,F+0.575,-0.3,g);
+  box(1.7,0.12,5.8,ZM("comptoir",C.gold,{roughness:0.5}),-5.2,F+1.2,-0.3,g);
+  box(0.06,0.6,5.6,ZM("comptoir",C.petrol),-4.43,F+0.45,-0.3,g);
+  // caisse + écran
+  box(0.5,0.12,0.6,ZM("comptoir",0x24323b),-5.4,F+1.32,-2.2,g);
+  var scr=box(0.06,0.5,0.7,ZM("comptoir",0x24323b),-5.55,F+1.65,-2.2,g); scr.rotation.z=0.15;
+  box(0.02,0.4,0.6,new THREE.MeshBasicMaterial({color:0x9fd3e6}),-5.51,F+1.66,-2.2,g,false);
+  // présentoirs
+  for(var i=0;i<4;i++){ box(0.3,0.28,0.3,ZM("comptoir",[0x5d8de0,0xe85d5d,0x7cc36b,0xf29b4b][i]),-5.0,F+1.4,0.2+i*0.45,g); }
+  // étagère murale derrière
+  box(0.5,0.08,4.5,ZM("comptoir",0xf3f6f8),-7.7,F+2.0,-0.6,g);
+  box(0.5,0.08,4.5,ZM("comptoir",0xf3f6f8),-7.7,F+2.7,-0.6,g);
+  for(var k=0;k<10;k++){ box(0.3,0.4,0.25,ZM("comptoir",[0xF7C449,0x3e6479,0xffffff][k%3]),-7.7,F+2.25+(k%2)*0.7,-2.6+k*0.45,g); }
+})();
+
+// Espace test
+(function(){
+  var g=Z("test");
+  var tx=1.6,tz=1.6;
+  cyl(1.35,1.35,0.12,ZM("test",0xf4f6f7),tx,F+1.3,tz,g,40);
+  cyl(1.38,1.38,0.05,ZM("test",C.gold),tx,F+1.24,tz,g,40);
+  cyl(0.12,0.12,1.2,ZM("test",C.petrol),tx,F+0.65,tz,g);
+  cyl(0.6,0.6,0.06,ZM("test",C.petrol),tx,F+0.04,tz,g);
+  [[0,-1],[0.95,0.55],[-0.95,0.55]].forEach(function(o){
+    var sx=tx+o[0]*2, sz=tz+o[1]*2;
+    cyl(0.4,0.4,0.12,ZM("test",C.petrolSoft),sx,F+0.9,sz,g);
+    cyl(0.06,0.06,0.85,ZM("test",0x8b9aa3),sx,F+0.45,sz,g);
+    cyl(0.3,0.3,0.03,ZM("test",0x8b9aa3),sx,F+0.03,sz,g);
+  });
+  for(var i=0;i<7;i++){ var a=i/7*Math.PI*2; cyl(0.09,0.09,0.32,ZM("test",[0xe85d5d,0x7cc36b,0xf7c449,0x9a6fd6,0x4fb3a5,0xf29b4b,0xe77fb3][i]),tx+Math.cos(a)*0.85,F+1.52,tz+Math.sin(a)*0.85,g,10); }
+  box(0.22,0.5,0.14,ZM("test",0x24323b),tx,F+1.61,tz,g);
+})();
+
+// Vitrine matériel
+(function(){
+  var g=Z("materiel");
+  var vx=5,vz=-2.4;
+  box(2.4,1,3.8,ZM("materiel",0xf4f6f7),vx,F+0.5,vz,g);
+  box(2.5,0.08,3.9,ZM("materiel",C.petrol),vx,F+1.02,vz,g);
+  var glass=new THREE.Mesh(new THREE.BoxGeometry(2.4,1,3.8),new THREE.MeshStandardMaterial({color:C.glass,transparent:true,opacity:0.22,roughness:0.1,metalness:0.1,depthWrite:false}));
+  add(glass,g,vx,F+1.56,vz,false);
+  var cols=[0x2c3e50,0xb0bec5,0xF7C449,0x5d8de0,0xe85d5d,0x111111,0x7cc36b,0x9a6fd6];
+  for(var i=0;i<4;i++) for(var j=0;j<2;j++){
+    var c=cols[(i*2+j)%cols.length];
+    box(0.38,0.55,0.22,ZM("materiel",c,{roughness:0.4,metalness:0.3}),vx-0.55+j*1.1,F+1.36,vz-1.35+i*0.9,g);
+    cyl(0.08,0.08,0.22,ZM("materiel",0xcfd8dc,{metalness:0.6,roughness:0.3}),vx-0.55+j*1.1,F+1.74,vz-1.35+i*0.9,g,12);
+  }
+  // présentoir mural (mur du fond, côté droit)
+  box(1.6,2.6,0.4,ZM("materiel",0xe9eef1),7.1,F+1.6,-5.75,g);
+})();
+
+// Atelier
+(function(){
+  var g=Z("atelier");
+  var ax=-5.6,az=4.5;
+  box(3.4,0.12,1.4,ZM("atelier",0xc8a679,{roughness:0.6}),ax,F+1.0,az,g);
+  box(3.2,0.94,1.2,ZM("atelier",C.petrolSoft),ax,F+0.47,az,g);
+  box(1.2,0.04,0.9,ZM("atelier",0x2c3e3a),ax+0.6,F+1.08,az,g);
+  // lampe
+  cyl(0.04,0.04,1.1,ZM("atelier",0x24323b),ax-1.3,F+1.6,az-0.4,g,8);
+  var shade=cyl(0.25,0.05,0.25,ZM("atelier",C.gold),ax-1.05,F+2.1,az-0.25,g,16); shade.rotation.z=-0.6;
+  // outils & résistances
+  for(var i=0;i<6;i++) cyl(0.05,0.05,0.12,ZM("atelier",0xcfd8dc,{metalness:0.7,roughness:0.3}),ax+0.2+i*0.16,F+1.15,az+0.2,g,8);
+  box(0.6,0.06,0.12,ZM("atelier",0xe85d5d),ax-0.4,F+1.1,az-0.2,g);
+  box(0.45,0.2,0.3,ZM("atelier",0x24323b),ax-0.7,F+1.16,az+0.25,g);
+  // tabouret
+  cyl(0.32,0.32,0.1,ZM("atelier",C.petrol),ax+0.4,F+0.8,az-1.2,g);
+  cyl(0.05,0.05,0.75,ZM("atelier",0x8b9aa3),ax+0.4,F+0.4,az-1.2,g);
+})();
+
+// plante déco
+(function(){ var g=new THREE.Group(); g.position.set(7,F,4.8); shop.add(g); cyl(0.4,0.32,0.7,M(0xf4f6f7),0,0.35,0,g); var f=new THREE.Mesh(new THREE.IcosahedronGeometry(0.7,1),leafM); add(f,g,0,1.2,0); })();
+
+shop.traverse(function(o){ if(o.isMesh){ var p=o; while(p && !p.userData.zone) p=p.parent; if(p) pickables.push(o); } });
+
+// anneau de sélection
+var ring=new THREE.Mesh(new THREE.RingGeometry(1.7,1.95,48),new THREE.MeshBasicMaterial({color:C.gold,transparent:true,opacity:0.95,side:THREE.DoubleSide,depthWrite:false}));
+ring.rotation.x=-Math.PI/2; ring.visible=false; scene.add(ring);
+
+// ---------- personnages ----------
+var skin=[0xf1c9a5,0xd9a47c,0x8d5a3b,0xe8b994];
+function person(color){
+  var g=new THREE.Group();
+  var legs=M(0x34434c);
+  add(new THREE.Mesh(new THREE.CylinderGeometry(0.2,0.2,0.75,10),legs),g,0,0.38,0);
+  var body=add(new THREE.Mesh(new THREE.CylinderGeometry(0.27,0.33,0.75,14),M(color)),g,0,1.12,0);
+  add(new THREE.Mesh(new THREE.SphereGeometry(0.24,16,12),M(skin[Math.floor(Math.random()*skin.length)])),g,0,1.75,0);
+  scene.add(g); return g;
+}
+var walkers=[];
+function walker(color,path,speed,offset){
+  var p=person(color); var segs=[], total=0;
+  for(var i=0;i<path.length;i++){ var a=path[i], b=path[(i+1)%path.length]; var l=Math.hypot(b[0]-a[0],b[1]-a[1]); segs.push({a:a,b:b,l:l,wait:a[2]||0}); total+=l+(a[2]||0)*speed; }
+  walkers.push({m:p,segs:segs,total:total,speed:speed,d:(offset||0)*total,y:p.position.y});
+}
+var loopMall=[[11.5,-9],[11.5,8.5],[-26,8.5],[-26,10.5],[13,10.5],[13,-9]];
+var loopShop=[[13,4],[9.5,3.2],[3.8,3.6,3],[-3.6,1,4],[-2,4.3],[9.5,4.6],[13,6]];
+var loopShop2=[[12.2,-4],[9,-3],[6.8,0.2,3],[2.2,-3.6,2.5],[-2.4,-3.6,2.5],[2,-0.8],[9,-1],[12.2,0]];
+walker(0xe85d5d,loopMall,2.2,0); walker(0x5d8de0,loopMall,2.0,0.33); walker(0x7cc36b,loopMall,2.4,0.66);
+walker(0x9a6fd6,loopShop,1.6,0.1); walker(0xF7C449,loopShop2,1.5,0.5); walker(0x4fb3a5,loopMall.slice().reverse(),2.1,0.2);
+// vendeur derrière le comptoir
+var seller=person(C.petrol); seller.position.set(-6.7,F,-0.6); seller.rotation.y=Math.PI/2;
+var seller2=person(C.gold); seller2.position.set(3.3,F,0.2); seller2.rotation.y=-0.9;
+
+function updateWalker(w,dt){
+  w.d=(w.d+dt*w.speed)%w.total;
+  var d=w.d;
+  for(var i=0;i<w.segs.length;i++){
+    var s=w.segs[i], wl=s.wait*w.speed;
+    if(d<wl){ w.m.position.set(s.a[0],F*inShop(s.a[0],s.a[1]),s.a[1]); w.m.position.y+=0; return; }
+    d-=wl;
+    if(d<s.l){ var t=d/s.l; var x=s.a[0]+(s.b[0]-s.a[0])*t, z=s.a[1]+(s.b[1]-s.a[1])*t;
+      w.m.position.set(x,F*inShop(x,z)+Math.abs(Math.sin(w.d*5))*0.06,z);
+      var ang=Math.atan2(s.b[0]-s.a[0],s.b[1]-s.a[1]); w.m.rotation.y=ang; return; }
+    d-=s.l;
+  }
+}
+function inShop(x,z){ return (x>-8.2&&x<8.2&&z>-6.2&&z<6.2)?1:0; }
+
+// ---------- vapeur ----------
+var puffTex=(function(){ var c=document.createElement("canvas"); c.width=c.height=128; var g=c.getContext("2d"); var gr=g.createRadialGradient(64,64,4,64,64,62); gr.addColorStop(0,"rgba(255,255,255,0.95)"); gr.addColorStop(0.5,"rgba(255,255,255,0.45)"); gr.addColorStop(1,"rgba(255,255,255,0)"); g.fillStyle=gr; g.fillRect(0,0,128,128); return new THREE.CanvasTexture(c); })();
+var puffs=[];
+for(var pi=0;pi<46;pi++){ var sp=new THREE.Sprite(new THREE.SpriteMaterial({map:puffTex,transparent:true,depthWrite:false,opacity:0})); sp.visible=false; scene.add(sp); puffs.push({s:sp,life:0,max:1}); }
+var emitters=[{x:1.6+0.0,y:F+2.0,z:1.6-0.0,rate:0.55},{x:3.3,y:F+1.9,z:0.2,rate:1.6},{x:-6.4,y:F+1.9,z:-0.6,rate:2.8}];
+emitters.forEach(function(e){e.t=Math.random()*e.rate;});
+function emit(e){
+  for(var k=0;k<3;k++){
+    var p=puffs.find(function(q){return q.life<=0;}); if(!p) return;
+    p.life=p.max=2.2+Math.random()*1.6;
+    p.s.position.set(e.x+(Math.random()-.5)*0.3,e.y+k*0.12,e.z+(Math.random()-.5)*0.3);
+    p.vx=(Math.random()-.5)*0.35; p.vy=0.55+Math.random()*0.35; p.vz=(Math.random()-.5)*0.35;
+    p.s0=0.35+Math.random()*0.25; p.s.visible=true;
+  }
+}
+function updatePuffs(dt){
+  emitters.forEach(function(e){ e.t-=dt; if(e.t<=0){ emit(e); e.t=e.rate*(0.7+Math.random()*0.6); } });
+  puffs.forEach(function(p){
+    if(p.life<=0) return;
+    p.life-=dt; var k=1-p.life/p.max;
+    p.s.position.x+=p.vx*dt; p.s.position.y+=p.vy*dt*(1-k*0.6); p.s.position.z+=p.vz*dt;
+    var sc=p.s0+k*2.2; p.s.scale.set(sc,sc,sc);
+    p.s.material.opacity=Math.min(1,k*6)*(1-k)*0.85;
+    if(p.life<=0) p.s.visible=false;
+  });
+}
+
+// ---------- repères HTML ----------
+var pinsEl=document.getElementById("pins"), pinObjs=[];
+ZONES.forEach(function(z){
+  var b=document.createElement("button"); b.className="pin"; b.dataset.zone=z.id; b.setAttribute("aria-label",z.name);
+  b.innerHTML='<span class="pin-label">'+z.name+'</span><span class="pin-head"><i></i></span><span class="pin-shadow"></span>';
+  b.onclick=function(e){ e.stopPropagation(); openZone(z.id); };
+  pinsEl.appendChild(b);
+  pinObjs.push({el:b,v:new THREE.Vector3(z.pos[0],z.pinY,z.pos[1]),anchorY:1});
+});
+[["Tram T1 · T2 · T3",[-30,3.6,16],"#F7C449"],["L'Orne",[22,0.5,27],"#8fbccf"],["Quai Amiral Hamelin",[-6,0.6,19.6],"#cfd9de"]].forEach(function(t){
+  var el=document.createElement("div"); el.className="tag"; el.innerHTML='<span class="sw" style="background:'+t[2]+'"></span>'+t[0]; pinsEl.appendChild(el);
+  pinObjs.push({el:el,v:new THREE.Vector3(t[1][0],t[1][1],t[1][2]),tag:true});
+});
+var tramTag=pinObjs[pinObjs.length-3];
+
+// ---------- caméra, redimensionnement ----------
+var W=1,H=1, mobile=false;
+function homeTarget(){
+  var v=new THREE.Vector3(0.5,0,0.5);
+  if(mobile){ v.addScaledVector(FWD,-1.5); }
+  else { v.addScaledVector(RIGHT,-6.2); v.addScaledVector(FWD,0.5); }
+  return v;
+}
+function resize(){
+  W=stage.clientWidth; H=stage.clientHeight; mobile=W<820;
+  renderer.setSize(W,H,false);
+  var aspect=W/H; var fs=mobile? Math.max(30,25/aspect) : Math.max(27,40/aspect);
+  camera.left=-fs*aspect/2; camera.right=fs*aspect/2; camera.top=fs/2; camera.bottom=-fs/2;
+  camera.updateProjectionMatrix();
+  var hc=document.getElementById("hero-card"); document.getElementById("kpis").style.setProperty("--kpi-top",(hc.offsetTop+hc.offsetHeight+12)+"px");
+}
+resize();
+target.copy(homeTarget()); want.copy(target);
+zoom=wantZoom=0.82;
+window.addEventListener("resize",function(){ resize(); if(!currentZone && !userMoved){ want.copy(homeTarget()); } });
+
+var userMoved=false;
+window.__scene={
+  focus:function(id){
+    if(!id){ ring.visible=false; setHighlight(null); return; }
+    var z=zoneById[id]; var v=new THREE.Vector3(z.pos[0],0,z.pos[1]);
+    if(mobile) v.addScaledVector(FWD,-3.2); else v.addScaledVector(RIGHT,2.4);
+    want.copy(v); wantZoom=mobile?1.35:1.55;
+    ring.position.set(z.pos[0],F+0.03,z.pos[1]); ring.visible=true;
+    setHighlight(id);
+  }
+};
+document.getElementById("zoom-in").onclick=function(){ wantZoom=Math.min(3,wantZoom*1.25); hideHint(); };
+document.getElementById("zoom-out").onclick=function(){ wantZoom=Math.max(0.5,wantZoom/1.25); hideHint(); };
+document.getElementById("reset").onclick=function(){ userMoved=false; closeZone(); want.copy(homeTarget()); wantZoom=0.82; };
+
+var highlighted=null, hovered=null;
+function paint(id,on,strength){ if(!id) return; zoneMats[id].forEach(function(m){ m.emissive.setHex(on?0xF7C449:0x000000); m.emissiveIntensity=on?strength:0; }); }
+function setHighlight(id){ if(highlighted) paint(highlighted,false); highlighted=id; if(id) paint(id,true,0.16); if(hovered && hovered!==id) paint(hovered,true,0.1); }
+
+// ---------- interactions pointeur ----------
+var ray=new THREE.Raycaster(), ndc=new THREE.Vector2();
+var drag=null, pointers={};
+function pick(cx,cy){
+  var r=canvas.getBoundingClientRect(); ndc.set(((cx-r.left)/r.width)*2-1,-((cy-r.top)/r.height)*2+1);
+  ray.setFromCamera(ndc,camera); var hit=ray.intersectObjects(pickables,false)[0];
+  if(!hit) return null; var o=hit.object; while(o && !o.userData.zone) o=o.parent; return o?o.userData.zone:null;
+}
+canvas.addEventListener("pointerdown",function(e){
+  pointers[e.pointerId]={x:e.clientX,y:e.clientY};
+  canvas.setPointerCapture(e.pointerId);
+  var ids=Object.keys(pointers);
+  if(ids.length===1){ drag={x:e.clientX,y:e.clientY,sx:e.clientX,sy:e.clientY,moved:false}; }
+  else if(ids.length===2){ var a=pointers[ids[0]],b=pointers[ids[1]]; drag={pinch:Math.hypot(a.x-b.x,a.y-b.y),z0:wantZoom}; }
+});
+canvas.addEventListener("pointermove",function(e){
+  if(pointers[e.pointerId]){ pointers[e.pointerId].x=e.clientX; pointers[e.pointerId].y=e.clientY; }
+  if(drag && drag.pinch){ var ids=Object.keys(pointers); if(ids.length===2){ var a=pointers[ids[0]],b=pointers[ids[1]]; wantZoom=Math.max(0.5,Math.min(3,drag.z0*Math.hypot(a.x-b.x,a.y-b.y)/drag.pinch)); } return; }
+  if(drag){
+    var dx=e.clientX-drag.x, dy=e.clientY-drag.y; drag.x=e.clientX; drag.y=e.clientY;
+    if(Math.abs(e.clientX-drag.sx)+Math.abs(e.clientY-drag.sy)>5){ drag.moved=true; canvas.classList.add("dragging"); userMoved=true; hideHint(); }
+    if(drag.moved){
+      var upp=(camera.right-camera.left)/zoom/W;
+      want.addScaledVector(RIGHT,-dx*upp); want.addScaledVector(FWD,dy*upp/SIN_E);
+      want.x=Math.max(-34,Math.min(30,want.x)); want.z=Math.max(-22,Math.min(34,want.z));
+      target.copy(want);
+    }
+    return;
+  }
+  var z=pick(e.clientX,e.clientY);
+  if(z!==hovered){ if(hovered && hovered!==highlighted) paint(hovered,false); hovered=z; if(z && z!==highlighted) paint(z,true,0.1); canvas.classList.toggle("hovering",!!z); }
+});
+function endPointer(e){
+  var wasClick = drag && !drag.pinch && !drag.moved && Object.keys(pointers).length===1;
+  delete pointers[e.pointerId];
+  if(wasClick){ var z=pick(e.clientX,e.clientY); if(z) openZone(z); }
+  if(Object.keys(pointers).length===0){ drag=null; canvas.classList.remove("dragging"); }
+}
+canvas.addEventListener("pointerup",endPointer);
+canvas.addEventListener("pointercancel",endPointer);
+canvas.addEventListener("pointerleave",function(){ if(hovered && hovered!==highlighted) paint(hovered,false); hovered=null; canvas.classList.remove("hovering"); });
+canvas.addEventListener("wheel",function(e){
+  if(!(e.ctrlKey||e.metaKey)) return; // la molette seule fait défiler la page
+  e.preventDefault(); wantZoom=Math.max(0.5,Math.min(3,wantZoom*Math.exp(-e.deltaY*0.0025))); hideHint();
+},{passive:false});
+
+// ---------- boucle ----------
+var visible=true;
+if("IntersectionObserver" in window){ new IntersectionObserver(function(en){ visible=en[0].isIntersecting; if(visible) last=performance.now(); }).observe(stage); }
+var last=performance.now(), clock=0, tramX=-90, tramWait=0;
+var tmp=new THREE.Vector3();
+function frame(now){
+  requestAnimationFrame(frame);
+  if(!visible) return;
+  var dt=Math.min(0.05,(now-last)/1000); last=now; clock+=dt;
+  var k=1-Math.exp(-dt*(reduce?12:4.5));
+  target.lerp(want,k); zoom+= (wantZoom-zoom)*k;
+  camera.zoom=zoom; camera.updateProjectionMatrix();
+  camera.position.copy(target).add(OFF); camera.lookAt(target);
+  sun.position.copy(target).add(new THREE.Vector3(18,34,10)); sun.target.position.copy(target);
+
+  walkers.forEach(function(w){updateWalker(w,dt);});
+  seller.position.y=F+Math.sin(clock*1.3)*0.02;
+  updatePuffs(dt);
+  // tram
+  if(tramWait>0){ tramWait-=dt; } else { tramX+=dt*7; if(tramX>90){ tramX=-90; tramWait=4; } }
+  tram.position.x=tramX; tramTag.v.x=tramX+6.4;
+  ripples.forEach(function(r,i){ r.position.x+=dt*(0.6+(i%3)*0.2); if(r.position.x>70) r.position.x=-70; });
+  if(ring.visible){ var s=1+Math.sin(clock*3)*0.06; ring.scale.set(s,s,s); ring.material.opacity=0.7+Math.sin(clock*3)*0.25; }
+
+  renderer.render(scene,camera);
+
+  // projection des repères
+  for(var i=0;i<pinObjs.length;i++){
+    var p=pinObjs[i]; tmp.copy(p.v).project(camera);
+    var x=(tmp.x+1)/2*W, y=(1-tmp.y)/2*H;
+    var out = x<-60||x>W+60||y<-60||y>H+60;
+    p.el.style.visibility=out?"hidden":"visible";
+    if(p.tag) p.el.style.transform="translate("+(x-p.el.offsetWidth/2)+"px,"+(y-p.el.offsetHeight/2)+"px)";
+    else { var bob=reduce?0:Math.sin(clock*2.2+i)*3; p.el.style.transform="translate("+(x-15)+"px,"+(y-46+bob)+"px)"; }
+  }
+}
+requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
