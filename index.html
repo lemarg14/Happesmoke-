@@ -4,259 +4,312 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>HappeSmoke Caen</title>
-<meta name="description" content="HappeSmoke Caen, boutique de cigarettes électroniques au centre commercial Les Rives de l'Orne. Conseil, matériel, e-liquides et accompagnement pour arrêter le tabac.">
-<meta name="theme-color" content="#244051">
+<meta name="description" content="HappeSmoke Caen, boutique de cigarettes électroniques au centre commercial Les Rives de l'Orne, en face de E.Leclerc et à côté de Normal. Conseil, e-liquides, matériel et calculateur DIY.">
+<meta name="theme-color" content="#1f3550">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
 <style>
-/* Layout : barre type "app" + scène isométrique plein cadre pilotable (comme un jeu de gestion), puis sections calmes d'infos */
+/* Layout : une scène 3D en deux temps (le centre commercial, puis la boutique), puis équipe, calculateur DIY et infos pratiques */
 :root{
-  --petrol:#244051;
-  --petrol-deep:#14293a;
-  --petrol-soft:#3e6479;
+  --navy:#1f3550;          /* bleu marine HappeSmoke (tenues, panneau du fond) */
+  --navy-deep:#14243a;
+  --blue:#4f7fc4;          /* bleu clair du mur du fond */
+  --blue-soft:#e4ecf7;
+  --anthracite:#34383e;    /* façade */
   --gold:#F7C449;
-  --gold-deep:#c99418;
-  --mist:#EDF2F4;
+  --oak:#d6b98c;
+  --mist:#eef2f6;
   --paper:#ffffff;
-  --ink:#122733;
-  --muted:#5a707c;
-  --line:#d7e1e6;
+  --ink:#152233;
+  --muted:#58687a;
+  --line:#d9e1ea;
   --ok:#17875c; --ok-bg:#e1f4eb;
   --off:#a8432f; --off-bg:#f8e5e0;
-  --f-display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --f-display:"Nunito",ui-rounded,system-ui,sans-serif;
   --f-body:"Figtree",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
-  --shadow:0 1px 2px rgba(20,41,58,.06),0 8px 24px rgba(20,41,58,.10);
-  --radius:12px;
+  --shadow:0 1px 2px rgba(20,36,58,.06),0 10px 28px rgba(20,36,58,.12);
   color-scheme:light;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--mist);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55}
+body{margin:0;background:var(--mist);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55}
 img{max-width:100%}
 [hidden]{display:none!important}
 a{color:inherit}
 button{font:inherit;color:inherit}
-:focus-visible{outline:2px solid var(--gold-deep);outline-offset:2px}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
 .mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
 .wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 
-/* ---------- Top bar ---------- */
+/* ---------- Barre du haut ---------- */
 .topbar{position:sticky;top:0;z-index:40;background:var(--paper);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
-.topbar .wrap{max-width:none;display:flex;align-items:center;gap:14px;height:58px}
+.topbar-in{display:flex;align-items:center;gap:16px;height:64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
-.brand-mark{width:32px;height:32px;border-radius:9px;background:var(--petrol);display:grid;place-items:center}
-.brand-word{font-family:var(--f-display);font-weight:700;font-size:16px;letter-spacing:-.01em;color:var(--petrol)}
-.brand-word b{color:var(--gold-deep);font-weight:700}
-.site-chip{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:5px 10px 5px 6px;font-size:12.5px;line-height:1.2;white-space:nowrap}
-.site-chip .code{background:var(--petrol);color:#fff;font-family:var(--f-mono);font-size:10.5px;padding:3px 6px;border-radius:6px}
-.site-chip small{display:block;color:var(--muted);font-size:11px}
-.nav{display:flex;gap:4px;margin-left:auto}
-.nav a{text-decoration:none;font-weight:600;font-size:14px;padding:8px 12px;border-radius:8px;color:var(--petrol)}
+.brand-mark{width:34px;height:34px;border-radius:10px;background:var(--navy);display:grid;place-items:center}
+.brand-word{font-family:var(--f-display);font-weight:900;font-size:21px;letter-spacing:-.01em;color:var(--navy);line-height:1}
+.brand-word small{display:block;font-family:var(--f-body);font-weight:600;font-size:11px;letter-spacing:.04em;color:var(--muted);margin-top:3px}
+.nav{display:flex;gap:2px;margin-left:auto}
+.nav a{text-decoration:none;font-weight:600;font-size:15px;padding:9px 12px;border-radius:9px;color:var(--navy);white-space:nowrap}
 .nav a:hover{background:var(--mist)}
-.live{display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;padding:6px 10px;border-radius:999px;white-space:nowrap}
+.live{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;padding:7px 12px;border-radius:999px;white-space:nowrap}
 .live.is-open{background:var(--ok-bg);color:var(--ok)}
 .live.is-closed{background:var(--off-bg);color:var(--off)}
-.live .dot{width:7px;height:7px;border-radius:50%;background:currentColor;box-shadow:0 0 0 0 currentColor;animation:ping 2s infinite}
-@keyframes ping{0%{box-shadow:0 0 0 0 rgba(23,135,92,.45)}70%{box-shadow:0 0 0 7px rgba(23,135,92,0)}100%{box-shadow:0 0 0 0 rgba(23,135,92,0)}}
-.btn{display:inline-flex;align-items:center;gap:8px;border:0;cursor:pointer;text-decoration:none;font-weight:700;font-size:14px;border-radius:10px;padding:10px 16px;transition:transform .15s ease,background .15s ease}
+.live .dot{width:8px;height:8px;border-radius:50%;background:currentColor}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;cursor:pointer;text-decoration:none;font-weight:700;font-size:15px;border-radius:12px;padding:12px 18px;min-height:46px;transition:transform .15s ease,background .15s ease,border-color .15s ease}
 .btn:active{transform:translateY(1px)}
-.btn-gold{background:var(--gold);color:var(--petrol-deep)}
+.btn-gold{background:var(--gold);color:var(--navy-deep)}
 .btn-gold:hover{background:#ffd264}
-.btn-petrol{background:var(--petrol);color:#fff}
-.btn-petrol:hover{background:var(--petrol-deep)}
-.btn-ghost{background:var(--paper);color:var(--petrol);border:1px solid var(--line)}
-.btn-ghost:hover{border-color:var(--petrol-soft)}
+.btn-navy{background:var(--navy);color:#fff}
+.btn-navy:hover{background:var(--navy-deep)}
+.btn-ghost{background:var(--paper);color:var(--navy);border:1.5px solid var(--line)}
+.btn-ghost:hover{border-color:var(--navy)}
+.subnav{display:none}
 
-/* ---------- Stage (scène 3D) ---------- */
-.stage{position:relative;height:clamp(620px,84vh,820px);overflow:hidden;background:linear-gradient(180deg,#e9eff2,#dde7ec);user-select:none;-webkit-user-select:none}
+/* ---------- Scène ---------- */
+.stage{position:relative;height:clamp(640px,86vh,840px);overflow:hidden;background:#e6ebf0;user-select:none;-webkit-user-select:none}
 .stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:none}
 .stage canvas.dragging{cursor:grabbing}
 .stage canvas.hovering{cursor:pointer}
 .layer{position:absolute;inset:0;pointer-events:none}
-.card{background:rgba(255,255,255,.96);border:1px solid rgba(215,225,230,.9);border-radius:var(--radius);box-shadow:var(--shadow);pointer-events:auto;backdrop-filter:blur(6px)}
+.card{background:#fff;border:1px solid rgba(217,225,234,.95);border-radius:16px;box-shadow:var(--shadow);pointer-events:auto}
 
-.hero-card{position:absolute;left:max(20px,env(safe-area-inset-left,0px));top:20px;width:min(390px,calc(100% - 32px));padding:20px 22px 20px}
-.eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--petrol-soft)}
-.hero-card h1{font-family:var(--f-display);font-weight:700;font-size:clamp(24px,2.6vw,31px);line-height:1.12;letter-spacing:-.02em;margin:8px 0 10px;color:var(--petrol);text-wrap:balance}
-.hero-card h1 em{font-style:normal;background:linear-gradient(transparent 62%,var(--gold) 62%,var(--gold) 92%,transparent 92%)}
-.hero-card p{margin:0 0 16px;color:var(--muted);font-size:14.5px}
-.hero-actions{display:flex;gap:8px;flex-wrap:wrap}
+.ctx{position:absolute;left:max(20px,env(safe-area-inset-left,0px));top:20px;width:min(410px,calc(100% - 40px));padding:18px 20px 20px}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:var(--mist);padding:4px;border-radius:12px;margin-bottom:16px}
+.modes button{border:0;background:transparent;border-radius:9px;padding:9px 8px;font-weight:700;font-size:14px;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px}
+.modes button .n{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--line);color:var(--navy);font-size:11.5px;font-family:var(--f-mono)}
+.modes button[aria-pressed="true"]{background:var(--paper);color:var(--navy);box-shadow:0 1px 3px rgba(20,36,58,.12)}
+.modes button[aria-pressed="true"] .n{background:var(--navy);color:#fff}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}
+.ctx h1,.ctx h2{font-family:var(--f-display);font-weight:900;font-size:clamp(25px,2.5vw,31px);line-height:1.12;letter-spacing:-.015em;margin:6px 0 10px;color:var(--navy);text-wrap:balance}
+.ctx p{margin:0 0 14px;color:var(--muted);font-size:15.5px}
+.landmarks{list-style:none;margin:0 0 16px;padding:0;display:grid;gap:8px}
+.landmarks li{display:grid;grid-template-columns:96px 1fr;align-items:center;gap:10px;padding:9px 12px;background:var(--mist);border-radius:11px;font-size:15px}
+.landmarks li span{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.landmarks li b{color:var(--navy)}
+.ctx-actions{display:flex;gap:8px;flex-wrap:wrap}
+.chips-row{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.person-chip,.zone-chip{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--line);background:var(--paper);border-radius:999px;padding:5px 12px 5px 5px;font-weight:700;font-size:14px;cursor:pointer;color:var(--navy)}
+.zone-chip{padding:7px 12px}
+.person-chip:hover,.zone-chip:hover,.person-chip.is-active,.zone-chip.is-active{border-color:var(--navy);background:var(--blue-soft)}
+.avatar{width:28px;height:28px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:800;overflow:hidden;flex-shrink:0;position:relative}
+.avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.label-sm{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
 
-.kpis{position:absolute;left:max(20px,env(safe-area-inset-left,0px));top:var(--kpi-top,300px);display:flex;gap:10px;flex-wrap:wrap;max-width:420px}
-.kpi{display:flex;align-items:center;gap:10px;padding:9px 14px 9px 10px}
-.kpi-ico{width:30px;height:30px;border-radius:8px;background:var(--mist);display:grid;place-items:center;color:var(--petrol)}
-.kpi small{display:block;font-size:11px;color:var(--muted);line-height:1.2}
-.kpi strong{font-size:17px;font-weight:700;color:var(--ink);line-height:1.25}
-.kpi .delta{font-size:11px;color:var(--ok);font-weight:600;margin-left:4px}
-
-.tools{position:absolute;top:20px;right:calc(20px + 312px + 12px);display:flex;flex-direction:column;padding:4px;gap:2px}
-.tools button{width:32px;height:32px;border:0;background:transparent;border-radius:8px;cursor:pointer;display:grid;place-items:center;color:var(--petrol)}
+.tools{position:absolute;right:max(20px,env(safe-area-inset-right,0px));bottom:20px;display:flex;flex-direction:column;padding:4px;gap:2px;transition:right .3s ease}
+.stage.has-detail .tools{right:calc(20px + 350px + 12px)}
+.tools button{width:42px;height:42px;border:0;background:transparent;border-radius:10px;cursor:pointer;display:grid;place-items:center;color:var(--navy)}
 .tools button:hover{background:var(--mist)}
-.tools hr{border:0;border-top:1px solid var(--line);margin:2px 4px}
+.tools hr{border:0;border-top:1px solid var(--line);margin:2px 6px}
 
-.detail{position:absolute;top:20px;right:max(20px,env(safe-area-inset-right,0px));width:312px;padding:14px 16px 16px;transition:opacity .25s ease,transform .25s ease}
-.detail.is-hidden{opacity:0;transform:translateY(-6px);pointer-events:none}
-.detail-head{display:flex;gap:10px;align-items:flex-start}
-.detail-ico{width:38px;height:38px;border-radius:10px;background:var(--petrol);color:var(--gold);display:grid;place-items:center;flex-shrink:0}
-.detail-head .eyebrow{font-size:10.5px}
-.detail-head h2{font-family:var(--f-display);font-size:16px;font-weight:700;margin:2px 0 0;line-height:1.2;color:var(--petrol)}
-.detail-close{margin-left:auto;border:0;background:transparent;cursor:pointer;width:28px;height:28px;border-radius:7px;display:grid;place-items:center;color:var(--muted)}
-.detail-close:hover{background:var(--mist)}
-.chip{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;padding:4px 9px;border-radius:999px;background:var(--mist);color:var(--petrol)}
-.chip.ok{background:var(--ok-bg);color:var(--ok)}
-.chip.off{background:var(--off-bg);color:var(--off)}
-.chip.gold{background:#fdf0cc;color:#7a5a06}
-.detail-chips{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0 4px}
-.detail p{font-size:13.5px;color:var(--muted);margin:10px 0 8px}
-.rows{margin:0;padding:0;list-style:none;border-top:1px solid var(--line)}
-.rows li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px}
+.detail{position:absolute;top:20px;right:max(20px,env(safe-area-inset-right,0px));width:350px;max-height:calc(100% - 40px);overflow:auto;padding:18px;transition:opacity .25s ease,transform .25s ease}
+.detail.is-hidden{opacity:0;transform:translateX(12px);pointer-events:none}
+.detail-close{position:absolute;top:12px;right:12px;border:0;background:var(--mist);cursor:pointer;width:36px;height:36px;border-radius:10px;display:grid;place-items:center;color:var(--navy);z-index:2}
+.detail-close:hover{background:var(--line)}
+.d-photo{position:relative;width:100%;aspect-ratio:4/3;border-radius:12px;overflow:hidden;background:linear-gradient(160deg,var(--navy),var(--blue));display:grid;place-items:center;margin-bottom:14px;max-width:100%}
+.d-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.d-photo .initials{font-family:var(--f-display);font-weight:900;font-size:56px;color:rgba(255,255,255,.92)}
+.d-photo .ph-note{position:absolute;left:10px;bottom:10px;font-size:11.5px;font-weight:600;color:#fff;background:rgba(20,36,58,.55);padding:3px 8px;border-radius:6px}
+.d-ico{width:48px;height:48px;border-radius:13px;background:var(--navy);color:#fff;display:grid;place-items:center;margin-bottom:12px}
+.detail h3{font-family:var(--f-display);font-size:24px;font-weight:900;margin:2px 0 2px;color:var(--navy);line-height:1.15;padding-right:40px}
+.detail .role{font-weight:700;color:var(--blue);font-size:14.5px}
+.detail p{font-size:15.5px;color:var(--ink);margin:10px 0 12px}
+.rows{margin:0 0 14px;padding:0;list-style:none;border-top:1px solid var(--line)}
+.rows li{display:flex;justify-content:space-between;gap:14px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14.5px}
 .rows li span:first-child{color:var(--muted);flex-shrink:0}
 .rows li span:last-child{text-align:right;font-weight:600}
-.meter{margin-top:12px}
-.meter-top{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px}
-.meter-top b{color:var(--ink)}
-.meter-bar{height:7px;border-radius:99px;background:var(--mist);overflow:hidden}
-.meter-bar i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--petrol-soft),var(--petrol));transition:width .6s cubic-bezier(.2,.8,.2,1)}
-.meter-scale{display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted);margin-top:4px}
-
-.tracker{position:absolute;left:max(20px,env(safe-area-inset-left,0px));bottom:20px;width:min(600px,calc(100% - 40px - 340px));padding:14px 16px}
-.tracker-head{display:flex;align-items:center;gap:8px;font-weight:700;font-size:13.5px;color:var(--petrol)}
-.tracker-head .mono{margin-left:auto;font-size:11px;color:var(--muted);font-weight:500}
-.tracker-body{display:grid;grid-template-columns:1fr 210px;gap:16px;align-items:center;margin-top:12px}
-.steps{position:relative;display:flex;justify-content:space-between;list-style:none;margin:0;padding:0}
-.steps::before{content:"";position:absolute;left:14px;right:14px;top:13px;height:3px;background:var(--line);border-radius:3px}
-.steps .fill{position:absolute;left:14px;top:13px;height:3px;background:var(--petrol);border-radius:3px;transition:width .6s cubic-bezier(.2,.8,.2,1)}
-.step{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;background:none;border:0;cursor:pointer;padding:0;min-width:0;z-index:1}
-.step .b{width:29px;height:29px;border-radius:50%;background:var(--paper);border:2px solid var(--line);display:grid;place-items:center;font-family:var(--f-mono);font-size:11px;color:var(--muted);transition:all .3s ease}
-.step.done .b{background:var(--petrol);border-color:var(--petrol);color:#fff}
-.step.active .b{background:var(--gold);border-color:var(--gold);color:var(--petrol-deep);box-shadow:0 0 0 5px rgba(247,196,73,.3)}
-.step span.t{font-size:11.5px;font-weight:600;color:var(--ink);white-space:nowrap}
-.step-note{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--mist);min-height:74px}
-.step-note .mono{font-size:10.5px;color:var(--muted)}
-.step-note b{display:block;font-size:13.5px;color:var(--petrol);margin:2px 0 2px}
-.step-note span{font-size:12.5px;color:var(--muted);line-height:1.4;display:block}
-
-.zones{position:absolute;right:max(20px,env(safe-area-inset-right,0px));bottom:20px;width:312px;padding:10px 10px 6px}
-.zones-head{display:flex;align-items:center;justify-content:space-between;padding:2px 6px 8px;font-size:12px;color:var(--muted)}
-.zones-head b{color:var(--petrol);font-size:13px}
-.zone-row{display:grid;grid-template-columns:28px 1fr auto 14px;align-items:center;gap:10px;width:100%;border:0;background:transparent;text-align:left;padding:7px 6px;border-radius:8px;cursor:pointer;font-size:13px}
-.zone-row:hover,.zone-row.is-active{background:var(--mist)}
-.zone-row .n{font-family:var(--f-mono);font-size:10.5px;color:var(--muted)}
-.zone-row .nm{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.zone-row .chip{font-size:10.5px;padding:3px 7px}
-.zone-row svg{color:var(--muted)}
+.detail-nav{display:flex;gap:8px;justify-content:space-between}
+.detail-nav .btn{flex:1;padding:10px 12px;font-size:14px}
 
 .pins{position:absolute;inset:0;pointer-events:none}
-.pin{position:absolute;left:0;top:0;pointer-events:auto;border:0;background:none;padding:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;transform-origin:50% 100%;will-change:transform}
-.pin-head{width:30px;height:30px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--gold);box-shadow:0 4px 10px rgba(20,41,58,.25);display:grid;place-items:center;transition:transform .2s ease,background .2s ease}
-.pin-head i{width:10px;height:10px;border-radius:50%;background:var(--petrol);display:block}
-.pin.is-active .pin-head{background:var(--petrol)}
-.pin.is-active .pin-head i{background:var(--gold)}
-.pin:hover .pin-head{transform:rotate(-45deg) scale(1.12)}
-.pin-label{position:absolute;bottom:40px;white-space:nowrap;background:var(--petrol);color:#fff;font-size:11.5px;font-weight:700;padding:4px 8px;border-radius:7px;opacity:0;transform:translateY(4px);transition:all .2s ease;pointer-events:none}
-.pin:hover .pin-label,.pin.is-active .pin-label,.pin:focus-visible .pin-label{opacity:1;transform:none}
-.pin-shadow{width:14px;height:5px;border-radius:50%;background:rgba(20,41,58,.25);margin-top:6px}
-.tag{position:absolute;left:0;top:0;pointer-events:none;background:rgba(255,255,255,.92);border:1px solid var(--line);color:var(--petrol);font-size:11px;font-weight:700;padding:4px 8px;border-radius:7px;white-space:nowrap;display:flex;align-items:center;gap:6px;box-shadow:var(--shadow)}
-.tag .sw{width:8px;height:8px;border-radius:2px}
+.tag{position:absolute;left:0;top:0;will-change:transform;white-space:nowrap}
+.stage[data-mode="mall"] .t-shop,.stage[data-mode="shop"] .t-mall{display:none}
+.t-mall.land{pointer-events:none;background:var(--paper);border:1px solid var(--line);color:var(--ink);font-size:14px;font-weight:700;padding:7px 11px;border-radius:10px;box-shadow:var(--shadow);display:flex;align-items:center;gap:8px}
+.t-mall.land em{font-style:normal;font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#fff;background:var(--blue);padding:2px 7px;border-radius:6px}
+.t-mall.land em.near{background:var(--muted)}
+.t-mall.here{pointer-events:auto;cursor:pointer;border:0;background:var(--navy);color:#fff;font-family:var(--f-display);font-size:17px;font-weight:900;padding:10px 16px 10px 12px;border-radius:14px;box-shadow:0 10px 24px rgba(20,36,58,.35);display:flex;align-items:center;gap:10px}
+.t-mall.here::after{content:"";position:absolute;left:50%;bottom:-8px;margin-left:-8px;border:8px solid transparent;border-bottom:0;border-top-color:var(--navy)}
+.t-mall.here .pulse{width:12px;height:12px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 0 rgba(247,196,73,.7);animation:pulse 1.8s infinite}
+.t-mall.here small{display:block;font-family:var(--f-body);font-size:12px;font-weight:600;color:#c9d6e8}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(247,196,73,.7)}70%{box-shadow:0 0 0 12px rgba(247,196,73,0)}100%{box-shadow:0 0 0 0 rgba(247,196,73,0)}}
+.t-shop.zone{pointer-events:auto;cursor:pointer;border:0;background:rgba(255,255,255,.96);color:var(--navy);font-size:13.5px;font-weight:700;padding:6px 11px 6px 7px;border-radius:999px;box-shadow:var(--shadow);display:flex;align-items:center;gap:7px}
+.t-shop.zone i{width:22px;height:22px;border-radius:50%;background:var(--gold);display:grid;place-items:center;color:var(--navy-deep)}
+.t-shop.zone.is-active{background:var(--navy);color:#fff}
+.t-shop.person{pointer-events:auto;cursor:pointer;border:0;background:var(--navy);color:#fff;font-size:13.5px;font-weight:800;padding:5px 11px 5px 5px;border-radius:999px;box-shadow:0 6px 16px rgba(20,36,58,.3);display:flex;align-items:center;gap:7px}
+.t-shop.person .avatar{width:24px;height:24px;font-size:10.5px;background:var(--blue)}
+.t-shop.person.is-active{background:var(--gold);color:var(--navy-deep)}
+.t-shop:hover{transform-origin:center}
 
-.hint{position:absolute;left:50%;top:22px;transform:translateX(-50%);font-size:12px;font-weight:600;color:var(--petrol);background:rgba(255,255,255,.9);border:1px solid var(--line);padding:6px 12px;border-radius:999px;display:flex;gap:8px;align-items:center;transition:opacity .4s ease;pointer-events:none}
+.hint{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);font-size:13.5px;font-weight:600;color:var(--navy);background:rgba(255,255,255,.95);border:1px solid var(--line);padding:8px 14px;border-radius:999px;display:flex;gap:8px;align-items:center;transition:opacity .4s ease;pointer-events:none;white-space:nowrap}
 .hint.gone{opacity:0}
 .no-webgl .hint{display:none}
+.no-webgl .stage-fallback{display:block}
+.stage-fallback{display:none;position:absolute;inset:auto 20px 20px auto;max-width:300px;padding:14px 16px;font-size:14px}
 
 /* ---------- Sections ---------- */
-section{padding-block:72px}
-.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:end;margin-bottom:32px}
-.sec-head h2{font-family:var(--f-display);font-weight:700;font-size:clamp(26px,3.4vw,40px);line-height:1.08;letter-spacing:-.025em;margin:8px 0 0;color:var(--petrol);text-wrap:balance}
-.sec-head p{margin:0;color:var(--muted);max-width:52ch;font-size:16px}
+section{padding-block:76px}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:end;margin-bottom:34px}
+.sec-head h2{font-family:var(--f-display);font-weight:900;font-size:clamp(28px,3.4vw,42px);line-height:1.08;letter-spacing:-.02em;margin:8px 0 0;color:var(--navy);text-wrap:balance}
+.sec-head p{margin:0;color:var(--muted);max-width:54ch;font-size:16.5px}
 
-.offer{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
-.offer-item{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;display:flex;flex-direction:column;gap:10px;cursor:pointer;text-align:left;transition:border-color .2s ease,transform .2s ease}
-.offer-item:hover{border-color:var(--petrol-soft);transform:translateY(-2px)}
-.offer-item .ico{width:42px;height:42px;border-radius:11px;background:var(--mist);display:grid;place-items:center;color:var(--petrol)}
-.offer-item h3{font-family:var(--f-display);font-size:16px;font-weight:700;margin:4px 0 0;color:var(--petrol);line-height:1.2}
-.offer-item p{margin:0;font-size:14px;color:var(--muted)}
-.offer-item .spec{margin-top:auto;padding-top:10px;border-top:1px dashed var(--line);font-family:var(--f-mono);font-size:11.5px;color:var(--petrol-soft)}
-.offer-item .go{font-size:12.5px;font-weight:700;color:var(--petrol);display:flex;align-items:center;gap:6px}
+/* équipe */
+.team{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.member{background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden;text-align:left;cursor:pointer;padding:0;display:flex;flex-direction:column;transition:transform .2s ease,border-color .2s ease}
+.member:hover{transform:translateY(-3px);border-color:var(--navy)}
+.member .ph{position:relative;aspect-ratio:1/1;max-width:100%;background:linear-gradient(160deg,var(--navy),var(--blue));display:grid;place-items:center}
+.member .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.member .ph .initials{font-family:var(--f-display);font-weight:900;font-size:64px;color:rgba(255,255,255,.9)}
+.member .tx{padding:16px 18px 18px}
+.member h3{font-family:var(--f-display);font-weight:900;font-size:21px;margin:0;color:var(--navy)}
+.member .role{font-weight:700;font-size:14px;color:var(--blue);margin:2px 0 8px}
+.member p{margin:0;font-size:14.5px;color:var(--muted)}
+.member .go{margin-top:12px;font-size:13.5px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:6px}
 
-.band{background:var(--petrol);color:#e9f0f3}
+/* calculateur */
+.calc-sec{background:var(--paper);border-block:1px solid var(--line)}
+.calc{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:24px;align-items:start}
+.inputs{display:grid;gap:14px}
+.field{border:1px solid var(--line);border-radius:16px;padding:16px 18px;background:var(--mist)}
+.field-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+.field label{font-weight:700;font-size:15.5px;color:var(--navy)}
+.field .help{display:block;font-weight:500;font-size:13px;color:var(--muted)}
+.num{display:flex;align-items:center;background:var(--paper);border:1.5px solid var(--line);border-radius:11px;overflow:hidden;flex-shrink:0}
+.num:focus-within{border-color:var(--blue)}
+.num button{width:40px;height:44px;border:0;background:transparent;cursor:pointer;font-size:20px;font-weight:700;color:var(--navy)}
+.num button:hover{background:var(--mist)}
+.num input{width:76px;height:44px;border:0;text-align:center;font-family:var(--f-mono);font-size:17px;font-weight:700;color:var(--ink);background:transparent;-moz-appearance:textfield}
+.num input::-webkit-outer-spin-button,.num input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.num .u{padding-right:12px;font-size:13px;color:var(--muted);font-weight:600}
+input[type=range]{width:100%;accent-color:var(--navy);height:28px;margin:2px 0 6px}
+.presets{display:flex;flex-wrap:wrap;gap:6px}
+.presets button{border:1.5px solid var(--line);background:var(--paper);border-radius:999px;padding:6px 12px;font-size:13.5px;font-weight:700;color:var(--navy);cursor:pointer;font-family:var(--f-mono)}
+.presets button:hover{border-color:var(--navy)}
+.presets button.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.ratio-bar{display:flex;height:10px;border-radius:99px;overflow:hidden;margin:4px 0 8px}
+.ratio-bar .pg{background:#9fb8dd}.ratio-bar .vg{background:var(--navy)}
+.ratio-lbl{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);font-weight:600}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+.result{position:sticky;top:84px;background:var(--navy);color:#fff;border-radius:20px;padding:22px;display:grid;gap:18px}
+.result h3{font-family:var(--f-display);font-weight:900;font-size:22px;margin:0}
+.res-top{display:grid;grid-template-columns:120px 1fr;gap:20px;align-items:center}
+.bottle{width:120px;height:auto;display:block}
+.big{font-family:var(--f-mono);font-weight:700;font-size:15px;color:#c9d6e8;display:grid;gap:8px}
+.big b{display:block;font-size:30px;color:#fff;line-height:1.1}
+.legend{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.legend li{display:grid;grid-template-columns:14px 1fr auto auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.14);font-size:15px}
+.legend li:last-child{border-bottom:0}
+.legend .sw{width:14px;height:14px;border-radius:4px}
+.legend .ml{font-family:var(--f-mono);font-weight:700;font-size:16px;text-align:right}
+.legend .g{font-family:var(--f-mono);font-size:12.5px;color:#a9bad0;text-align:right;min-width:64px}
+.legend small{display:block;color:#a9bad0;font-size:12.5px}
+.warn{background:#fff3d6;color:#6b4c00;border-radius:12px;padding:10px 12px;font-size:14px;font-weight:600}
+.res-actions{display:flex;gap:8px;flex-wrap:wrap}
+.res-actions .btn{flex:1}
+.res-note{font-size:13px;color:#a9bad0;margin:0}
+
+/* parcours */
+.band{background:var(--navy);color:#e6edf6}
 .band .sec-head h2{color:#fff}
-.band .sec-head p{color:#b9cad3}
+.band .sec-head p{color:#b6c6db}
 .band .eyebrow{color:var(--gold)}
 .path{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;list-style:none;margin:0;padding:0;counter-reset:s}
 .path li{position:relative;padding:22px 20px 4px 0}
-.path li::before{counter-increment:s;content:counter(s,decimal-leading-zero);font-family:var(--f-mono);font-size:12px;color:var(--gold);display:block;margin-bottom:14px}
-.path li::after{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:rgba(255,255,255,.18)}
-.path li:first-child::after{background:linear-gradient(90deg,var(--gold) 0,var(--gold) 40%,rgba(255,255,255,.18) 40%)}
-.path h3{font-family:var(--f-display);font-size:17px;margin:0 0 6px;color:#fff;font-weight:700}
-.path p{margin:0;font-size:14px;color:#b9cad3;max-width:28ch}
-.band-note{margin-top:36px;display:flex;gap:12px;align-items:flex-start;font-size:13.5px;color:#b9cad3;max-width:70ch;border-top:1px solid rgba(255,255,255,.14);padding-top:18px}
+.path li::before{counter-increment:s;content:counter(s);font-family:var(--f-display);font-weight:900;font-size:15px;color:var(--navy-deep);background:var(--gold);width:30px;height:30px;border-radius:50%;display:grid;place-items:center;margin-bottom:14px}
+.path li::after{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:rgba(255,255,255,.2)}
+.path h3{font-family:var(--f-display);font-size:19px;margin:0 0 6px;color:#fff;font-weight:900}
+.path p{margin:0;font-size:15px;color:#b6c6db;max-width:28ch}
+.band-note{margin-top:36px;display:flex;gap:12px;align-items:flex-start;font-size:14.5px;color:#b6c6db;max-width:72ch;border-top:1px solid rgba(255,255,255,.16);padding-top:18px}
 .band-note b{color:#fff}
 
-.info{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:20px}
-.panel{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:24px}
-.panel h3{font-family:var(--f-display);font-size:18px;margin:0 0 4px;color:var(--petrol)}
-.addr{font-size:17px;font-weight:600;margin:8px 0 18px;line-height:1.45}
-.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:18px 0 20px}
-.fact{background:var(--mist);border-radius:12px;padding:12px}
-.fact svg{color:var(--petrol)}
-.fact b{display:block;font-size:13.5px;margin-top:6px}
-.fact span{font-size:12.5px;color:var(--muted)}
-.hours{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:10px}
-.hours td{padding:10px 0;border-bottom:1px solid var(--line)}
-.hours td:last-child{text-align:right;font-family:var(--f-mono);font-size:13px}
-.hours tr.today td{font-weight:700;color:var(--petrol)}
-.hours tr.today td:first-child::after{content:"Aujourd'hui";margin-left:10px;font-family:var(--f-body);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--gold);color:var(--petrol-deep);padding:2px 7px;border-radius:99px}
-.status-line{display:flex;align-items:center;gap:10px;margin-top:4px}
+/* infos */
+.info{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:20px}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:26px}
+.panel h3{font-family:var(--f-display);font-weight:900;font-size:21px;margin:0 0 6px;color:var(--navy)}
+.addr{font-size:17px;font-weight:600;margin:6px 0 18px;line-height:1.45}
+.howto{list-style:none;margin:0 0 20px;padding:0;display:grid;gap:10px;counter-reset:h}
+.howto li{display:grid;grid-template-columns:32px 1fr;gap:12px;align-items:start;font-size:15.5px}
+.howto li::before{counter-increment:h;content:counter(h);width:32px;height:32px;border-radius:50%;background:var(--blue-soft);color:var(--navy);font-weight:800;display:grid;place-items:center;font-family:var(--f-display)}
+.howto b{color:var(--navy)}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
+.fact{display:inline-flex;align-items:center;gap:8px;background:var(--mist);border-radius:10px;padding:8px 12px;font-size:14.5px;font-weight:600;color:var(--navy)}
+.hours{width:100%;border-collapse:collapse;font-size:16px;margin-top:10px}
+.hours td{padding:11px 0;border-bottom:1px solid var(--line)}
+.hours td:last-child{text-align:right;font-family:var(--f-mono);font-size:14.5px}
+.hours tr.today td{font-weight:800;color:var(--navy)}
+.hours tr.today td:first-child::after{content:"Aujourd'hui";margin-left:10px;font-family:var(--f-body);font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;background:var(--gold);color:var(--navy-deep);padding:2px 8px;border-radius:99px}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:700;padding:5px 11px;border-radius:999px;background:var(--mist);color:var(--navy)}
+.chip.ok{background:var(--ok-bg);color:var(--ok)}
+.chip.off{background:var(--off-bg);color:var(--off)}
 
-footer{background:var(--petrol-deep);color:#9fb4bf;font-size:13px;padding-block:36px}
+footer{background:var(--navy-deep);color:#9fb1c6;font-size:14px;padding-block:38px}
 footer .wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:start}
-footer .legal{max-width:70ch}
+footer .legal{max-width:72ch}
 footer .legal b{color:#fff}
 footer .brand-word{color:#fff}
-.age18{display:inline-grid;place-items:center;width:46px;height:46px;border:2px solid var(--gold);color:var(--gold);border-radius:50%;font-family:var(--f-display);font-weight:700;font-size:14px}
+.age18{display:inline-grid;place-items:center;width:50px;height:50px;border:2px solid var(--gold);color:var(--gold);border-radius:50%;font-family:var(--f-display);font-weight:900;font-size:15px;flex-shrink:0}
 
-/* ---------- Age gate ---------- */
-.gate{position:fixed;inset:0;z-index:100;background:rgba(20,41,58,.72);backdrop-filter:blur(6px);display:grid;place-items:center;padding:16px}
-.gate-box{background:var(--paper);border-radius:18px;max-width:420px;width:100%;padding:28px;text-align:left;box-shadow:0 30px 60px rgba(0,0,0,.25)}
-.gate-box h2{font-family:var(--f-display);color:var(--petrol);font-size:22px;margin:14px 0 8px;line-height:1.2}
-.gate-box p{color:var(--muted);margin:0 0 20px}
+/* contrôle d'âge */
+.gate{position:fixed;inset:0;z-index:100;background:rgba(20,36,58,.74);backdrop-filter:blur(6px);display:grid;place-items:center;padding:16px}
+.gate-box{background:var(--paper);border-radius:20px;max-width:440px;width:100%;padding:30px;box-shadow:0 30px 60px rgba(0,0,0,.25)}
+.gate-box h2{font-family:var(--f-display);font-weight:900;color:var(--navy);font-size:24px;margin:14px 0 8px;line-height:1.2}
+.gate-box p{color:var(--muted);margin:0 0 20px;font-size:16px}
 .gate-actions{display:flex;gap:10px;flex-wrap:wrap}
 
 /* ---------- Responsive ---------- */
-@media (max-width:1100px){
-  .zones{display:none}
-  .tracker{width:min(600px,calc(100% - 40px))}
-  .nav{display:none}
+@media (max-width:1180px){ .nav{display:none} .subnav{display:flex} }
+.subnav{gap:6px;overflow-x:auto;padding:8px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));border-top:1px solid var(--line);scrollbar-width:none}
+.subnav::-webkit-scrollbar{display:none}
+.subnav a{flex-shrink:0;text-decoration:none;font-weight:700;font-size:14px;color:var(--navy);background:var(--mist);padding:7px 12px;border-radius:999px}
+@media (max-width:1000px){
+  .team{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .calc{grid-template-columns:1fr}
+  .result{position:static}
 }
 @media (max-width:820px){
-  .site-chip{display:none}
-  .stage{height:720px}
-  .hero-card{left:12px;top:12px;width:calc(100% - 24px);padding:16px}
-  .hero-card p{font-size:13.5px;margin-bottom:12px}
-  .kpis{display:none}
-  .tools{right:12px;top:auto;bottom:206px}
-  .detail{left:12px;right:12px;top:auto;bottom:12px;width:auto;z-index:3;max-height:62%;overflow:auto}
-  .tracker{left:12px;right:12px;bottom:12px;width:auto;padding:12px}
-  .tracker-body{grid-template-columns:1fr;gap:10px}
-  .step-note{min-height:0}
-  .step span.t{font-size:10.5px}
-  .hint{top:auto;bottom:212px}
+  .stage{height:calc(100vh - 116px);height:calc(100svh - 116px);min-height:600px;max-height:820px}
+  .stage.has-detail .ctx{visibility:hidden}
+  .stage .t-shop.zone{display:none}
+  .ctx{left:12px;right:12px;top:auto;bottom:12px;width:auto;padding:12px 12px 14px}
+  .modes{margin-bottom:10px}
+  .ctx .eyebrow{display:none}
+  .ctx h1,.ctx h2{font-size:20px;margin:0 0 8px}
+  .ctx p{display:none}
+  .landmarks{grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:10px;gap:6px}
+  .landmarks li{grid-template-columns:1fr;gap:1px;padding:7px 9px;font-size:14px}
+  .landmarks li span{font-size:10.5px}
+  .ctx-actions .btn{width:100%}
+  .chips-row{flex-wrap:nowrap;overflow-x:auto;margin-bottom:10px;padding-bottom:2px;scrollbar-width:none}
+  .chips-row::-webkit-scrollbar{display:none}
+  .person-chip,.zone-chip{flex-shrink:0}
+  .label-sm{margin-bottom:6px}
+  .detail{left:12px;right:12px;top:auto;bottom:12px;width:auto;max-height:66%;z-index:3}
+  .detail.is-hidden{transform:translateY(16px)}
+  .d-photo{aspect-ratio:2/1;margin-bottom:10px}
+  .detail h3{font-size:21px}
+  .detail p{font-size:15px;margin:6px 0 10px}
+  .tools{right:12px;top:12px;bottom:auto}
+  .stage.has-detail .tools{display:none}
+  .hint{top:12px;bottom:auto;left:12px;transform:none;font-size:12.5px}
   .sec-head{grid-template-columns:1fr;gap:12px}
-  .offer{grid-template-columns:repeat(2,minmax(0,1fr))}
   .path{grid-template-columns:1fr}
   .path li{padding:18px 0 10px}
   .info{grid-template-columns:1fr}
   footer .wrap{grid-template-columns:1fr}
-  section{padding-block:56px}
+  section{padding-block:58px}
+  .topbar-in .btn span{display:none}
 }
-@media (max-width:520px){
-  .offer{grid-template-columns:1fr}
-  .facts{grid-template-columns:1fr}
+@media (max-width:560px){
+  .team{grid-template-columns:1fr 1fr;gap:10px}
+  .member .tx{padding:12px}
+  .member h3{font-size:18px}
+  .member p{display:none}
+  .two{grid-template-columns:1fr}
+  .res-top{grid-template-columns:96px 1fr}
+  .bottle{width:96px}
   .live .lbl-long{display:none}
-  .topbar .btn span{display:none}
-  .brand-word{font-size:15px}
+  .brand-word small{display:none}
 }
 @media (prefers-reduced-motion:reduce){
   *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
@@ -272,131 +325,210 @@ footer .brand-word{color:#fff}
     <h2 id="gate-title">Ce site présente des produits du vapotage</h2>
     <p id="gate-text">Il est réservé aux personnes majeures. Avez-vous 18 ans ou plus ?</p>
     <div class="gate-actions" id="gate-actions">
-      <button class="btn btn-petrol" id="gate-yes">J'ai 18 ans ou plus</button>
+      <button class="btn btn-navy" id="gate-yes">Oui, j'ai 18 ans ou plus</button>
       <button class="btn btn-ghost" id="gate-no">Non</button>
     </div>
   </div>
 </div>
 
 <header class="topbar">
-  <div class="wrap">
+  <div class="topbar-in">
     <a class="brand" href="#top" aria-label="HappeSmoke Caen, accueil">
       <span class="brand-mark" aria-hidden="true">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M7 17.5h9.5a4 4 0 0 0 .6-7.95A5.5 5.5 0 0 0 6.6 9.1 4.2 4.2 0 0 0 7 17.5Z" fill="#F7C449"/><path d="M9 21h6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M10 2.5h4v2.2l1.6 1.8v13a2 2 0 0 1-2 2h-3.2a2 2 0 0 1-2-2v-13L10 4.7z" fill="#fff"/><path d="M9.2 12.5c2.2-1.8 4.6-1.8 6.4-.2-1.3 2.6-3.9 3.6-6.4 2.4z" fill="#4f7fc4"/></svg>
       </span>
-      <span class="brand-word">Happe<b>Smoke</b></span>
+      <span class="brand-word">happesmoke<small>CAEN · LES RIVES DE L'ORNE</small></span>
     </a>
-    <div class="site-chip">
-      <span class="code">CAEN</span>
-      <span>Les Rives de l'Orne<small>Quai Amiral Hamelin · 14000</small></span>
-    </div>
     <nav class="nav" aria-label="Sections">
-      <a href="#boutique">La boutique</a>
+      <a href="#top">La boutique</a>
+      <a href="#equipe">L'équipe</a>
+      <a href="#diy">Calculateur DIY</a>
       <a href="#parcours">Arrêter le tabac</a>
       <a href="#infos">Infos pratiques</a>
     </nav>
-    <span class="live" id="live"><span class="dot"></span><span id="live-text">…</span></span>
-    <a class="btn btn-gold" href="https://www.google.com/maps/search/?api=1&query=Happesmoke%20Les%20Rives%20de%20l%27Orne%20Caen" target="_blank" rel="noopener">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.1-7-11.5A7 7 0 0 1 19 9.5C19 14.9 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+    <span class="live" id="live" style="margin-left:auto"><span class="dot"></span><span id="live-text">…</span></span>
+    <a class="btn btn-gold" href="https://www.google.com/maps/search/?api=1&query=Happesmoke%20Les%20Rives%20de%20l%27Orne%20Caen" target="_blank" rel="noopener" aria-label="Itinéraire vers la boutique">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.1-7-11.5A7 7 0 0 1 19 9.5C19 14.9 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
       <span>Itinéraire</span>
     </a>
   </div>
+  <nav class="subnav" aria-label="Sections">
+    <a href="#top">La boutique</a><a href="#equipe">L'équipe</a><a href="#diy">Calculateur DIY</a><a href="#parcours">Arrêter le tabac</a><a href="#infos">Infos</a>
+  </nav>
 </header>
 
 <main id="top">
   <!-- ======== Scène interactive ======== -->
-  <div class="stage" id="stage" aria-label="Plan interactif de la boutique HappeSmoke Caen">
+  <div class="stage" id="stage" data-mode="mall" aria-label="Plan interactif : le centre commercial Les Rives de l'Orne et la boutique HappeSmoke">
     <canvas id="scene"></canvas>
-
-    <div class="pins" id="pins" aria-label="Zones de la boutique"></div>
+    <div class="pins" id="pins"></div>
 
     <div class="layer">
-      <div class="hint" id="hint">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 3v18M3 12h18M8 7l4-4 4 4M8 17l4 4 4-4M7 8l-4 4 4 4M17 8l4 4-4 4"/></svg>
-        Glissez pour explorer · cliquez sur un point
-      </div>
+      <div class="card ctx" id="ctx">
+        <div class="modes" role="group" aria-label="Choisir la vue">
+          <button type="button" id="m-mall" aria-pressed="true"><span class="n">1</span>Le centre</button>
+          <button type="button" id="m-shop" aria-pressed="false"><span class="n">2</span>La boutique</button>
+        </div>
 
-      <div class="card hero-card" id="hero-card">
-        <div class="eyebrow">Caen · Centre commercial Les Rives de l'Orne</div>
-        <h1>Arrêter la cigarette, <em>ça se prépare</em> ici.</h1>
-        <p>Conseil, matériel et e-liquides pour les fumeurs adultes qui passent à la vape. Visitez la boutique avant de venir.</p>
-        <div class="hero-actions">
-          <button class="btn btn-petrol" data-zone-go="comptoir">Commencer la visite</button>
-          <a class="btn btn-ghost" href="#infos">Horaires & accès</a>
+        <div id="ctx-mall">
+          <div class="eyebrow">Caen · Centre commercial</div>
+          <h1>Votre boutique vape aux Rives de l'Orne</h1>
+          <p>On est côté E.Leclerc : facile à trouver en sortant des caisses.</p>
+          <ul class="landmarks">
+            <li><span>En face</span><b>E.Leclerc</b></li>
+            <li><span>À côté</span><b>Normal</b></li>
+            <li><span>Même côté</span><b>Action</b></li>
+          </ul>
+          <div class="ctx-actions">
+            <button class="btn btn-navy" id="enter">Entrer dans la boutique
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
         </div>
-      </div>
 
-      <div class="kpis" id="kpis">
-        <div class="card kpi">
-          <span class="kpi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
-          <span><small>Aujourd'hui</small><strong id="kpi-hours">10:00 – 19:30</strong></span>
-        </div>
-        <div class="card kpi">
-          <span class="kpi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 4l9 6.5V20H3z"/><path d="M9 20v-6h6v6"/></svg></span>
-          <span><small>Réseau HappeSmoke</small><strong>+80 boutiques</strong></span>
-        </div>
-        <div class="card kpi">
-          <span class="kpi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5h11l-1.5 4L15 13H4"/></svg></span>
-          <span><small>Spécialiste vape</small><strong>depuis 2013</strong></span>
+        <div id="ctx-shop" hidden>
+          <div class="eyebrow">Bienvenue chez HappeSmoke</div>
+          <h2>Entrez, on s'occupe de vous</h2>
+          <p>Touchez un membre de l'équipe ou un espace de la boutique pour en savoir plus.</p>
+          <div class="label-sm">L'équipe</div>
+          <div class="chips-row" id="ctx-team"></div>
+          <div class="label-sm">La boutique</div>
+          <div class="chips-row" id="ctx-zones" style="margin-bottom:0"></div>
         </div>
       </div>
 
       <div class="card tools" role="group" aria-label="Contrôles de la vue">
-        <button id="zoom-in" aria-label="Zoomer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
-        <button id="zoom-out" aria-label="Dézoomer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14"/></svg></button>
+        <button id="zoom-in" aria-label="Zoomer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+        <button id="zoom-out" aria-label="Dézoomer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14"/></svg></button>
         <hr>
-        <button id="reset" aria-label="Recentrer la vue"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 4l9 6.5V20H3z"/></svg></button>
+        <button id="reset" aria-label="Recentrer la vue"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></button>
       </div>
 
       <aside class="card detail is-hidden" id="detail" aria-live="polite">
-        <div class="detail-head">
-          <span class="detail-ico" id="d-ico"></span>
-          <div>
-            <div class="eyebrow" id="d-eyebrow"></div>
-            <h2 id="d-title"></h2>
-          </div>
-          <button class="detail-close" id="d-close" aria-label="Fermer la fiche"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
-        </div>
-        <div class="detail-chips" id="d-chips"></div>
-        <p id="d-desc"></p>
-        <ul class="rows" id="d-rows"></ul>
-        <div class="meter" id="d-meter" hidden>
-          <div class="meter-top"><span id="dm-label"></span><b class="mono" id="dm-value"></b></div>
-          <div class="meter-bar"><i id="dm-bar" style="width:0"></i></div>
-          <div class="meter-scale mono" id="dm-scale"></div>
-        </div>
+        <button class="detail-close" id="d-close" aria-label="Fermer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+        <div id="d-body"></div>
       </aside>
 
-      <div class="card tracker" id="tracker">
-        <div class="tracker-head">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h3l3-8 4 16 3-8h3"/></svg>
-          Votre passage à la vape
-          <span class="mono" id="tr-count">Étape 1/5</span>
-        </div>
-        <div class="tracker-body">
-          <ol class="steps" id="steps"><i class="fill" id="steps-fill"></i></ol>
-          <div class="step-note" id="step-note"></div>
-        </div>
+      <div class="hint" id="hint">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 3v18M3 12h18"/></svg>
+        Faites glisser pour vous déplacer
       </div>
-
-      <div class="card zones" id="zones">
-        <div class="zones-head"><b>Zones de la boutique</b><span class="mono">5 espaces</span></div>
-        <div id="zone-list"></div>
-      </div>
+      <div class="card stage-fallback">La vue 3D n'est pas disponible sur cet appareil. Toutes les informations sont plus bas sur la page.</div>
     </div>
   </div>
 
-  <!-- ======== La boutique ======== -->
-  <section id="boutique">
+  <!-- ======== Équipe ======== -->
+  <section id="equipe">
     <div class="wrap">
       <div class="sec-head">
         <div>
-          <div class="eyebrow">La boutique</div>
-          <h2>Tout pour passer à la vape, au même endroit.</h2>
+          <div class="eyebrow">L'équipe</div>
+          <h2>Quatre conseillers pour vous accompagner.</h2>
         </div>
-        <p>La boutique HappeSmoke de Caen se trouve dans le centre commercial Les Rives de l'Orne, face au quai. Un conseiller vous reçoit, fait le point avec vous et vous repartez avec un équipement réglé.</p>
+        <p>Vous les reconnaîtrez à leur tenue bleu marine HappeSmoke. Ils vous reçoivent sans rendez-vous, que vous débutiez ou que vous vapotiez déjà.</p>
       </div>
-      <div class="offer" id="offer"></div>
+      <div class="team" id="team"></div>
+    </div>
+  </section>
+
+  <!-- ======== Calculateur DIY ======== -->
+  <section class="calc-sec" id="diy">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow">Calculateur DIY</div>
+          <h2>Préparez votre e-liquide maison, au millilitre près.</h2>
+        </div>
+        <p>Indiquez la quantité, le taux de nicotine et le dosage d'arôme. Le calculateur vous donne les quantités de base, de booster et d'arôme. Toutes les valeurs peuvent descendre à 0.</p>
+      </div>
+
+      <div class="calc">
+        <div class="inputs">
+          <div class="field">
+            <div class="field-top">
+              <label for="c-vol">Quantité à préparer<span class="help">Le volume total de votre flacon</span></label>
+              <div class="num"><button type="button" data-step="c-vol" data-d="-10" aria-label="Moins 10 ml">−</button><input id="c-vol" type="number" inputmode="decimal" min="0" max="1000" step="1" value="100"><span class="u">ml</span><button type="button" data-step="c-vol" data-d="10" aria-label="Plus 10 ml">+</button></div>
+            </div>
+            <input type="range" id="c-vol-r" min="0" max="500" step="5" value="100" aria-label="Quantité à préparer">
+            <div class="presets" data-for="c-vol"><button type="button" data-v="10">10</button><button type="button" data-v="30">30</button><button type="button" data-v="50">50</button><button type="button" data-v="100">100</button><button type="button" data-v="200">200</button></div>
+          </div>
+
+          <div class="field">
+            <div class="field-top">
+              <label for="c-nic">Taux de nicotine voulu<span class="help">Dans le liquide final</span></label>
+              <div class="num"><button type="button" data-step="c-nic" data-d="-1" aria-label="Moins 1">−</button><input id="c-nic" type="number" inputmode="decimal" min="0" max="20" step="0.5" value="6"><span class="u">mg/ml</span><button type="button" data-step="c-nic" data-d="1" aria-label="Plus 1">+</button></div>
+            </div>
+            <input type="range" id="c-nic-r" min="0" max="20" step="0.5" value="6" aria-label="Taux de nicotine voulu">
+            <div class="presets" data-for="c-nic"><button type="button" data-v="0">0</button><button type="button" data-v="3">3</button><button type="button" data-v="6">6</button><button type="button" data-v="9">9</button><button type="button" data-v="12">12</button></div>
+          </div>
+
+          <div class="two">
+            <div class="field">
+              <div class="field-top" style="flex-wrap:wrap">
+                <label for="c-boost">Booster de nicotine<span class="help">Concentration du flacon</span></label>
+                <div class="num"><button type="button" data-step="c-boost" data-d="-1" aria-label="Moins 1">−</button><input id="c-boost" type="number" inputmode="decimal" min="0" max="20" step="1" value="20"><span class="u">mg/ml</span><button type="button" data-step="c-boost" data-d="1" aria-label="Plus 1">+</button></div>
+              </div>
+              <div class="presets" data-for="c-boost"><button type="button" data-v="0">0</button><button type="button" data-v="10">10</button><button type="button" data-v="18">18</button><button type="button" data-v="20">20</button></div>
+            </div>
+            <div class="field">
+              <div class="field-top" style="flex-wrap:wrap">
+                <label for="c-aro">Dosage de l'arôme<span class="help">Indiqué sur le flacon</span></label>
+                <div class="num"><button type="button" data-step="c-aro" data-d="-1" aria-label="Moins 1">−</button><input id="c-aro" type="number" inputmode="decimal" min="0" max="100" step="0.5" value="10"><span class="u">%</span><button type="button" data-step="c-aro" data-d="1" aria-label="Plus 1">+</button></div>
+              </div>
+              <div class="presets" data-for="c-aro"><button type="button" data-v="0">0</button><button type="button" data-v="5">5</button><button type="button" data-v="10">10</button><button type="button" data-v="15">15</button><button type="button" data-v="20">20</button></div>
+            </div>
+          </div>
+
+          <div class="two">
+            <div class="field">
+              <div class="field-top"><label for="c-base">Base neutre (PG/VG)<span class="help">Glisser vers la droite = plus de VG</span></label></div>
+              <input type="range" id="c-base" min="0" max="100" step="5" value="50" aria-label="Pourcentage de VG de la base">
+              <div class="ratio-bar"><i class="pg" id="rb-pg"></i><i class="vg" id="rb-vg"></i></div>
+              <div class="ratio-lbl"><span id="rb-l">PG 50 %</span><span id="rb-r">VG 50 %</span></div>
+              <div class="presets" data-for="c-base" style="margin-top:8px"><button type="button" data-v="50">50/50</button><button type="button" data-v="70">30/70</button><button type="button" data-v="80">20/80</button><button type="button" data-v="100">0/100</button></div>
+            </div>
+            <div class="field">
+              <div class="field-top"><label for="c-bvg">Booster (PG/VG)<span class="help">Souvent en 50/50</span></label></div>
+              <input type="range" id="c-bvg" min="0" max="100" step="5" value="50" aria-label="Pourcentage de VG du booster">
+              <div class="ratio-bar"><i class="pg" id="bb-pg"></i><i class="vg" id="bb-vg"></i></div>
+              <div class="ratio-lbl"><span id="bb-l">PG 50 %</span><span id="bb-r">VG 50 %</span></div>
+              <div class="presets" data-for="c-bvg" style="margin-top:8px"><button type="button" data-v="50">50/50</button><button type="button" data-v="70">30/70</button><button type="button" data-v="0">100/0</button></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="result" aria-live="polite">
+          <h3>Votre recette</h3>
+          <div class="res-top">
+            <svg class="bottle" viewBox="0 0 120 220" role="img" aria-label="Proportions dans le flacon">
+              <defs><clipPath id="bclip"><path d="M24 70 Q24 58 36 54 L46 50 L46 34 L74 34 L74 50 L84 54 Q96 58 96 70 L96 200 Q96 212 84 212 L36 212 Q24 212 24 200 Z"/></clipPath></defs>
+              <rect x="50" y="6" width="20" height="28" rx="4" fill="#ffffff" opacity=".9"/>
+              <g clip-path="url(#bclip)">
+                <rect x="0" y="0" width="120" height="220" fill="rgba(255,255,255,.08)"/>
+                <rect id="lb-base" x="0" y="212" width="120" height="0" fill="#e9eef6"/>
+                <rect id="lb-nic" x="0" y="212" width="120" height="0" fill="#7fa6dc"/>
+                <rect id="lb-aro" x="0" y="212" width="120" height="0" fill="#F7C449"/>
+              </g>
+              <path d="M24 70 Q24 58 36 54 L46 50 L46 34 L74 34 L74 50 L84 54 Q96 58 96 70 L96 200 Q96 212 84 212 L36 212 Q24 212 24 200 Z" fill="none" stroke="#ffffff" stroke-width="3" opacity=".85"/>
+            </svg>
+            <div class="big">
+              <span>Taux final<b id="r-nic">6 mg/ml</b></span>
+              <span>Ratio final PG/VG<b id="r-ratio">55/45</b></span>
+            </div>
+          </div>
+          <ul class="legend">
+            <li><span class="sw" style="background:#e9eef6"></span><span>Base neutre<small id="r-base-s">PG/VG 50/50</small></span><span class="ml" id="r-base">0 ml</span><span class="g" id="r-base-g">0 g</span></li>
+            <li><span class="sw" style="background:#7fa6dc"></span><span>Booster de nicotine<small id="r-nic-s">—</small></span><span class="ml" id="r-boost">0 ml</span><span class="g" id="r-boost-g">0 g</span></li>
+            <li><span class="sw" style="background:#F7C449"></span><span>Arôme concentré<small>Compté en 100 % PG</small></span><span class="ml" id="r-aro">0 ml</span><span class="g" id="r-aro-g">0 g</span></li>
+          </ul>
+          <div class="warn" id="r-warn" hidden></div>
+          <div class="res-actions">
+            <button class="btn btn-gold" id="r-copy" type="button">Copier la recette</button>
+            <button class="btn btn-ghost" id="r-reset" type="button">Réinitialiser</button>
+          </div>
+          <p class="res-note">Les poids (g) servent si vous dosez sur une balance. Laissez reposer votre liquide quelques jours avant de le vapoter. Manipulez la nicotine avec des gants, hors de portée des enfants.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -406,13 +538,13 @@ footer .brand-word{color:#fff}
       <div class="sec-head">
         <div>
           <div class="eyebrow">Arrêter le tabac</div>
-          <h2>Un parcours en cinq temps, à votre rythme.</h2>
+          <h2>Un accompagnement en cinq étapes, à votre rythme.</h2>
         </div>
         <p>La cigarette électronique s'adresse aux fumeurs adultes qui veulent réduire ou arrêter le tabac. On commence par comprendre votre consommation, puis on ajuste jusqu'à ce que ce soit confortable.</p>
       </div>
       <ol class="path" id="path"></ol>
       <div class="band-note">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F7C449" stroke-width="2" stroke-linecap="round" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F7C449" stroke-width="2" stroke-linecap="round" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg>
         <span><b>Vous ne fumez pas ?</b> Alors ne commencez pas à vapoter. La nicotine crée une dépendance. Pour un accompagnement médical, parlez-en aussi à votre médecin ou appelez Tabac Info Service au 39 89.</span>
       </div>
     </div>
@@ -424,33 +556,32 @@ footer .brand-word{color:#fff}
       <div class="sec-head">
         <div>
           <div class="eyebrow">Infos pratiques</div>
-          <h2>Passez nous voir.</h2>
+          <h2>Comment nous trouver.</h2>
         </div>
-        <p>Pas besoin de rendez-vous. Le centre commercial est desservi par le tram et dispose d'un parking.</p>
+        <p>Sans rendez-vous. Le centre commercial dispose d'un parking et il est desservi par le tram.</p>
       </div>
       <div class="info">
         <div class="panel">
           <h3>Adresse</h3>
           <div class="addr">HappeSmoke Caen<br>Centre commercial Les Rives de l'Orne<br>Quai Amiral Hamelin, 14000 Caen</div>
+          <ol class="howto">
+            <li><span>Entrez dans le centre commercial <b>Les Rives de l'Orne</b>.</span></li>
+            <li><span>Dirigez-vous du côté de <b>E.Leclerc</b>, là où se trouve aussi <b>Action</b>.</span></li>
+            <li><span>La boutique est <b>en face de E.Leclerc</b>, juste <b>à côté de Normal</b>.</span></li>
+          </ol>
           <div class="facts">
-            <div class="fact">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="14" rx="3"/><path d="M5 11h14M8 21l2-4M16 21l-2-4"/><circle cx="9" cy="14" r=".5"/><circle cx="15" cy="14" r=".5"/></svg>
-              <b>Tram</b><span>Lignes T1, T2, T3 à proximité</span>
-            </div>
-            <div class="fact">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M10 16V8h3a2.5 2.5 0 0 1 0 5h-3"/></svg>
-              <b>Parking</b><span>Celui du centre commercial</span>
-            </div>
-            <div class="fact">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4.5" r="1.5"/><path d="M10 8h3l1 6h4l2 5"/><path d="M13 11H9"/><path d="M8.5 12.5a5 5 0 1 0 6.9 6"/></svg>
-              <b>Accès PMR</b><span>Boutique de plain-pied</span>
-            </div>
+            <span class="fact">Tram T1 · T2 · T3</span>
+            <span class="fact">Parking du centre</span>
+            <span class="fact">Accès PMR</span>
           </div>
-          <a class="btn btn-gold" href="https://www.google.com/maps/search/?api=1&query=Happesmoke%20Les%20Rives%20de%20l%27Orne%20Caen" target="_blank" rel="noopener">Ouvrir l'itinéraire dans Google Maps</a>
+          <div class="ctx-actions">
+            <a class="btn btn-gold" href="https://www.google.com/maps/search/?api=1&query=Happesmoke%20Les%20Rives%20de%20l%27Orne%20Caen" target="_blank" rel="noopener">Ouvrir l'itinéraire</a>
+            <a class="btn btn-ghost" href="#top" id="see-map">Revoir le plan du centre</a>
+          </div>
         </div>
         <div class="panel">
           <h3>Horaires</h3>
-          <div class="status-line"><span class="chip" id="status-chip">…</span></div>
+          <span class="chip" id="status-chip">…</span>
           <table class="hours" id="hours"><tbody></tbody></table>
         </div>
       </div>
@@ -461,9 +592,9 @@ footer .brand-word{color:#fff}
 <footer>
   <div class="wrap">
     <div class="legal">
-      <span class="brand-word">Happe<b>Smoke</b> Caen</span>
-      <p><b>Vente interdite aux mineurs de moins de 18 ans.</b> Les produits du vapotage contenant de la nicotine sont destinés aux fumeurs adultes. La nicotine contenue dans ce produit crée une forte dépendance. Son utilisation par les non-fumeurs n'est pas recommandée.</p>
-      <p>Ce site présente la boutique et ne propose pas de vente en ligne. Boutique membre du réseau HappeSmoke.</p>
+      <span class="brand-word">happesmoke Caen</span>
+      <p><b>Vente interdite aux mineurs de moins de 18 ans.</b> Les produits du vapotage contenant de la nicotine sont destinés aux fumeurs adultes. La nicotine contenue dans ces produits crée une forte dépendance. Son utilisation par les non-fumeurs n'est pas recommandée.</p>
+      <p>Ce site présente la boutique et ne propose pas de vente en ligne. Le calculateur DIY est donné à titre indicatif. Boutique membre du réseau HappeSmoke.</p>
     </div>
     <span class="age18" aria-label="Réservé aux 18 ans et plus">18+</span>
   </div>
@@ -475,53 +606,53 @@ footer .brand-word{color:#fff}
 "use strict";
 
 /* =========================================================
-   CONTENU — à ajuster par la boutique
+   CONTENU À PERSONNALISER
    ========================================================= */
 // Horaires en minutes depuis minuit. 0 = dimanche.
 var HOURS = {0:null,1:[600,1170],2:[600,1170],3:[600,1170],4:[600,1170],5:[600,1170],6:[600,1170]};
 var DAYS = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
 var DAYS_SHORT = ["dim.","lun.","mar.","mer.","jeu.","ven.","sam."];
 
+// Photos : déposez photos/sebastien.jpg, photos/kevin.jpg, photos/alexis.jpg, photos/justine.jpg à côté de ce fichier.
+var TEAM = [
+  { id:"sebastien", name:"Sébastien", role:"Conseiller en boutique", photo:"photos/sebastien.jpg",
+    desc:"Il vous accueille au comptoir, fait le point sur votre consommation et vous aide à choisir le bon matériel.",
+    hair:0x3b2a20, long:false, pos:[1.6,-2.7], face:0 },
+  { id:"kevin", name:"Kevin", role:"Conseiller e-liquides", photo:"photos/kevin.jpg",
+    desc:"Il connaît les saveurs des vitrines par cœur et vous oriente selon vos goûts : fruité, classic, menthe ou gourmand.",
+    hair:0x15110e, long:false, pos:[-4.8,3.6], face:-1.2 },
+  { id:"alexis", name:"Alexis", role:"Conseiller matériel", photo:"photos/alexis.jpg",
+    desc:"Il s'occupe du matériel : kits, pods, résistances, et vous montre comment entretenir votre cigarette électronique.",
+    hair:0x8a6a45, long:false, pos:[3.6,-3.9], face:0.3 },
+  { id:"justine", name:"Justine", role:"Conseillère sevrage", photo:"photos/justine.jpg",
+    desc:"Elle prend le temps de s'asseoir avec vous pour construire votre passage à la vape et arrêter le tabac à votre rythme.",
+    hair:0x6b4226, long:true, pos:[-4.4,-2.2], face:-1.0 }
+];
+
 var ICONS = {
-  comptoir:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21v-8h16v8"/><path d="M2 13h20"/><path d="M8 13V9a4 4 0 0 1 8 0v4"/></svg>',
-  liquides:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4v3l2 2v13a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2V7l2-2z"/><path d="M8 12h8"/></svg>',
-  test:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17.5h9.5a4 4 0 0 0 .6-7.95A5.5 5.5 0 0 0 6.6 9.1 4.2 4.2 0 0 0 7 17.5Z"/></svg>',
-  materiel:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="8" width="10" height="14" rx="2"/><path d="M10 8V4h4v4"/><path d="M10 13h4"/></svg>',
-  atelier:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg>'
+  vitrines:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4v3l2 2v13a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2V7l2-2z"/><path d="M8 12h8"/></svg>',
+  comptoir:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21v-8h18v8"/><path d="M2 13h20"/><path d="M8 13V9a4 4 0 0 1 8 0v4"/></svg>',
+  conseil:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11V8a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v3"/><path d="M3 13a2 2 0 0 1 4 0v2h10v-2a2 2 0 0 1 4 0v5H3z"/><path d="M5 18v2M19 18v2"/></svg>',
+  materiel:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="8" width="10" height="14" rx="2"/><path d="M10 8V4h4v4"/><path d="M10 13h4"/></svg>'
 };
 
 var ZONES = [
-  { id:"comptoir", code:"ACC", name:"Comptoir conseil", short:"Conseil", chip:"live",
-    eyebrow:"Accueil · sans rendez-vous",
-    desc:"C'est ici que tout commence. On fait le point sur votre consommation et on vous montre comment utiliser votre matériel.",
-    rows:[["Le bilan","Cigarettes par jour, moments clés"],["On vous montre","Remplissage, charge, entretien"],["Horaires","Lun–sam · 10:00–19:30"]],
-    offer:{title:"Conseil personnalisé",text:"Un bilan de votre consommation et des explications claires avant de choisir.",spec:"Sans rendez-vous"},
-    pos:[-5.2,-0.3], pinY:3.4 },
-  { id:"liquides", code:"LIQ", name:"Mur des e-liquides", short:"E-liquides", chip:"gold:Rayon",
-    eyebrow:"Rayon e-liquides",
-    desc:"Fruité, classic, menthe, gourmand : les e-liquides sont rangés par famille de goût et par taux de nicotine.",
-    rows:[["Formats","10 ml · grands formats"],["Ratios PG/VG","50/50 · 30/70"],["Sels de nicotine","Pour un hit plus doux"]],
-    meter:{label:"Nicotine disponible",value:"0 – 20 mg/ml",pct:100,scale:["0","3","6","12","20 mg/ml"]},
-    offer:{title:"E-liquides",text:"Toutes les familles de goût, du 10 ml aux grands formats à booster.",spec:"0 à 20 mg/ml · PG/VG 50/50 à 30/70"},
-    pos:[-1,-5.3], pinY:4.4 },
-  { id:"test", code:"TST", name:"Espace test", short:"Test", chip:"gold:Essayer",
-    eyebrow:"Essayer avant de choisir",
-    desc:"Pour trouver la saveur et la sensation en gorge qui vous conviennent, avec un conseiller à côté de vous.",
-    rows:[["Pour qui","Fumeurs adultes"],["On règle","Saveur, tirage, hit"],["Le but","Ne pas manquer de la cigarette"]],
-    offer:{title:"Espace test",text:"Essayez les saveurs et les réglages avant de repartir avec votre équipement.",spec:"Avec un conseiller"},
-    pos:[1.6,1.6], pinY:3.4 },
-  { id:"materiel", code:"MAT", name:"Vitrine matériel", short:"Matériel", chip:"gold:Kits & box",
-    eyebrow:"Cigarettes électroniques",
-    desc:"Du pod prêt à l'emploi pour débuter à la box plus complète pour les vapoteurs confirmés.",
-    rows:[["Pour débuter","Kits et pods simples"],["Confirmés","Box et clearomiseurs"],["Pièces","Résistances, cartouches, batteries, chargeurs"]],
-    offer:{title:"Matériel",text:"Kits, pods, box, clearomiseurs et toutes les pièces de rechange.",spec:"Débutant → confirmé"},
-    pos:[5,-2.4], pinY:3.2 },
-  { id:"atelier", code:"SAV", name:"Atelier & entretien", short:"Atelier", chip:"gold:Entretien",
-    eyebrow:"Service après-vente",
-    desc:"Votre cigarette électronique fuit ou ne chauffe plus ? Apportez-la, on regarde avec vous.",
-    rows:[["Résistances","Changement et conseils"],["Entretien","Réservoir, joints, nettoyage"],["Diagnostic","Fuite, batterie, goût de brûlé"]],
-    offer:{title:"Atelier & entretien",text:"Changement de résistance, nettoyage et diagnostic de votre matériel.",spec:"Apportez votre matériel"},
-    pos:[-5.6,4.5], pinY:2.9 }
+  { id:"vitrines", name:"Vitrines e-liquides", short:"E-liquides",
+    desc:"Les six vitrines rangent les e-liquides par famille de goût et par taux de nicotine.",
+    rows:[["Familles","Fruité · Classic · Menthe · Gourmand"],["Formats","10 ml · grands formats"],["Nicotine","De 0 à 20 mg/ml"]],
+    pos:[-6.2,2.5], tagY:3.6 },
+  { id:"comptoir", name:"Comptoir", short:"Comptoir",
+    desc:"Le point de départ : on fait connaissance, on regarde votre consommation et on vous montre comment utiliser votre matériel.",
+    rows:[["Sans rendez-vous","Du lundi au samedi"],["On vous montre","Remplissage, charge, entretien"],["Paiement","Sur place"]],
+    pos:[4.2,-1.2], tagY:2.2 },
+  { id:"conseil", name:"Coin conseil", short:"Coin conseil",
+    desc:"Deux fauteuils pour prendre le temps : faire le bilan, poser vos questions et préparer votre arrêt du tabac.",
+    rows:[["Pour qui","Fumeurs adultes"],["On y parle","Habitudes, dosage, suivi"],["Durée","Le temps qu'il vous faut"]],
+    pos:[-6.1,-4.4], tagY:1.9 },
+  { id:"materiel", name:"Matériel & accessoires", short:"Matériel",
+    desc:"Du kit simple pour débuter à la box plus complète, avec toutes les pièces de rechange.",
+    rows:[["Pour débuter","Kits et pods"],["Confirmés","Box et clearomiseurs"],["Pièces","Résistances, cartouches, batteries"]],
+    pos:[6.0,-5.5], tagY:3.5 }
 ];
 
 var STEPS = [
@@ -537,44 +668,37 @@ var STEPS = [
    ========================================================= */
 function fmt(m){ var h=Math.floor(m/60), mi=m%60; return (h<10?"0":"")+h+":"+(mi<10?"0":"")+mi; }
 function parisNow(){
-  var parts = new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/Paris",weekday:"short",hour:"2-digit",minute:"2-digit",hour12:false}).formatToParts(new Date());
+  var parts=new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/Paris",weekday:"short",hour:"2-digit",minute:"2-digit",hour12:false}).formatToParts(new Date());
   var o={}; parts.forEach(function(p){o[p.type]=p.value;});
-  var wd = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].indexOf(o.weekday);
-  return {day:wd, min:(parseInt(o.hour,10)%24)*60+parseInt(o.minute,10), clock:o.hour+":"+o.minute};
+  return {day:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].indexOf(o.weekday), min:(parseInt(o.hour,10)%24)*60+parseInt(o.minute,10)};
 }
 function status(){
   var n=parisNow(), h=HOURS[n.day];
-  if(h && n.min>=h[0] && n.min<h[1]) return {open:true, text:"Ouvert", long:"ferme à "+fmt(h[1]), n:n};
-  if(h && n.min<h[0]) return {open:false, text:"Fermé", long:"ouvre à "+fmt(h[0]), n:n};
+  if(h && n.min>=h[0] && n.min<h[1]) return {open:true,text:"Ouvert",long:"ferme à "+fmt(h[1]),n:n};
+  if(h && n.min<h[0]) return {open:false,text:"Fermé",long:"ouvre à "+fmt(h[0]),n:n};
   for(var i=1;i<=7;i++){ var d=(n.day+i)%7; if(HOURS[d]) return {open:false,text:"Fermé",long:"ouvre "+(i===1?"demain":DAYS_SHORT[d])+" à "+fmt(HOURS[d][0]),n:n}; }
   return {open:false,text:"Fermé",long:"",n:n};
 }
 function renderStatus(){
   var s=status();
-  var live=document.getElementById("live");
-  live.className="live "+(s.open?"is-open":"is-closed");
-  document.getElementById("live-text").innerHTML = s.text+'<span class="lbl-long"> · '+s.long+'</span>';
-  var chip=document.getElementById("status-chip");
-  chip.className="chip "+(s.open?"ok":"off");
-  chip.textContent=s.text+" · "+s.long;
-  var h=HOURS[s.n.day];
-  document.getElementById("kpi-hours").textContent = h? fmt(h[0])+" – "+fmt(h[1]) : "Fermé";
+  document.getElementById("live").className="live "+(s.open?"is-open":"is-closed");
+  document.getElementById("live-text").innerHTML=s.text+'<span class="lbl-long"> · '+s.long+'</span>';
+  var chip=document.getElementById("status-chip"); chip.className="chip "+(s.open?"ok":"off"); chip.textContent=s.text+" · "+s.long;
   var tb=document.querySelector("#hours tbody"); tb.innerHTML="";
   [1,2,3,4,5,6,0].forEach(function(d){
     var tr=document.createElement("tr"); if(d===s.n.day) tr.className="today";
     tr.innerHTML="<td>"+DAYS[d]+"</td><td>"+(HOURS[d]?fmt(HOURS[d][0])+" – "+fmt(HOURS[d][1]):"Fermé")+"</td>";
     tb.appendChild(tr);
   });
-  if(currentZone==="comptoir") renderDetail("comptoir");
 }
+renderStatus(); setInterval(renderStatus,30000);
 
 /* =========================================================
    CONTRÔLE D'ÂGE
    ========================================================= */
 (function(){
-  var ok=false; try{ ok = localStorage.getItem("hs-age-ok")==="1"; }catch(e){}
-  var gate=document.getElementById("gate");
-  if(!ok) gate.hidden=false;
+  var ok=false; try{ ok=localStorage.getItem("hs-age-ok")==="1"; }catch(e){}
+  var gate=document.getElementById("gate"); if(!ok) gate.hidden=false;
   document.getElementById("gate-yes").onclick=function(){ try{localStorage.setItem("hs-age-ok","1");}catch(e){} gate.hidden=true; };
   document.getElementById("gate-no").onclick=function(){
     document.getElementById("gate-title").textContent="Ce site est réservé aux personnes majeures";
@@ -584,578 +708,665 @@ function renderStatus(){
 })();
 
 /* =========================================================
-   UI : fiche zone, liste, offre, parcours
+   ÉQUIPE, ZONES, FICHE DÉTAIL
    ========================================================= */
-var currentZone=null;
-var zoneById={}; ZONES.forEach(function(z){zoneById[z.id]=z;});
+var teamById={}, zoneById={}; TEAM.forEach(function(p){teamById[p.id]=p;}); ZONES.forEach(function(z){zoneById[z.id]=z;});
+function initials(n){ return n.normalize("NFD").replace(/[̀-ͯ]/g,"").slice(0,1).toUpperCase(); }
+function photoHTML(p,cls){
+  return '<span class="initials">'+initials(p.name)+'</span><img src="'+p.photo+'" alt="Photo de '+p.name+'" onerror="this.remove()">';
+}
+var stage=document.getElementById("stage");
+var detail=document.getElementById("detail"), dBody=document.getElementById("d-body");
+var current=null; // {type:'person'|'zone', id}
 
-function chipHTML(spec){
-  if(spec==="live"){ var s=status(); return '<span class="chip '+(s.open?"ok":"off")+'">'+s.text+'</span>'; }
-  var p=spec.split(":"); return '<span class="chip '+p[0]+'">'+p[1]+'</span>';
+function renderPerson(id){
+  var p=teamById[id], i=TEAM.indexOf(p), prev=TEAM[(i+TEAM.length-1)%TEAM.length], next=TEAM[(i+1)%TEAM.length];
+  dBody.innerHTML='<div class="d-photo">'+photoHTML(p)+'</div>'+
+    '<div class="role">'+p.role+'</div><h3>'+p.name+'</h3><p>'+p.desc+'</p>'+
+    '<div class="detail-nav"><button class="btn btn-ghost" data-person="'+prev.id+'">← '+prev.name+'</button><button class="btn btn-navy" data-person="'+next.id+'">'+next.name+' →</button></div>';
 }
-function renderDetail(id){
-  var z=zoneById[id];
-  document.getElementById("d-ico").innerHTML=ICONS[id];
-  document.getElementById("d-eyebrow").textContent=z.eyebrow;
-  document.getElementById("d-title").textContent=z.name;
-  var s=status();
-  document.getElementById("d-chips").innerHTML = chipHTML(z.chip)+'<span class="chip mono">'+z.code+'</span>'+(z.id==="comptoir"?'<span class="chip">'+s.long+'</span>':"");
-  document.getElementById("d-desc").textContent=z.desc;
-  document.getElementById("d-rows").innerHTML = z.rows.map(function(r){return "<li><span>"+r[0]+"</span><span>"+r[1]+"</span></li>";}).join("");
-  var m=document.getElementById("d-meter");
-  if(z.meter){
-    m.hidden=false;
-    document.getElementById("dm-label").textContent=z.meter.label;
-    document.getElementById("dm-value").textContent=z.meter.value;
-    document.getElementById("dm-scale").innerHTML=z.meter.scale.map(function(x){return "<span>"+x+"</span>";}).join("");
-    var bar=document.getElementById("dm-bar"); bar.style.width="0";
-    requestAnimationFrame(function(){requestAnimationFrame(function(){bar.style.width=z.meter.pct+"%";});});
-  } else m.hidden=true;
+function renderZone(id){
+  var z=zoneById[id], i=ZONES.indexOf(z), next=ZONES[(i+1)%ZONES.length];
+  dBody.innerHTML='<span class="d-ico">'+ICONS[id]+'</span><div class="role">Dans la boutique</div><h3>'+z.name+'</h3><p>'+z.desc+'</p>'+
+    '<ul class="rows">'+z.rows.map(function(r){return "<li><span>"+r[0]+"</span><span>"+r[1]+"</span></li>";}).join("")+'</ul>'+
+    '<div class="detail-nav"><button class="btn btn-navy" data-zone="'+next.id+'">Espace suivant : '+next.short+' →</button></div>';
 }
-function openZone(id, fromScene){
-  currentZone=id;
-  renderDetail(id);
-  document.getElementById("detail").classList.remove("is-hidden");
-  document.querySelectorAll(".zone-row").forEach(function(r){r.classList.toggle("is-active",r.dataset.zone===id);});
-  document.querySelectorAll(".pin").forEach(function(p){p.classList.toggle("is-active",p.dataset.zone===id);});
-  if(window.__scene) window.__scene.focus(id);
-  hideHint();
+dBody.addEventListener("click",function(e){
+  var b=e.target.closest("[data-person],[data-zone]"); if(!b) return;
+  if(b.dataset.person) openPerson(b.dataset.person); else openZone(b.dataset.zone);
+});
+function markActive(){
+  document.querySelectorAll("[data-pick]").forEach(function(el){ el.classList.toggle("is-active", !!current && el.dataset.pick===current.type+":"+current.id); });
 }
-function closeZone(){
-  currentZone=null;
-  document.getElementById("detail").classList.add("is-hidden");
-  document.querySelectorAll(".zone-row,.pin").forEach(function(r){r.classList.remove("is-active");});
-  if(window.__scene) window.__scene.focus(null);
+function showDetail(){ detail.classList.remove("is-hidden"); stage.classList.add("has-detail"); markActive(); hideHint(); }
+function openPerson(id){
+  if(MODE!=="shop") setMode("shop",true);
+  current={type:"person",id:id}; renderPerson(id); showDetail();
+  if(S) S.focus("person",id);
 }
-document.getElementById("d-close").onclick=closeZone;
-document.addEventListener("keydown",function(e){ if(e.key==="Escape" && currentZone) closeZone(); });
+function openZone(id){
+  if(MODE!=="shop") setMode("shop",true);
+  current={type:"zone",id:id}; renderZone(id); showDetail();
+  if(S) S.focus("zone",id);
+}
+function closeDetail(){
+  current=null; detail.classList.add("is-hidden"); stage.classList.remove("has-detail"); markActive();
+  if(S) S.focus(null);
+}
+document.getElementById("d-close").onclick=closeDetail;
+document.addEventListener("keydown",function(e){ if(e.key==="Escape" && current) closeDetail(); });
 
-// Liste des zones
-var zl=document.getElementById("zone-list");
+// Puces dans la carte de contexte
+var ctxTeam=document.getElementById("ctx-team"), ctxZones=document.getElementById("ctx-zones");
+TEAM.forEach(function(p){
+  var b=document.createElement("button"); b.type="button"; b.className="person-chip"; b.dataset.pick="person:"+p.id;
+  b.innerHTML='<span class="avatar">'+initials(p.name)+'<img src="'+p.photo+'" alt="" onerror="this.remove()"></span>'+p.name;
+  b.onclick=function(){openPerson(p.id);}; ctxTeam.appendChild(b);
+});
 ZONES.forEach(function(z){
-  var b=document.createElement("button"); b.className="zone-row"; b.dataset.zone=z.id;
-  b.innerHTML='<span class="n">'+z.code+'</span><span class="nm">'+z.name+'</span>'+chipHTML(z.chip)+'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg>';
-  b.onclick=function(){openZone(z.id);};
-  zl.appendChild(b);
+  var b=document.createElement("button"); b.type="button"; b.className="zone-chip"; b.dataset.pick="zone:"+z.id; b.textContent=z.short;
+  b.onclick=function(){openZone(z.id);}; ctxZones.appendChild(b);
 });
-// Offre (section boutique)
-var off=document.getElementById("offer");
-["comptoir","liquides","materiel","atelier"].forEach(function(id){
-  var z=zoneById[id];
-  var b=document.createElement("button"); b.className="offer-item"; b.type="button";
-  b.innerHTML='<span class="ico">'+ICONS[id]+'</span><h3>'+z.offer.title+'</h3><p>'+z.offer.text+'</p><span class="spec">'+z.offer.spec+'</span><span class="go">Voir dans la boutique <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span>';
-  b.onclick=function(){ document.getElementById("stage").scrollIntoView({behavior:"smooth",block:"start"}); setTimeout(function(){openZone(id);},350); };
-  off.appendChild(b);
+// Cartes équipe
+var teamEl=document.getElementById("team");
+TEAM.forEach(function(p){
+  var b=document.createElement("button"); b.type="button"; b.className="member";
+  b.innerHTML='<span class="ph">'+photoHTML(p)+'</span><span class="tx"><h3>'+p.name+'</h3><div class="role">'+p.role+'</div><p>'+p.desc+'</p><span class="go">Le voir dans la boutique <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span></span>';
+  b.onclick=function(){ stage.scrollIntoView({behavior:"smooth",block:"start"}); setTimeout(function(){openPerson(p.id);},380); };
+  teamEl.appendChild(b);
 });
-document.querySelectorAll("[data-zone-go]").forEach(function(b){ b.onclick=function(){openZone(b.dataset.zoneGo);}; });
+document.getElementById("path").innerHTML=STEPS.map(function(s){return "<li><h3>"+s.t+"</h3><p>"+s.d+"</p></li>";}).join("");
 
-// Parcours (section)
-document.getElementById("path").innerHTML = STEPS.map(function(s){return "<li><h3>"+s.t+"</h3><p>"+s.d+"</p></li>";}).join("");
-
-// Tracker animé
-var stepsEl=document.getElementById("steps"), stepIdx=0, stepTimer=null;
-var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-STEPS.forEach(function(s,i){
-  var li=document.createElement("li");
-  li.innerHTML='<button class="step" type="button" data-i="'+i+'"><span class="b">'+(i+1)+'</span><span class="t">'+s.t+'</span></button>';
-  stepsEl.appendChild(li);
-});
-function setStep(i){
-  stepIdx=i;
-  stepsEl.querySelectorAll(".step").forEach(function(b,j){ b.classList.toggle("done",j<i); b.classList.toggle("active",j===i); });
-  var first=stepsEl.querySelector(".step .b"), lis=stepsEl.querySelectorAll("li");
-  var a=lis[0].getBoundingClientRect(), c=lis[i].getBoundingClientRect(), root=stepsEl.getBoundingClientRect();
-  var x0=a.left+a.width/2-root.left, x1=c.left+c.width/2-root.left;
-  var fill=document.getElementById("steps-fill"); fill.style.left=x0+"px"; fill.style.width=Math.max(0,x1-x0)+"px";
-  document.getElementById("tr-count").textContent="Étape "+(i+1)+"/"+STEPS.length;
-  document.getElementById("step-note").innerHTML='<span class="mono">Étape '+(i+1)+' · '+(i===STEPS.length-1?"en continu":"en boutique")+'</span><b>'+STEPS[i].t+'</b><span>'+STEPS[i].d+'</span>';
+/* =========================================================
+   MODES : centre commercial → boutique
+   ========================================================= */
+var MODE="mall", S=null;
+function setMode(m,keepDetail){
+  MODE=m; stage.dataset.mode=m;
+  document.getElementById("m-mall").setAttribute("aria-pressed",m==="mall");
+  document.getElementById("m-shop").setAttribute("aria-pressed",m==="shop");
+  document.getElementById("ctx-mall").hidden = m!=="mall";
+  document.getElementById("ctx-shop").hidden = m!=="shop";
+  if(!keepDetail) closeDetail();
+  if(S) S.mode(m);
 }
-stepsEl.addEventListener("click",function(e){ var b=e.target.closest(".step"); if(!b) return; setStep(+b.dataset.i); restartSteps(); });
-function restartSteps(){ clearInterval(stepTimer); if(!reduce) stepTimer=setInterval(function(){ setStep((stepIdx+1)%STEPS.length); },3400); }
-setStep(0); restartSteps();
-window.addEventListener("resize",function(){setStep(stepIdx);});
-
-renderStatus(); setInterval(renderStatus,30000);
+document.getElementById("m-mall").onclick=function(){setMode("mall");};
+document.getElementById("m-shop").onclick=function(){setMode("shop");};
+document.getElementById("enter").onclick=function(){setMode("shop");};
+document.getElementById("see-map").addEventListener("click",function(){ setMode("mall"); });
 
 var hintEl=document.getElementById("hint");
 function hideHint(){ hintEl.classList.add("gone"); }
 
 /* =========================================================
-   SCÈNE 3D ISOMÉTRIQUE
+   CALCULATEUR DIY
    ========================================================= */
-var stage=document.getElementById("stage"), canvas=document.getElementById("scene");
+(function(){
+  var DPG=1.036, DVG=1.261; // densités g/ml
+  var $=function(id){return document.getElementById(id);};
+  var DEF={"c-vol":100,"c-nic":6,"c-boost":20,"c-aro":10,"c-base":50,"c-bvg":50};
+  function val(id){ var v=parseFloat(String($(id).value).replace(",",".")); return isFinite(v)&&v>0?v:0; }
+  function r1(x){ return Math.round(x*10)/10; }
+  function fr(x,d){ return x.toLocaleString("fr-FR",{maximumFractionDigits:d==null?1:d}); }
+  function clampInput(id){ var el=$(id), v=parseFloat(String(el.value).replace(",",".")); if(!isFinite(v)||v<0){ if(el.value!=="") el.value=0; return; } var mx=parseFloat(el.max); if(isFinite(mx)&&v>mx) el.value=mx; }
+  function dens(vgPct){ return (1-vgPct/100)*DPG+(vgPct/100)*DVG; }
+  var lastRecipe="";
+  function compute(){
+    var V=val("c-vol"), N=val("c-nic"), B=val("c-boost"), A=val("c-aro"), bVG=val("c-base"), nVG=val("c-bvg");
+    var warn=[];
+    var nicMl = 0;
+    if(N>0){ if(B<=0) warn.push("Pour obtenir de la nicotine, indiquez la concentration de votre booster."); else nicMl=V*N/B; }
+    if(N>B && B>0) warn.push("Le taux voulu dépasse celui du booster : impossible sans base plus concentrée.");
+    var aroMl=V*A/100;
+    var baseMl=V-nicMl-aroMl;
+    if(baseMl<0){ warn.push("Booster et arôme dépassent la quantité totale. Baissez la nicotine ou l'arôme."); baseMl=0; }
+    var total=nicMl+aroMl+baseMl;
+    var pg = nicMl*(1-nVG/100) + aroMl*1 + baseMl*(1-bVG/100);
+    var vg = nicMl*(nVG/100) + baseMl*(bVG/100);
+    var pgP = total>0? Math.round(pg/total*100):0, vgP = total>0? 100-pgP:0;
+    var finalNic = total>0? (nicMl*B)/total : 0;
+    // affichage
+    $("r-base").textContent=fr(r1(baseMl))+" ml";
+    $("r-boost").textContent=fr(r1(nicMl))+" ml";
+    $("r-aro").textContent=fr(r1(aroMl))+" ml";
+    $("r-base-g").textContent=fr(baseMl*dens(bVG),1)+" g";
+    $("r-boost-g").textContent=fr(nicMl*dens(nVG),1)+" g";
+    $("r-aro-g").textContent=fr(aroMl*DPG,1)+" g";
+    $("r-base-s").textContent="PG/VG "+(100-bVG)+"/"+bVG;
+    $("r-nic-s").textContent = nicMl>0 ? "≈ "+fr(nicMl/10,1)+" flacon"+(nicMl/10>1?"s":"")+" de 10 ml à "+fr(B,1)+" mg/ml" : "Aucun booster";
+    $("r-nic").textContent=fr(r1(finalNic))+" mg/ml";
+    $("r-ratio").textContent= total>0? pgP+"/"+vgP : "—";
+    if(V===0) warn.unshift("Indiquez la quantité à préparer.");
+    var w=$("r-warn"); w.hidden=!warn.length; w.textContent=warn.join(" ");
+    // flacon
+    var H=178, y0=212, hb=total>0?baseMl/total*H:0, hn=total>0?nicMl/total*H:0, ha=total>0?aroMl/total*H:0;
+    var fill = V>0 ? Math.min(1,0.35+V/200*0.65) : 0; // un petit volume remplit moins le flacon
+    hb*=fill; hn*=fill; ha*=fill;
+    set("lb-base",y0-hb,hb); set("lb-nic",y0-hb-hn,hn); set("lb-aro",y0-hb-hn-ha,ha);
+    // ratios visuels
+    ratioBar("rb",bVG); ratioBar("bb",nVG);
+    // presets actifs
+    document.querySelectorAll(".presets").forEach(function(g){ var id=g.dataset.for, v=val(id); g.querySelectorAll("button").forEach(function(b){ b.classList.toggle("on", parseFloat(b.dataset.v)===v); }); });
+    lastRecipe = "Recette e-liquide DIY — HappeSmoke Caen\n"+
+      "Quantité : "+fr(V)+" ml · Nicotine : "+fr(r1(finalNic))+" mg/ml · PG/VG final : "+(total>0?pgP+"/"+vgP:"—")+"\n"+
+      "- Base neutre "+(100-bVG)+"/"+bVG+" : "+fr(r1(baseMl))+" ml ("+fr(baseMl*dens(bVG),1)+" g)\n"+
+      "- Booster "+fr(B)+" mg/ml : "+fr(r1(nicMl))+" ml ("+fr(nicMl*dens(nVG),1)+" g)\n"+
+      "- Arôme "+fr(A)+" % : "+fr(r1(aroMl))+" ml ("+fr(aroMl*DPG,1)+" g)";
+  }
+  function set(id,y,h){ var r=$(id); r.setAttribute("y",y); r.setAttribute("height",Math.max(0,h)); }
+  function ratioBar(p,vgPct){ $(p+"-pg").style.width=(100-vgPct)+"%"; $(p+"-vg").style.width=vgPct+"%"; $(p+"-l").textContent="PG "+(100-vgPct)+" %"; $(p+"-r").textContent="VG "+vgPct+" %"; }
+  // liaisons champ ↔ curseur
+  [["c-vol","c-vol-r"],["c-nic","c-nic-r"]].forEach(function(pair){
+    var n=$(pair[0]), r=$(pair[1]);
+    n.addEventListener("input",function(){ clampInput(pair[0]); r.value=Math.min(parseFloat(r.max),val(pair[0])); compute(); });
+    r.addEventListener("input",function(){ n.value=r.value; compute(); });
+  });
+  ["c-boost","c-aro"].forEach(function(id){ $(id).addEventListener("input",function(){ clampInput(id); compute(); }); });
+  ["c-base","c-bvg"].forEach(function(id){ $(id).addEventListener("input",compute); });
+  document.querySelectorAll("[data-step]").forEach(function(b){
+    b.addEventListener("click",function(){
+      var id=b.dataset.step, el=$(id), d=parseFloat(b.dataset.d), mx=parseFloat(el.max);
+      var v=Math.max(0,Math.round((val(id)+d)*10)/10); if(isFinite(mx)) v=Math.min(mx,v);
+      el.value=v; el.dispatchEvent(new Event("input"));
+    });
+  });
+  document.querySelectorAll(".presets").forEach(function(g){
+    g.addEventListener("click",function(e){ var b=e.target.closest("button"); if(!b) return; var el=$(g.dataset.for); el.value=b.dataset.v; el.dispatchEvent(new Event("input")); });
+  });
+  $("r-reset").onclick=function(){ Object.keys(DEF).forEach(function(k){ $(k).value=DEF[k]; }); $("c-vol-r").value=DEF["c-vol"]; $("c-nic-r").value=DEF["c-nic"]; compute(); };
+  $("r-copy").onclick=function(){
+    var b=$("r-copy");
+    function done(t){ b.textContent=t; setTimeout(function(){b.textContent="Copier la recette";},1800); }
+    try{ navigator.clipboard.writeText(lastRecipe).then(function(){done("Recette copiée");},function(){done("Copie impossible");}); }catch(e){ done("Copie impossible"); }
+  };
+  compute();
+})();
+
+/* =========================================================
+   SCÈNE 3D
+   ========================================================= */
+var canvas=document.getElementById("scene");
+var reduce=window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 if(typeof THREE==="undefined"){ stage.classList.add("no-webgl"); return; }
 var renderer;
 try{ renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true}); }catch(e){ stage.classList.add("no-webgl"); return; }
 renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
-renderer.shadowMap.enabled=true;
-renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
 
 var scene=new THREE.Scene();
-scene.background=new THREE.Color(0xe3eaee);
-scene.fog=new THREE.Fog(0xe3eaee,70,120);
-
-var camera=new THREE.OrthographicCamera(-10,10,10,-10,0.1,400);
-var OFF=new THREE.Vector3(30,27,30);
-var target=new THREE.Vector3(), want=new THREE.Vector3();
-var zoom=1, wantZoom=1;
+scene.background=new THREE.Color(0xe6ebf0);
+var camera=new THREE.OrthographicCamera(-10,10,10,-10,0.1,500);
+var OFF=new THREE.Vector3(30,28,30);
+var target=new THREE.Vector3(), want=new THREE.Vector3(), zoom=0.3, wantZoom=0.3;
 var RIGHT=new THREE.Vector3(1,0,-1).normalize(), FWD=new THREE.Vector3(-1,0,-1).normalize();
 var SIN_E=OFF.y/OFF.length();
 
-scene.add(new THREE.HemisphereLight(0xffffff,0xc4d2da,0.78));
-var sun=new THREE.DirectionalLight(0xffffff,0.62);
-sun.position.set(18,34,10); sun.castShadow=true;
-sun.shadow.mapSize.set(2048,2048);
-var sc=sun.shadow.camera; sc.left=-38; sc.right=38; sc.top=38; sc.bottom=-38; sc.near=1; sc.far=100;
-sun.shadow.bias=-0.0006; sun.shadow.radius=4;
+scene.add(new THREE.HemisphereLight(0xffffff,0xc9d3dc,0.8));
+var sun=new THREE.DirectionalLight(0xffffff,0.58);
+sun.castShadow=true; sun.shadow.mapSize.set(2048,2048);
+var sc=sun.shadow.camera; sc.left=-45; sc.right=45; sc.top=45; sc.bottom=-45; sc.near=1; sc.far=120;
+sun.shadow.bias=-0.0005;
 scene.add(sun); scene.add(sun.target);
 
-// ---------- helpers ----------
-function M(color,o){ return new THREE.MeshStandardMaterial(Object.assign({color:color,roughness:0.86,metalness:0},o||{})); }
-function add(mesh,parent,x,y,z,cast){ mesh.position.set(x||0,y||0,z||0); mesh.castShadow=cast!==false; mesh.receiveShadow=true; (parent||scene).add(mesh); return mesh; }
+function M(c,o){ return new THREE.MeshStandardMaterial(Object.assign({color:c,roughness:0.85,metalness:0},o||{})); }
+function add(m,p,x,y,z,cast){ m.position.set(x||0,y||0,z||0); m.castShadow=cast!==false; m.receiveShadow=true; (p||scene).add(m); return m; }
 function box(w,h,d,m,x,y,z,p,cast){ return add(new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m),p,x,y,z,cast); }
-function cyl(rt,rb,h,m,x,y,z,p,seg){ return add(new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,seg||24),m),p,x,y,z); }
-function textTex(lines,w,h,bg){
-  var c=document.createElement("canvas"); c.width=w; c.height=h; var g=c.getContext("2d");
-  if(bg){ g.fillStyle=bg; g.fillRect(0,0,w,h); }
-  lines.forEach(function(l){ g.font=l.font; g.fillStyle=l.color; g.textAlign=l.align||"center"; g.textBaseline="middle"; g.fillText(l.text,l.x,l.y); });
-  var t=new THREE.CanvasTexture(c); t.anisotropy=renderer.capabilities.getMaxAnisotropy(); return t;
+function cyl(rt,rb,h,m,x,y,z,p,seg){ return add(new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,seg||20),m),p,x,y,z); }
+function canvasTex(w,h,draw){ var c=document.createElement("canvas"); c.width=w; c.height=h; draw(c.getContext("2d"),w,h); var t=new THREE.CanvasTexture(c); t.anisotropy=renderer.capabilities.getMaxAnisotropy(); return t; }
+function flatLabel(text,w,h,opt){
+  opt=opt||{};
+  var t=canvasTex(1024,Math.round(1024*h/w),function(g,W,H){
+    if(opt.bg){ g.fillStyle=opt.bg; g.fillRect(0,0,W,H); }
+    g.fillStyle=opt.color||"#1f3550"; g.font=(opt.weight||"900")+" "+Math.round(H*0.62)+"px Nunito, Arial Black, sans-serif"; g.textAlign="center"; g.textBaseline="middle";
+    g.fillText(text,W/2,H/2+H*0.04);
+  });
+  var m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({map:t,transparent:!opt.bg}));
+  return m;
 }
 
-var C={petrol:0x244051, petrolDeep:0x14293a, petrolSoft:0x3e6479, gold:0xF7C449, white:0xf6f8f9, wood:0xe2cfae, ground:0xe1e8ec, glass:0x9fc3d4};
-var F=0.3; // hauteur du sol de la boutique
+/* ---------- fondu (toits, voisins) ---------- */
+var fadeRoof=[], fadeNeighbor=[], fadeFacade=[];
+function FM(list,c,o){ var m=M(c,Object.assign({transparent:true,opacity:1},o||{})); list.push(m); return m; }
+function FB(list,mat){ mat.transparent=true; list.push(mat); return mat; }
+var fade=0, fadeWant=0;
+function applyFade(){
+  fadeRoof.forEach(function(m){ m.opacity=1-fade; m.depthWrite=m.opacity>0.95; m.visible=m.opacity>0.02; });
+  var no=1-0.9*fade;
+  fadeNeighbor.forEach(function(m){ m.opacity=no; m.depthWrite=no>0.95; });
+  var fo=1-0.8*fade;
+  fadeFacade.forEach(function(m){ m.opacity=fo; m.depthWrite=fo>0.95; });
+}
 
-// ---------- sol & environnement ----------
-var ground=new THREE.Mesh(new THREE.PlaneGeometry(240,240),M(C.ground,{roughness:1}));
-ground.rotation.x=-Math.PI/2; ground.receiveShadow=true; scene.add(ground);
-var grid=new THREE.GridHelper(80,40,0xd3dde3,0xd3dde3); grid.position.set(0,0.01,0); grid.material.transparent=true; grid.material.opacity=0.55; scene.add(grid);
-// parvis devant la boutique
-var plaza=new THREE.Mesh(new THREE.PlaneGeometry(48,7),M(0xd8e1e6,{roughness:1})); plaza.rotation.x=-Math.PI/2; plaza.position.set(2,0.02,9.6); plaza.receiveShadow=true; scene.add(plaza);
+/* ---------- sol du centre commercial ---------- */
+var F=0.15;
+var outside=new THREE.Mesh(new THREE.PlaneGeometry(300,300),M(0xdfe5ea,{roughness:1})); outside.rotation.x=-Math.PI/2; outside.receiveShadow=true; scene.add(outside);
+var tileTex=canvasTex(256,256,function(g,W,H){ g.fillStyle="#efe9df"; g.fillRect(0,0,W,H); g.strokeStyle="#ddd4c6"; g.lineWidth=4; g.strokeRect(0,0,W,H); g.fillStyle="rgba(0,0,0,.025)"; g.fillRect(0,0,W/2,H/2); g.fillRect(W/2,H/2,W/2,H/2); });
+tileTex.wrapS=tileTex.wrapT=THREE.RepeatWrapping; tileTex.repeat.set(40,8);
+var mallFloor=new THREE.Mesh(new THREE.PlaneGeometry(90,16),new THREE.MeshStandardMaterial({map:tileTex,roughness:0.6}));
+mallFloor.rotation.x=-Math.PI/2; mallFloor.position.set(4,0.02,13.5); mallFloor.receiveShadow=true; scene.add(mallFloor);
 
-// bâtiment du centre commercial (fond)
-var mallM=M(0xeef2f4);
-box(70,7.5,12,mallM,-4,3.75,-13.4);
-box(70,0.5,12.4,M(0xdfe7eb),-4,7.75,-13.4);
-var mallSign=new THREE.Mesh(new THREE.PlaneGeometry(14,1.4),new THREE.MeshBasicMaterial({map:textTex([{text:"LES RIVES DE L'ORNE",font:"700 64px Unbounded, Arial Black, sans-serif",color:"#244051",x:512,y:64}],1024,128,"#eef2f4")}));
-mallSign.position.set(-18,6.2,-7.38); scene.add(mallSign);
-// verrière
-for(var gx=-36;gx<=28;gx+=4){ box(0.25,0.25,12,M(0xc9d6dd),gx,8.1,-13.4); }
-
-// boutique voisine (gauche)
-var nb=new THREE.Group(); scene.add(nb);
-box(15,4.6,12,M(0xf3f6f8),-17.5,2.3,0,nb);
-box(14,2.6,0.2,M(0x9cbac8,{roughness:0.2,metalness:0.1}),-17.5,1.6,6.05,nb);
-box(14.6,0.5,1.2,M(0x9fc0b4),-17.5,3.3,6.5,nb);
-box(15,4.6,12,M(0xf3f6f8),-33,2.3,0,nb);
-box(14,2.6,0.2,M(0x9cbac8,{roughness:0.2,metalness:0.1}),-33,1.6,6.05,nb);
-box(14.6,0.5,1.2,M(0xe2b9a6),-33,3.3,6.5,nb);
-
-// arbres & bancs
-var leafM=M(0x7fb88a), leafM2=M(0x93c79a), trunkM=M(0x9a7d62), potM=M(0xdbe3e7);
-function tree(x,z,s){
-  s=s||1; var g=new THREE.Group(); scene.add(g); g.position.set(x,0,z);
-  cyl(0.9*s,0.9*s,0.6,potM,0,0.3,0,g);
-  cyl(0.12*s,0.16*s,1.6*s,trunkM,0,1.3*s,0,g);
-  var f=new THREE.Mesh(new THREE.IcosahedronGeometry(1.15*s,1),Math.random()>.5?leafM:leafM2); add(f,g,0,2.6*s,0);
+/* ---------- les enseignes voisines ---------- */
+var UH=4.6; // hauteur des cellules
+function unit(x0,x1,opt){
+  var g=new THREE.Group(); scene.add(g);
+  var w=x1-x0, cx=(x0+x1)/2;
+  var wall=FB(fadeNeighbor,M(opt.wall||0xf3f5f7));
+  box(w,UH,12,wall,cx,UH/2,0,g);
+  var roof=FB(fadeNeighbor,M(opt.roof||0xd7dee5));
+  box(w+0.2,0.3,12.2,roof,cx,UH+0.15,0,g);
+  // devanture
+  var glass=FB(fadeNeighbor,M(0x8fa9bb,{roughness:0.25,metalness:0.1}));
+  box(w-1.6,2.8,0.12,glass,cx,1.5,6.05,g,false);
+  var band=FB(fadeNeighbor,M(opt.band||0x40464e));
+  box(w,1.1,0.4,band,cx,UH-0.55,6.2,g);
+  if(opt.name){
+    var lab=flatLabel(opt.name,Math.min(w-2,9),1.1,{color:opt.signColor||"#ffffff"});
+    lab.position.set(cx,UH-0.55,6.42); g.add(lab); FB(fadeNeighbor,lab.material);
+    var roofLab=flatLabel(opt.name,Math.min(w-2,12),2.2,{color:opt.roofText||"#5d6b7a"});
+    roofLab.rotation.x=-Math.PI/2; roofLab.position.set(cx,UH+0.32,0.5); g.add(roofLab); FB(fadeNeighbor,roofLab.material);
+  }
   return g;
 }
-[[15.5,-8],[15.5,-1.5],[15.5,5],[-12,13],[-1,13],[10,13],[-24,13]].forEach(function(p){tree(p[0],p[1],0.9+Math.random()*0.25);});
-function bench(x,z,rot){
-  var g=new THREE.Group(); g.position.set(x,0,z); g.rotation.y=rot||0; scene.add(g);
-  box(2.4,0.15,0.7,M(0xb99a76),0,0.55,0,g); box(0.15,0.5,0.6,M(0x7d8d96),-1,0.27,0,g); box(0.15,0.5,0.6,M(0x7d8d96),1,0.27,0,g);
-}
-bench(15.6,1.8,Math.PI/2); bench(4.5,13,0); bench(-18,13,0);
+unit(-25,-7.6,{name:"Normal",band:0x2f3337});
+unit(7.6,14,{name:"",band:0x9aa6b1});
+unit(14.6,34,{name:"Action",band:0x2f3337});
+unit(-42,-25.6,{name:"",band:0x9aa6b1});
 
-// tram (lignes T1 · T2 · T3)
-var railM=M(0xa8b5bc);
-box(240,0.06,0.18,railM,0,0.04,15.4,scene,false); box(240,0.06,0.18,railM,0,0.04,16.6,scene,false);
-var track=new THREE.Mesh(new THREE.PlaneGeometry(240,3.2),M(0xd2dbe0,{roughness:1})); track.rotation.x=-Math.PI/2; track.position.set(0,0.015,16); track.receiveShadow=true; scene.add(track);
-var tram=new THREE.Group(); scene.add(tram);
-var tramW=M(0xf7f9fa), tramWin=M(0x2c4655,{roughness:0.3}), tramStripe=M(C.gold);
-for(var ti=0;ti<3;ti++){
-  var cx=ti*6.4;
-  box(6,2.4,2.4,tramW,cx,1.5,16,tram);
-  box(6.04,0.85,2.44,tramWin,cx,1.95,16,tram);
-  box(6.04,0.14,2.44,tramStripe,cx,0.95,16,tram);
-  box(4.5,0.35,1.6,M(0xdfe6ea),cx,2.85,16,tram);
-}
-tram.position.x=-90;
-
-// l'Orne
-var quay=box(240,0.7,0.6,M(0xcfd9de),0,0.35,19.2);
-var river=new THREE.Mesh(new THREE.PlaneGeometry(240,30),M(0x8fbccf,{roughness:0.35,metalness:0.05}));
-river.rotation.x=-Math.PI/2; river.position.set(0,0.03,34.6); scene.add(river);
-var ripples=[]; var ripM=new THREE.MeshBasicMaterial({color:0xd5e8f0,transparent:true,opacity:0.7});
-for(var r=0;r<26;r++){ var rp=new THREE.Mesh(new THREE.PlaneGeometry(1.6+Math.random()*2.5,0.12),ripM); rp.rotation.x=-Math.PI/2; rp.position.set(-60+Math.random()*120,0.06,21+Math.random()*12); scene.add(rp); ripples.push(rp); }
-
-// ---------- la boutique ----------
-var shop=new THREE.Group(); scene.add(shop);
-box(16.4,F,12.4,M(C.wood,{roughness:0.7}),0,F/2,0,shop);
-// planches du parquet
-for(var px=-7.6;px<8;px+=1.2){ box(0.03,0.01,12.2,M(0xd4bf9b),px,F+0.005,0,shop,false); }
-var wallM=M(C.petrol,{roughness:0.9}), wallIn=M(0x2c4b5f,{roughness:0.9});
-var WH=4.2;
-box(16.8,WH,0.4,wallM,0,F+WH/2,-6.2,shop);
-box(0.4,WH,12.8,wallM,-8.2,F+WH/2,0,shop);
-// colonnes & bandeau
-var pilM=M(C.petrolDeep);
-box(0.6,WH,0.6,pilM,8.1,F+WH/2,6.1,shop);
-box(0.6,WH,0.6,pilM,-8.1,F+WH/2,6.1,shop);
-box(0.6,WH,0.6,pilM,8.1,F+WH/2,-6.1,shop);
-box(16.8,1,0.5,pilM,0,F+WH-0.5,6.15,shop);
-box(0.5,1,12.6,pilM,8.15,F+WH-0.5,0,shop);
-// enseigne
-var signTex=null, signMesh=null;
-function buildSign(){
-  var c=document.createElement("canvas"); c.width=1280; c.height=112; var g=c.getContext("2d");
-  g.fillStyle="#14293a"; g.fillRect(0,0,1280,112);
-  g.font="700 62px Unbounded, Arial Black, sans-serif"; g.textBaseline="middle";
-  var a="HAPPE", b="SMOKE", wa=g.measureText(a).width, wb=g.measureText(b).width, x=640-(wa+wb)/2;
-  g.fillStyle="#ffffff"; g.fillText(a,x,58); g.fillStyle="#F7C449"; g.fillText(b,x+wa,58);
-  g.fillStyle="#F7C449"; g.globalAlpha=.85;
-  g.beginPath(); g.arc(x-60,58,14,0,7); g.arc(x-40,50,18,0,7); g.arc(x-20,60,12,0,7); g.fill();
-  var t=new THREE.CanvasTexture(c); t.anisotropy=renderer.capabilities.getMaxAnisotropy();
-  if(!signMesh){ signMesh=new THREE.Mesh(new THREE.PlaneGeometry(11.4,1),new THREE.MeshBasicMaterial({map:t})); signMesh.position.set(0,F+WH-0.5,6.41); shop.add(signMesh); }
-  else { signMesh.material.map=t; signMesh.material.needsUpdate=true; }
-}
-buildSign();
-if(document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ buildSign(); });
-// bande LED or en haut des murs
-var ledM=new THREE.MeshBasicMaterial({color:C.gold});
-box(16,0.08,0.08,ledM,0,F+WH-0.15,-5.95,shop,false);
-box(0.08,0.08,12,ledM,-7.95,F+WH-0.15,0,shop,false);
-// tapis d'entrée
-box(3.2,0.04,1.2,M(C.petrolSoft),2,F+0.02,5.3,shop,false);
-// affiche murale (mur gauche)
-var posterTex=textTex([
-  {text:"VAPE",font:"700 88px Unbounded, Arial Black, sans-serif",color:"#F7C449",x:256,y:150},
-  {text:"CONSEIL",font:"700 54px Unbounded, Arial Black, sans-serif",color:"#ffffff",x:256,y:240},
-  {text:"SEVRAGE",font:"700 54px Unbounded, Arial Black, sans-serif",color:"#ffffff",x:256,y:310},
-  {text:"— CAEN —",font:"500 30px JetBrains Mono, monospace",color:"#9fc3d4",x:256,y:400}
-],512,512,"#1b3445");
-var poster=new THREE.Mesh(new THREE.PlaneGeometry(2.4,2.4),new THREE.MeshBasicMaterial({map:posterTex}));
-poster.rotation.y=Math.PI/2; poster.position.set(-7.98,F+2.4,1.4); shop.add(poster);
-
-// ---------- zones (cliquables) ----------
-var zoneGroups={}, zoneMats={}, pickables=[];
-function Z(id){ var g=new THREE.Group(); g.userData.zone=id; shop.add(g); zoneGroups[id]=g; zoneMats[id]=[]; return g; }
-function ZM(id,color,o){ var m=M(color,o); zoneMats[id].push(m); return m; }
-
-// Mur des e-liquides
+// E.Leclerc en face (de l'autre côté de l'allée)
 (function(){
-  var g=Z("liquides");
-  var frame=ZM("liquides",0xf3f6f8);
-  box(14.2,3.8,0.7,ZM("liquides",0xe9eef1),-0.6,F+1.9,-5.65,g);
-  for(var s=0;s<5;s++){ box(14.2,0.08,0.85,frame,-0.6,F+0.55+s*0.72,-5.6,g); }
-  for(var u=-7.7;u<=6.6;u+=2.85){ box(0.1,3.8,0.85,frame,u,F+1.9,-5.6,g); }
-  var bGeo=new THREE.CylinderGeometry(0.1,0.1,0.38,10);
-  var cGeo=new THREE.CylinderGeometry(0.05,0.07,0.14,8);
-  var palette=[0xe85d5d,0xf29b4b,0xf7c449,0x7cc36b,0x4fb3a5,0x5d8de0,0x9a6fd6,0xe77fb3,0xffffff,0x6b4f3a,0x2e8b57,0xd9534f];
-  var count=0, list=[];
-  for(var sh=0;sh<5;sh++){ for(var x=-7.5;x<=6.3;x+=0.28){ if(Math.random()<0.1) continue; list.push([x,F+0.59+sh*0.72+0.19,-5.55+(Math.random()-0.5)*0.15]); } }
-  var bm=ZM("liquides",0xffffff,{roughness:0.45});
-  var im=new THREE.InstancedMesh(bGeo,bm,list.length), cm=new THREE.InstancedMesh(cGeo,ZM("liquides",0x1d2a33),list.length);
-  var m4=new THREE.Matrix4(), col=new THREE.Color();
-  var block=0;
-  list.forEach(function(p,i){
-    m4.makeTranslation(p[0],p[1],p[2]); im.setMatrixAt(i,m4);
-    m4.makeTranslation(p[0],p[1]+0.26,p[2]); cm.setMatrixAt(i,m4);
-    if(i%6===0) block=Math.floor(Math.random()*palette.length);
-    col.setHex(palette[block]); im.setColorAt(i,col);
+  var g=new THREE.Group(); scene.add(g);
+  var wall=FB(fadeNeighbor,M(0xf1f4f7)), roof=FB(fadeNeighbor,M(0xd5dde4));
+  box(64,6,22,wall,2,3,32.6,g);
+  box(64.4,0.3,22.4,roof,2,6.15,32.6,g);
+  var lab=flatLabel("E.Leclerc",22,4,{color:"#3d6fb6"}); lab.rotation.x=-Math.PI/2; lab.position.set(2,6.33,31); g.add(lab); FB(fadeNeighbor,lab.material);
+  // entrée (cadre visible côté allée)
+  var band=FB(fadeNeighbor,M(0x3d6fb6));
+  box(14,0.6,0.6,band,0,5.2,21.4,g);
+})();
+// mur du fond (arrière des cellules)
+box(90,7,4,FB(fadeNeighbor,M(0xe9eef2)),-4,3.5,-8.4);
+
+// mobilier de l'allée
+var leafM=M(0x86b98f), leafM2=M(0x9ac7a1), potM=M(0xd9e0e6), trunkM=M(0x96785c);
+function tree(x,z,s){ var g=new THREE.Group(); g.position.set(x,0,z); scene.add(g); cyl(0.9*s,0.9*s,0.7,potM,0,0.35,0,g); cyl(0.12,0.16,1.5*s,trunkM,0,1.3*s,0,g); add(new THREE.Mesh(new THREE.IcosahedronGeometry(1.1*s,1),Math.random()>.5?leafM:leafM2),g,0,2.5*s,0); }
+[[-18,13.5],[-4,13.5],[10,13.5],[24,13.5],[-32,13.5]].forEach(function(p){tree(p[0],p[1],0.95);});
+function bench(x,z){ var g=new THREE.Group(); g.position.set(x,0,z); scene.add(g); box(2.6,0.15,0.75,M(0xbb9b77),0,0.55,0,g); box(0.15,0.5,0.6,M(0x7d8d96),-1.1,0.27,0,g); box(0.15,0.5,0.6,M(0x7d8d96),1.1,0.27,0,g); }
+bench(-11,13.5); bench(3,13.5); bench(17,13.5);
+
+/* ---------- la boutique HappeSmoke ---------- */
+var shop=new THREE.Group(); scene.add(shop);
+var X0=-7, X1=7, Z0=-6, Z1=6, WH=4.3;
+var cream=M(0xf1e8d8), navy=M(0x1f3550), blue=M(0x4f7fc4), white=M(0xf7f8f9), anth=M(0x34383e,{transparent:true}); fadeFacade.push(anth);
+// sol en chêne clair
+box(14,F,12,M(0xd4c1a2,{roughness:0.75}),0,F/2,0,shop);
+var plankM=M(0xc2ad8c);
+for(var pz=-5.5;pz<6;pz+=0.8){ box(14,0.005,0.02,plankM,0,F+0.003,pz,shop,false); }
+// murs
+box(0.3,WH,12,cream,X0-0.15,F+WH/2,0,shop);                // mur gauche (vitrines)
+box(14.3,WH,0.3,cream,0,F+WH/2,Z0-0.15,shop);              // mur du fond
+box(3.4,WH,0.06,navy,0.3,F+WH/2,Z0+0.03,shop);            // panneau bleu marine
+box(5.0,WH,0.06,blue,4.5,F+WH/2,Z0+0.03,shop);            // mur bleu clair
+box(0.3,1.0,12,navy,X1+0.15,F+0.5,0,shop);                 // mur droit coupé (vue en coupe)
+box(0.06,WH,4,navy,X1-0.03,F+WH/2,-4,shop);               // retour bleu marine au fond à droite
+// plinthe
+box(0.05,0.12,12,white,X0+0.03,F+0.06,0,shop,false);
+// cadres
+var frameCols=[0xf1b9b0,0x9ec3e6,0xe9d7a8,0xbfd8c2,0xf0c7d9];
+function frame(x,y,z,w,h,rotY,c){ var g=new THREE.Group(); g.position.set(x,y,z); g.rotation.y=rotY; shop.add(g); box(w,h,0.05,M(0x2a2a2a),0,0,0,g,false); box(w-0.12,h-0.12,0.06,M(0xffffff),0,0,0.01,g,false); box(w-0.3,h-0.3,0.07,M(c),0,0,0.015,g,false); }
+for(var fi=0;fi<6;fi++){ frame(X0+0.04,F+3.45,0.2+fi*1.0,0.42,0.5,Math.PI/2,frameCols[fi%5]); }
+frame(-0.5,F+2.9,Z0+0.08,0.55,0.7,0,frameCols[0]); frame(0.4,F+3.0,Z0+0.08,0.55,0.7,0,frameCols[1]); frame(-0.05,F+2.05,Z0+0.08,0.55,0.7,0,frameCols[2]); frame(1.15,F+2.2,Z0+0.08,0.5,0.6,0,frameCols[3]);
+frame(X0+0.04,F+2.2,-1.6,0.6,0.8,Math.PI/2,frameCols[4]);
+
+// enseigne lumineuse "hs" (néon bleu sur le mur bleu)
+var neon=new THREE.Mesh(new THREE.PlaneGeometry(0.9,0.9),new THREE.MeshBasicMaterial({map:canvasTex(256,256,function(g,W,H){ g.fillStyle="rgba(0,0,0,0)"; g.clearRect(0,0,W,H); g.shadowColor="#7fd0ff"; g.shadowBlur=26; g.strokeStyle="#bfe9ff"; g.lineWidth=12; g.beginPath(); g.arc(128,128,96,0,Math.PI*2); g.stroke(); g.fillStyle="#e8f7ff"; g.font="900 110px Nunito, Arial Black, sans-serif"; g.textAlign="center"; g.textBaseline="middle"; g.fillText("hs",128,136); }),transparent:true}));
+neon.position.set(5.6,F+3.4,Z0+0.07); shop.add(neon);
+
+// façade anthracite + enseigne
+box(0.9,WH+0.4,0.6,anth,X0+0.1,F+(WH+0.4)/2,Z1+0.2,shop);
+box(0.9,WH+0.4,0.6,anth,X1-0.1,F+(WH+0.4)/2,Z1+0.2,shop);
+box(14.8,1.2,0.6,anth,0,F+WH-0.2+0.4,Z1+0.2,shop);
+var signTex=null, sign=null;
+function buildSign(){
+  var t=canvasTex(1400,120,function(g,W,H){
+    g.fillStyle="#34383e"; g.fillRect(0,0,W,H);
+    g.shadowColor="rgba(255,255,255,.65)"; g.shadowBlur=14;
+    g.fillStyle="#ffffff"; g.font="900 64px Nunito, Arial Black, sans-serif"; g.textAlign="left"; g.textBaseline="middle";
+    var t1="happesmoke", w1=g.measureText(t1).width, x=W/2-w1/2+30;
+    g.fillText(t1,x,50);
+    g.shadowBlur=6; g.font="600 26px Figtree, Arial, sans-serif"; g.fillStyle="#dfe7f2"; g.textAlign="right"; g.fillText("cigarettes électroniques",x+w1,98);
+    // pictogramme flacon
+    g.shadowBlur=10; g.fillStyle="#ffffff"; var bx=x-62; g.fillRect(bx+12,18,16,12); g.beginPath(); g.moveTo(bx+8,30); g.lineTo(bx+32,30); g.lineTo(bx+36,40); g.lineTo(bx+36,96); g.lineTo(bx+4,96); g.lineTo(bx+4,40); g.closePath(); g.fill();
+    g.fillStyle="#4f7fc4"; g.beginPath(); g.moveTo(bx+6,70); g.quadraticCurveTo(bx+20,52,bx+34,60); g.quadraticCurveTo(bx+24,80,bx+6,76); g.fill();
   });
-  im.castShadow=true; cm.castShadow=true; g.add(im); g.add(cm);
-  // étiquettes de rayon
-  var lab=textTex([{text:"FRUITÉ · CLASSIC · MENTHE · GOURMAND",font:"600 40px JetBrains Mono, monospace",color:"#F7C449",x:1024,y:40}],2048,80,"#14293a");
-  var lm=new THREE.Mesh(new THREE.PlaneGeometry(10,0.4),new THREE.MeshBasicMaterial({map:lab})); lm.position.set(-0.6,F+3.95,-5.25); g.add(lm);
+  if(!sign){ sign=new THREE.Mesh(new THREE.PlaneGeometry(11.6,1),new THREE.MeshBasicMaterial({map:t,transparent:true})); sign.position.set(0,F+WH+0.2,Z1+0.51); shop.add(sign); fadeFacade.push(sign.material); }
+  else { sign.material.map=t; sign.material.needsUpdate=true; }
+}
+buildSign(); if(document.fonts && document.fonts.ready) document.fonts.ready.then(buildSign);
+// enseigne drapeau ronde
+var blade=cyl(0.55,0.55,0.08,M(0x2a2e33),X1+0.9,F+3.6,Z1+0.6,shop,32); blade.rotation.x=Math.PI/2; blade.rotation.z=Math.PI/2;
+box(0.7,0.06,0.06,M(0x2a2e33),X1+0.45,F+4.2,Z1+0.6,shop,false);
+
+// toit de la boutique (visible en vue « centre »)
+var roofM=FM(fadeRoof,0x1f3550);
+var roof=box(14.6,0.3,12.4,roofM,0,UH+0.15,0,shop);
+var roofLab=flatLabel("happesmoke",10,1.9,{color:"#ffffff"}); roofLab.rotation.x=-Math.PI/2; roofLab.position.set(0,UH+0.32,0.6); shop.add(roofLab); FB(fadeRoof,roofLab.material);
+var roofEdge=FM(fadeRoof,0xF7C449); box(14.6,0.08,0.3,roofEdge,0,UH+0.34,6.05,shop,false); box(14.6,0.08,0.3,roofEdge,0,UH+0.34,-6.05,shop,false); box(0.3,0.08,12.4,roofEdge,-7.15,UH+0.34,0,shop,false); box(0.3,0.08,12.4,roofEdge,7.15,UH+0.34,0,shop,false);
+var enterPick=[roof];
+
+/* ---------- zones cliquables ---------- */
+var zoneMats={}, pickables=[];
+function Z(id){ var g=new THREE.Group(); g.userData.zone=id; shop.add(g); zoneMats[id]=[]; return g; }
+function ZM(id,c,o){ var m=M(c,o); zoneMats[id].push(m); return m; }
+
+// Vitrines e-liquides : 6 armoires vitrées cadre noir, intérieur blanc
+(function(){
+  var g=Z("vitrines");
+  var fr=ZM("vitrines",0x1c1e21,{roughness:0.5}), inn=ZM("vitrines",0xf7f8f9);
+  var bottles=[];
+  for(var i=0;i<6;i++){
+    var cz=0.0+i*0.98, x=X0+0.32;
+    box(0.55,2.7,0.92,inn,x,F+1.35,cz,g);
+    // cadre avant
+    box(0.06,2.7,0.06,fr,x+0.29,F+1.35,cz-0.45,g); box(0.06,2.7,0.06,fr,x+0.29,F+1.35,cz+0.45,g);
+    box(0.06,0.08,0.92,fr,x+0.29,F+2.66,cz,g); box(0.06,0.12,0.92,fr,x+0.29,F+0.06,cz,g);
+    for(var s=0;s<5;s++){ var sy=F+0.35+s*0.5; box(0.5,0.03,0.86,inn,x,sy,cz,g,false);
+      for(var b=0;b<4;b++) bottles.push([x+0.05,sy+0.14,cz-0.3+b*0.2]); }
+  }
+  var bm=ZM("vitrines",0xffffff,{roughness:0.4});
+  var im=new THREE.InstancedMesh(new THREE.CylinderGeometry(0.07,0.07,0.24,10),bm,bottles.length);
+  var pal=[0xe85d5d,0xf29b4b,0xf7c449,0x7cc36b,0x4fb3a5,0x5d8de0,0x9a6fd6,0xe77fb3,0x2b2b2b,0xffffff];
+  var m4=new THREE.Matrix4(), col=new THREE.Color();
+  bottles.forEach(function(p,i){ m4.makeTranslation(p[0],p[1],p[2]); im.setMatrixAt(i,m4); col.setHex(pal[(Math.floor(i/4)+i%3)%pal.length]); im.setColorAt(i,col); });
+  im.castShadow=true; g.add(im);
+  // vitre légère
+  var glass=new THREE.Mesh(new THREE.PlaneGeometry(5.88,2.6),new THREE.MeshStandardMaterial({color:0xcfe3ee,transparent:true,opacity:0.12,roughness:0.05,depthWrite:false}));
+  glass.rotation.y=Math.PI/2; glass.position.set(X0+0.62,F+1.35,2.45); g.add(glass);
 })();
 
-// Comptoir conseil
+// Comptoir en chêne, plateau blanc
 (function(){
   var g=Z("comptoir");
-  box(1.5,1.15,5.6,ZM("comptoir",0xf4f6f7),-5.2,F+0.575,-0.3,g);
-  box(1.7,0.12,5.8,ZM("comptoir",C.gold,{roughness:0.5}),-5.2,F+1.2,-0.3,g);
-  box(0.06,0.6,5.6,ZM("comptoir",C.petrol),-4.43,F+0.45,-0.3,g);
-  // caisse + écran
-  box(0.5,0.12,0.6,ZM("comptoir",0x24323b),-5.4,F+1.32,-2.2,g);
-  var scr=box(0.06,0.5,0.7,ZM("comptoir",0x24323b),-5.55,F+1.65,-2.2,g); scr.rotation.z=0.15;
-  box(0.02,0.4,0.6,new THREE.MeshBasicMaterial({color:0x9fd3e6}),-5.51,F+1.66,-2.2,g,false);
-  // présentoirs
-  for(var i=0;i<4;i++){ box(0.3,0.28,0.3,ZM("comptoir",[0x5d8de0,0xe85d5d,0x7cc36b,0xf29b4b][i]),-5.0,F+1.4,0.2+i*0.45,g); }
-  // étagère murale derrière
-  box(0.5,0.08,4.5,ZM("comptoir",0xf3f6f8),-7.7,F+2.0,-0.6,g);
-  box(0.5,0.08,4.5,ZM("comptoir",0xf3f6f8),-7.7,F+2.7,-0.6,g);
-  for(var k=0;k<10;k++){ box(0.3,0.4,0.25,ZM("comptoir",[0xF7C449,0x3e6479,0xffffff][k%3]),-7.7,F+2.25+(k%2)*0.7,-2.6+k*0.45,g); }
+  var o=ZM("comptoir",0xcfa978,{roughness:0.65}), w=ZM("comptoir",0xf7f8f9,{roughness:0.4});
+  box(5.6,1.05,1.0,o,2.2,F+0.525,-1.3,g); box(5.8,0.08,1.15,w,2.2,F+1.09,-1.3,g);
+  box(1.6,0.95,1.0,o,-1.4,F+0.475,-1.6,g); box(1.75,0.08,1.12,w,-1.4,F+0.99,-1.6,g);
+  // caisse, écran, terminal
+  box(0.5,0.1,0.45,ZM("comptoir",0x24323b),0.9,F+1.18,-1.45,g);
+  var scr=box(0.55,0.4,0.05,ZM("comptoir",0x24323b),0.9,F+1.45,-1.6,g); scr.rotation.x=-0.2;
+  box(0.18,0.06,0.28,ZM("comptoir",0x24323b),1.6,F+1.16,-1.1,g);
+  // présentoir grille (bout droit)
+  box(1.6,0.35,0.5,ZM("comptoir",0xe9edf1),4.2,F+1.3,-1.25,g);
+  for(var i=0;i<6;i++) box(0.16,0.22,0.12,ZM("comptoir",[0x5d8de0,0xe85d5d,0x7cc36b,0xf7c449,0x9a6fd6,0x2b2b2b][i]),3.6+i*0.24,F+1.5,-1.25,g);
+  // petit pot de fleurs
+  cyl(0.12,0.1,0.2,ZM("comptoir",0xffffff),-0.8,F+1.13,-1.7,g,12);
+  add(new THREE.Mesh(new THREE.IcosahedronGeometry(0.22,0),ZM("comptoir",0xf2c6cf)),g,-0.8,F+1.38,-1.7);
 })();
 
-// Espace test
+// Coin conseil : deux fauteuils vert canard, guéridon, arbre en fleurs
 (function(){
-  var g=Z("test");
-  var tx=1.6,tz=1.6;
-  cyl(1.35,1.35,0.12,ZM("test",0xf4f6f7),tx,F+1.3,tz,g,40);
-  cyl(1.38,1.38,0.05,ZM("test",C.gold),tx,F+1.24,tz,g,40);
-  cyl(0.12,0.12,1.2,ZM("test",C.petrol),tx,F+0.65,tz,g);
-  cyl(0.6,0.6,0.06,ZM("test",C.petrol),tx,F+0.04,tz,g);
-  [[0,-1],[0.95,0.55],[-0.95,0.55]].forEach(function(o){
-    var sx=tx+o[0]*2, sz=tz+o[1]*2;
-    cyl(0.4,0.4,0.12,ZM("test",C.petrolSoft),sx,F+0.9,sz,g);
-    cyl(0.06,0.06,0.85,ZM("test",0x8b9aa3),sx,F+0.45,sz,g);
-    cyl(0.3,0.3,0.03,ZM("test",0x8b9aa3),sx,F+0.03,sz,g);
-  });
-  for(var i=0;i<7;i++){ var a=i/7*Math.PI*2; cyl(0.09,0.09,0.32,ZM("test",[0xe85d5d,0x7cc36b,0xf7c449,0x9a6fd6,0x4fb3a5,0xf29b4b,0xe77fb3][i]),tx+Math.cos(a)*0.85,F+1.52,tz+Math.sin(a)*0.85,g,10); }
-  box(0.22,0.5,0.14,ZM("test",0x24323b),tx,F+1.61,tz,g);
+  var g=Z("conseil");
+  var teal=ZM("conseil",0x3f6f6a), wood=ZM("conseil",0x8a6a4a);
+  function chair(x,z,rot){
+    var c=new THREE.Group(); c.position.set(x,F,z); c.rotation.y=rot; g.add(c);
+    box(0.8,0.16,0.75,teal,0,0.45,0,c); box(0.8,0.7,0.14,teal,0,0.85,-0.32,c);
+    box(0.08,0.06,0.75,wood,-0.42,0.62,0,c); box(0.08,0.06,0.75,wood,0.42,0.62,0,c);
+    [[-0.36,-0.3],[0.36,-0.3],[-0.36,0.3],[0.36,0.3]].forEach(function(l){ box(0.06,0.42,0.06,wood,l[0],0.21,l[1],c); });
+  }
+  chair(-6.1,-4.4,Math.PI/2); chair(-6.1,-2.6,Math.PI/2);
+  cyl(0.28,0.28,0.05,wood,-6.2,F+0.62,-3.5,g,20); cyl(0.04,0.04,0.6,wood,-6.2,F+0.31,-3.5,g,8);
+  // arbre en fleurs
+  cyl(0.32,0.26,0.5,ZM("conseil",0xece6dc),-6.3,F+0.25,-5.4,g,16);
+  cyl(0.05,0.07,1.6,ZM("conseil",0x6e4f38),-6.3,F+1.3,-5.4,g,8);
+  var bl=ZM("conseil",0xc75a52), bl2=ZM("conseil",0xdd8b7f);
+  [[0,2.2,0,0.55],[0.35,2.5,0.2,0.4],[-0.3,2.4,-0.2,0.42],[0.1,2.8,-0.1,0.36],[-0.2,1.9,0.3,0.35]].forEach(function(b,i){ add(new THREE.Mesh(new THREE.IcosahedronGeometry(b[3],0),i%2?bl:bl2),g,-6.3+b[0],F+b[1],-5.4+b[2]); });
 })();
+// plante près du panneau bleu marine
+(function(){ var g=new THREE.Group(); g.position.set(-2.3,F,-5.4); shop.add(g); cyl(0.3,0.24,0.6,M(0x8a6f55),0,0.3,0,g,14); cyl(0.04,0.05,1.2,M(0x6e4f38),0,1.1,0,g,8); [[0,1.9,0,0.4],[0.25,2.15,0.1,0.3],[-0.2,2.05,-0.1,0.32]].forEach(function(b){ add(new THREE.Mesh(new THREE.IcosahedronGeometry(b[3],0),M(0xe7b9b3)),g,b[0],b[1],b[2]); }); })();
 
-// Vitrine matériel
+// Matériel : étagères en chêne au fond à droite
 (function(){
   var g=Z("materiel");
-  var vx=5,vz=-2.4;
-  box(2.4,1,3.8,ZM("materiel",0xf4f6f7),vx,F+0.5,vz,g);
-  box(2.5,0.08,3.9,ZM("materiel",C.petrol),vx,F+1.02,vz,g);
-  var glass=new THREE.Mesh(new THREE.BoxGeometry(2.4,1,3.8),new THREE.MeshStandardMaterial({color:C.glass,transparent:true,opacity:0.22,roughness:0.1,metalness:0.1,depthWrite:false}));
-  add(glass,g,vx,F+1.56,vz,false);
-  var cols=[0x2c3e50,0xb0bec5,0xF7C449,0x5d8de0,0xe85d5d,0x111111,0x7cc36b,0x9a6fd6];
-  for(var i=0;i<4;i++) for(var j=0;j<2;j++){
-    var c=cols[(i*2+j)%cols.length];
-    box(0.38,0.55,0.22,ZM("materiel",c,{roughness:0.4,metalness:0.3}),vx-0.55+j*1.1,F+1.36,vz-1.35+i*0.9,g);
-    cyl(0.08,0.08,0.22,ZM("materiel",0xcfd8dc,{metalness:0.6,roughness:0.3}),vx-0.55+j*1.1,F+1.74,vz-1.35+i*0.9,g,12);
-  }
-  // présentoir mural (mur du fond, côté droit)
-  box(1.6,2.6,0.4,ZM("materiel",0xe9eef1),7.1,F+1.6,-5.75,g);
+  var o=ZM("materiel",0xd2b182,{roughness:0.65});
+  var x0=3.4, x1=6.8, z=Z0+0.35;
+  box(0.06,2.6,0.5,o,x0,F+1.3,z,g); box(0.06,2.6,0.5,o,x1,F+1.3,z,g);
+  var cols=[0xffffff,0x2c3e50,0xe85d5d,0x5d8de0,0xf7c449,0x7cc36b,0xb0bec5,0x9a6fd6];
+  for(var s=0;s<5;s++){ var y=F+0.4+s*0.5; box(x1-x0,0.05,0.5,o,(x0+x1)/2,y,z,g);
+    for(var k=0;k<7;k++){ if((s+k)%4===3) continue; box(0.28,0.3,0.25,ZM("materiel",cols[(s*3+k)%cols.length]),x0+0.35+k*0.48,y+0.18,z,g); } }
+  // petit meuble bas
+  box(1.6,0.9,0.9,ZM("materiel",0xf7f8f9),X1-0.9,F+0.45,-2.6,g);
+  for(var j=0;j<3;j++) box(0.3,0.35,0.22,ZM("materiel",cols[j+2]),X1-1.4+j*0.5,F+1.08,-2.6,g);
 })();
-
-// Atelier
-(function(){
-  var g=Z("atelier");
-  var ax=-5.6,az=4.5;
-  box(3.4,0.12,1.4,ZM("atelier",0xc8a679,{roughness:0.6}),ax,F+1.0,az,g);
-  box(3.2,0.94,1.2,ZM("atelier",C.petrolSoft),ax,F+0.47,az,g);
-  box(1.2,0.04,0.9,ZM("atelier",0x2c3e3a),ax+0.6,F+1.08,az,g);
-  // lampe
-  cyl(0.04,0.04,1.1,ZM("atelier",0x24323b),ax-1.3,F+1.6,az-0.4,g,8);
-  var shade=cyl(0.25,0.05,0.25,ZM("atelier",C.gold),ax-1.05,F+2.1,az-0.25,g,16); shade.rotation.z=-0.6;
-  // outils & résistances
-  for(var i=0;i<6;i++) cyl(0.05,0.05,0.12,ZM("atelier",0xcfd8dc,{metalness:0.7,roughness:0.3}),ax+0.2+i*0.16,F+1.15,az+0.2,g,8);
-  box(0.6,0.06,0.12,ZM("atelier",0xe85d5d),ax-0.4,F+1.1,az-0.2,g);
-  box(0.45,0.2,0.3,ZM("atelier",0x24323b),ax-0.7,F+1.16,az+0.25,g);
-  // tabouret
-  cyl(0.32,0.32,0.1,ZM("atelier",C.petrol),ax+0.4,F+0.8,az-1.2,g);
-  cyl(0.05,0.05,0.75,ZM("atelier",0x8b9aa3),ax+0.4,F+0.4,az-1.2,g);
-})();
-
-// plante déco
-(function(){ var g=new THREE.Group(); g.position.set(7,F,4.8); shop.add(g); cyl(0.4,0.32,0.7,M(0xf4f6f7),0,0.35,0,g); var f=new THREE.Mesh(new THREE.IcosahedronGeometry(0.7,1),leafM); add(f,g,0,1.2,0); })();
 
 shop.traverse(function(o){ if(o.isMesh){ var p=o; while(p && !p.userData.zone) p=p.parent; if(p) pickables.push(o); } });
 
-// anneau de sélection
-var ring=new THREE.Mesh(new THREE.RingGeometry(1.7,1.95,48),new THREE.MeshBasicMaterial({color:C.gold,transparent:true,opacity:0.95,side:THREE.DoubleSide,depthWrite:false}));
-ring.rotation.x=-Math.PI/2; ring.visible=false; scene.add(ring);
-
-// ---------- personnages ----------
-var skin=[0xf1c9a5,0xd9a47c,0x8d5a3b,0xe8b994];
-function person(color){
+/* ---------- personnages ---------- */
+var skins=[0xf1c9a5,0xe3b48c,0xc98f66,0xf3d2b5];
+var NAVY=0x1f3550;
+function human(opt){
   var g=new THREE.Group();
-  var legs=M(0x34434c);
-  add(new THREE.Mesh(new THREE.CylinderGeometry(0.2,0.2,0.75,10),legs),g,0,0.38,0);
-  var body=add(new THREE.Mesh(new THREE.CylinderGeometry(0.27,0.33,0.75,14),M(color)),g,0,1.12,0);
-  add(new THREE.Mesh(new THREE.SphereGeometry(0.24,16,12),M(skin[Math.floor(Math.random()*skin.length)])),g,0,1.75,0);
+  var cloth=M(opt.color), legsM=M(opt.legs||0x2a2f36), skin=M(opt.skin), hairM=M(opt.hair||0x3b2a20);
+  add(new THREE.Mesh(new THREE.CylinderGeometry(0.11,0.1,0.8,8),legsM),g,-0.13,0.4,0);
+  add(new THREE.Mesh(new THREE.CylinderGeometry(0.11,0.1,0.8,8),legsM),g,0.13,0.4,0);
+  add(new THREE.Mesh(new THREE.CylinderGeometry(0.27,0.3,0.78,14),cloth),g,0,1.18,0);
+  var a1=add(new THREE.Mesh(new THREE.CylinderGeometry(0.075,0.07,0.7,8),cloth),g,-0.35,1.15,0); a1.rotation.z=0.12;
+  var a2=add(new THREE.Mesh(new THREE.CylinderGeometry(0.075,0.07,0.7,8),cloth),g,0.35,1.15,0); a2.rotation.z=-0.12;
+  add(new THREE.Mesh(new THREE.SphereGeometry(0.09,8,6),skin),g,-0.39,0.78,0); add(new THREE.Mesh(new THREE.SphereGeometry(0.09,8,6),skin),g,0.39,0.78,0);
+  add(new THREE.Mesh(new THREE.CylinderGeometry(0.08,0.09,0.12,8),skin),g,0,1.62,0);
+  add(new THREE.Mesh(new THREE.SphereGeometry(0.23,18,14),skin),g,0,1.84,0);
+  if(opt.hair!==null){
+    var cap=new THREE.Mesh(new THREE.SphereGeometry(0.245,18,10,0,Math.PI*2,0,Math.PI*0.52),hairM); add(cap,g,0,1.86,-0.01);
+    if(opt.long){
+      var back=new THREE.Mesh(new THREE.CylinderGeometry(0.25,0.3,0.62,16,1,true,Math.PI*0.5,Math.PI),hairM); back.material.side=THREE.DoubleSide; add(back,g,0,1.62,-0.02);
+      add(new THREE.Mesh(new THREE.BoxGeometry(0.1,0.5,0.14),hairM),g,-0.22,1.62,0.06);
+      add(new THREE.Mesh(new THREE.BoxGeometry(0.1,0.5,0.14),hairM),g,0.22,1.62,0.06);
+    }
+  }
+  if(opt.badge){ box(0.12,0.08,0.02,M(0xF7C449),0.13,1.38,0.29,g,false); }
   scene.add(g); return g;
 }
+var staff={}, staffPick=[];
+TEAM.forEach(function(p,i){
+  var h=human({color:NAVY,skin:skins[i%skins.length],hair:p.hair,long:p.long,badge:true});
+  h.position.set(p.pos[0],F,p.pos[1]); h.rotation.y=p.face;
+  h.userData.person=p.id; h.traverse(function(o){ if(o.isMesh){ o.userData.person=p.id; staffPick.push(o); } });
+  staff[p.id]={m:h,base:p.face,seed:i*1.7};
+});
+// Kevin fait quelques pas devant les vitrines
+var kevinPath=[[-4.8,3.6,2.5],[-5.0,5.2,2.5],[-4.8,1.6,2.5]], kevinT=0, KEVIN_LOOP=0;
+kevinPath.forEach(function(a,i){ var b=kevinPath[(i+1)%kevinPath.length]; KEVIN_LOOP+=a[2]+Math.hypot(b[0]-a[0],b[1]-a[1]); });
+
+// Clients (tenues variées)
 var walkers=[];
 function walker(color,path,speed,offset){
-  var p=person(color); var segs=[], total=0;
+  var p=human({color:color,skin:skins[Math.floor(Math.random()*4)],hair:[0x3b2a20,0x8a6a45,0x15110e,0xb9b1a6][Math.floor(Math.random()*4)],long:Math.random()>.6,legs:0x3d4a57});
+  var segs=[], total=0;
   for(var i=0;i<path.length;i++){ var a=path[i], b=path[(i+1)%path.length]; var l=Math.hypot(b[0]-a[0],b[1]-a[1]); segs.push({a:a,b:b,l:l,wait:a[2]||0}); total+=l+(a[2]||0)*speed; }
-  walkers.push({m:p,segs:segs,total:total,speed:speed,d:(offset||0)*total,y:p.position.y});
+  walkers.push({m:p,segs:segs,total:total,speed:speed,d:(offset||0)*total});
 }
-var loopMall=[[11.5,-9],[11.5,8.5],[-26,8.5],[-26,10.5],[13,10.5],[13,-9]];
-var loopShop=[[13,4],[9.5,3.2],[3.8,3.6,3],[-3.6,1,4],[-2,4.3],[9.5,4.6],[13,6]];
-var loopShop2=[[12.2,-4],[9,-3],[6.8,0.2,3],[2.2,-3.6,2.5],[-2.4,-3.6,2.5],[2,-0.8],[9,-1],[12.2,0]];
-walker(0xe85d5d,loopMall,2.2,0); walker(0x5d8de0,loopMall,2.0,0.33); walker(0x7cc36b,loopMall,2.4,0.66);
-walker(0x9a6fd6,loopShop,1.6,0.1); walker(0xF7C449,loopShop2,1.5,0.5); walker(0x4fb3a5,loopMall.slice().reverse(),2.1,0.2);
-// vendeur derrière le comptoir
-var seller=person(C.petrol); seller.position.set(-6.7,F,-0.6); seller.rotation.y=Math.PI/2;
-var seller2=person(C.gold); seller2.position.set(3.3,F,0.2); seller2.rotation.y=-0.9;
-
+function inShop(x,z){ return (x>X0&&x<X1&&z>Z0&&z<Z1)?F:0; }
 function updateWalker(w,dt){
-  w.d=(w.d+dt*w.speed)%w.total;
-  var d=w.d;
+  w.d=(w.d+dt*w.speed)%w.total; var d=w.d;
   for(var i=0;i<w.segs.length;i++){
     var s=w.segs[i], wl=s.wait*w.speed;
-    if(d<wl){ w.m.position.set(s.a[0],F*inShop(s.a[0],s.a[1]),s.a[1]); w.m.position.y+=0; return; }
+    if(d<wl){ w.m.position.set(s.a[0],inShop(s.a[0],s.a[1]),s.a[1]); return; }
     d-=wl;
-    if(d<s.l){ var t=d/s.l; var x=s.a[0]+(s.b[0]-s.a[0])*t, z=s.a[1]+(s.b[1]-s.a[1])*t;
-      w.m.position.set(x,F*inShop(x,z)+Math.abs(Math.sin(w.d*5))*0.06,z);
-      var ang=Math.atan2(s.b[0]-s.a[0],s.b[1]-s.a[1]); w.m.rotation.y=ang; return; }
+    if(d<s.l){ var t=d/s.l, x=s.a[0]+(s.b[0]-s.a[0])*t, z=s.a[1]+(s.b[1]-s.a[1])*t;
+      w.m.position.set(x,inShop(x,z)+Math.abs(Math.sin(w.d*5))*0.05,z); w.m.rotation.y=Math.atan2(s.b[0]-s.a[0],s.b[1]-s.a[1]); return; }
     d-=s.l;
   }
 }
-function inShop(x,z){ return (x>-8.2&&x<8.2&&z>-6.2&&z<6.2)?1:0; }
+walker(0xc0504d,[[-34,10],[30,10]],2.0,0);
+walker(0x6fa17a,[[30,11.5],[-34,11.5]],1.8,0.3);
+walker(0xd9a441,[[-30,9],[28,9]],2.2,0.6);
+walker(0x9474b8,[[22,12],[-26,12]],1.9,0.15);
+walker(0xe07b5f,[[12,9.5],[1,8],[1.5,0.3,4],[0.5,8],[-12,9.5],[-12,10.8],[12,10.8]],1.6,0.1);
 
-// ---------- vapeur ----------
-var puffTex=(function(){ var c=document.createElement("canvas"); c.width=c.height=128; var g=c.getContext("2d"); var gr=g.createRadialGradient(64,64,4,64,64,62); gr.addColorStop(0,"rgba(255,255,255,0.95)"); gr.addColorStop(0.5,"rgba(255,255,255,0.45)"); gr.addColorStop(1,"rgba(255,255,255,0)"); g.fillStyle=gr; g.fillRect(0,0,128,128); return new THREE.CanvasTexture(c); })();
-var puffs=[];
-for(var pi=0;pi<46;pi++){ var sp=new THREE.Sprite(new THREE.SpriteMaterial({map:puffTex,transparent:true,depthWrite:false,opacity:0})); sp.visible=false; scene.add(sp); puffs.push({s:sp,life:0,max:1}); }
-var emitters=[{x:1.6+0.0,y:F+2.0,z:1.6-0.0,rate:0.55},{x:3.3,y:F+1.9,z:0.2,rate:1.6},{x:-6.4,y:F+1.9,z:-0.6,rate:2.8}];
-emitters.forEach(function(e){e.t=Math.random()*e.rate;});
-function emit(e){
-  for(var k=0;k<3;k++){
-    var p=puffs.find(function(q){return q.life<=0;}); if(!p) return;
-    p.life=p.max=2.2+Math.random()*1.6;
-    p.s.position.set(e.x+(Math.random()-.5)*0.3,e.y+k*0.12,e.z+(Math.random()-.5)*0.3);
-    p.vx=(Math.random()-.5)*0.35; p.vy=0.55+Math.random()*0.35; p.vz=(Math.random()-.5)*0.35;
-    p.s0=0.35+Math.random()*0.25; p.s.visible=true;
-  }
-}
+/* ---------- vapeur légère ---------- */
+var puffTex=canvasTex(128,128,function(g){ var gr=g.createRadialGradient(64,64,4,64,64,62); gr.addColorStop(0,"rgba(255,255,255,.95)"); gr.addColorStop(.5,"rgba(255,255,255,.45)"); gr.addColorStop(1,"rgba(255,255,255,0)"); g.fillStyle=gr; g.fillRect(0,0,128,128); });
+var puffs=[]; for(var pi=0;pi<24;pi++){ var sp=new THREE.Sprite(new THREE.SpriteMaterial({map:puffTex,transparent:true,depthWrite:false,opacity:0})); sp.visible=false; scene.add(sp); puffs.push({s:sp,life:0}); }
+var emitter={x:2.6,y:F+1.6,z:-1.0,t:1};
 function updatePuffs(dt){
-  emitters.forEach(function(e){ e.t-=dt; if(e.t<=0){ emit(e); e.t=e.rate*(0.7+Math.random()*0.6); } });
-  puffs.forEach(function(p){
-    if(p.life<=0) return;
-    p.life-=dt; var k=1-p.life/p.max;
-    p.s.position.x+=p.vx*dt; p.s.position.y+=p.vy*dt*(1-k*0.6); p.s.position.z+=p.vz*dt;
-    var sc=p.s0+k*2.2; p.s.scale.set(sc,sc,sc);
-    p.s.material.opacity=Math.min(1,k*6)*(1-k)*0.85;
-    if(p.life<=0) p.s.visible=false;
-  });
+  if(fade>0.5){ emitter.t-=dt; if(emitter.t<=0){ emitter.t=3+Math.random()*2; for(var k=0;k<3;k++){ var p=null; for(var q=0;q<puffs.length;q++) if(puffs[q].life<=0){p=puffs[q];break;} if(!p) break; p.life=p.max=2.4+Math.random(); p.s.position.set(emitter.x+(Math.random()-.5)*.3,emitter.y+k*.1,emitter.z); p.vx=(Math.random()-.5)*.3; p.vy=.5+Math.random()*.3; p.vz=(Math.random()-.5)*.3+.15; p.s.visible=true; } } }
+  puffs.forEach(function(p){ if(p.life<=0) return; p.life-=dt; var k=1-p.life/p.max; p.s.position.x+=p.vx*dt; p.s.position.y+=p.vy*dt*(1-k*.6); p.s.position.z+=p.vz*dt; var s=.3+k*1.8; p.s.scale.set(s,s,s); p.s.material.opacity=Math.min(1,k*6)*(1-k)*.75; if(p.life<=0) p.s.visible=false; });
 }
 
-// ---------- repères HTML ----------
-var pinsEl=document.getElementById("pins"), pinObjs=[];
-ZONES.forEach(function(z){
-  var b=document.createElement("button"); b.className="pin"; b.dataset.zone=z.id; b.setAttribute("aria-label",z.name);
-  b.innerHTML='<span class="pin-label">'+z.name+'</span><span class="pin-head"><i></i></span><span class="pin-shadow"></span>';
-  b.onclick=function(e){ e.stopPropagation(); openZone(z.id); };
-  pinsEl.appendChild(b);
-  pinObjs.push({el:b,v:new THREE.Vector3(z.pos[0],z.pinY,z.pos[1]),anchorY:1});
-});
-[["Tram T1 · T2 · T3",[-30,3.6,16],"#F7C449"],["L'Orne",[22,0.5,27],"#8fbccf"],["Quai Amiral Hamelin",[-6,0.6,19.6],"#cfd9de"]].forEach(function(t){
-  var el=document.createElement("div"); el.className="tag"; el.innerHTML='<span class="sw" style="background:'+t[2]+'"></span>'+t[0]; pinsEl.appendChild(el);
-  pinObjs.push({el:el,v:new THREE.Vector3(t[1][0],t[1][1],t[1][2]),tag:true});
-});
-var tramTag=pinObjs[pinObjs.length-3];
+/* ---------- anneau de sélection ---------- */
+var ring=new THREE.Mesh(new THREE.RingGeometry(0.75,0.95,40),new THREE.MeshBasicMaterial({color:0xF7C449,transparent:true,opacity:.9,side:THREE.DoubleSide,depthWrite:false}));
+ring.rotation.x=-Math.PI/2; ring.visible=false; scene.add(ring);
+var mallRing=new THREE.Mesh(new THREE.RingGeometry(9.6,10.1,64),new THREE.MeshBasicMaterial({color:0xF7C449,transparent:true,opacity:.8,side:THREE.DoubleSide,depthWrite:false}));
+mallRing.rotation.x=-Math.PI/2; mallRing.position.set(0,0.06,1); scene.add(mallRing);
 
-// ---------- caméra, redimensionnement ----------
-var W=1,H=1, mobile=false;
-function homeTarget(){
-  var v=new THREE.Vector3(0.5,0,0.5);
-  if(mobile){ v.addScaledVector(FWD,-1.5); }
-  else { v.addScaledVector(RIGHT,-6.2); v.addScaledVector(FWD,0.5); }
+/* ---------- étiquettes HTML ---------- */
+var pinsEl=document.getElementById("pins"), tags=[];
+function tag(el,pos,obj){ pinsEl.appendChild(el); var t={el:el,v:new THREE.Vector3(pos[0],pos[1],pos[2]),obj:obj||null,anchor:el.classList.contains("here")?"bottom":"center"}; tags.push(t); return t; }
+(function(){
+  var h=document.createElement("button"); h.className="tag t-mall here"; h.type="button";
+  h.innerHTML='<span class="pulse"></span><span>HappeSmoke<small>Cliquez pour entrer</small></span>';
+  h.onclick=function(){ setMode("shop"); }; tag(h,[0,UH+0.5,0.5]);
+  [["E.Leclerc","En face",[2,6.6,24],""],["Normal","À côté",[-19,UH+0.6,2],""],["Action","Même côté",[24.3,UH+0.6,2],"near"]].forEach(function(d){
+    var el=document.createElement("div"); el.className="tag t-mall land"; el.innerHTML='<em class="'+d[3]+'">'+d[1]+'</em>'+d[0]; tag(el,d[2]);
+  });
+  ZONES.forEach(function(z){
+    var b=document.createElement("button"); b.type="button"; b.className="tag t-shop zone"; b.dataset.pick="zone:"+z.id;
+    b.innerHTML='<i>'+ICONS[z.id].replace(/width="22" height="22"/,'width="13" height="13"')+'</i>'+z.short;
+    b.onclick=function(){ openZone(z.id); }; tag(b,[z.pos[0],z.tagY,z.pos[1]]);
+  });
+  TEAM.forEach(function(p){
+    var b=document.createElement("button"); b.type="button"; b.className="tag t-shop person"; b.dataset.pick="person:"+p.id;
+    b.innerHTML='<span class="avatar">'+initials(p.name)+'<img src="'+p.photo+'" alt="" onerror="this.remove()"></span>'+p.name;
+    b.onclick=function(){ openPerson(p.id); }; tag(b,[0,2.45,0],staff[p.id].m);
+  });
+})();
+
+/* ---------- caméra ---------- */
+var W=1,H=1,mobile=false;
+function frame0(){ // cadrage de base selon le mode et la place prise par les cartes
+  var v;
+  if(MODE==="mall"){ v=new THREE.Vector3(2,0,6); if(mobile) v.addScaledVector(FWD,-9); else v.addScaledVector(RIGHT,-11); }
+  else { v=new THREE.Vector3(0,0,0); if(mobile) v.addScaledVector(FWD,-5.5); else v.addScaledVector(RIGHT,-3.6); }
   return v;
 }
+function zoom0(){ return MODE==="mall" ? (mobile?0.6:0.56) : (mobile?1.3:1.45); }
 function resize(){
   W=stage.clientWidth; H=stage.clientHeight; mobile=W<820;
   renderer.setSize(W,H,false);
-  var aspect=W/H; var fs=mobile? Math.max(30,25/aspect) : Math.max(27,40/aspect);
-  camera.left=-fs*aspect/2; camera.right=fs*aspect/2; camera.top=fs/2; camera.bottom=-fs/2;
-  camera.updateProjectionMatrix();
-  var hc=document.getElementById("hero-card"); document.getElementById("kpis").style.setProperty("--kpi-top",(hc.offsetTop+hc.offsetHeight+12)+"px");
+  var a=W/H, fs= mobile? 25/a : Math.max(30,52/a);
+  camera.left=-fs*a/2; camera.right=fs*a/2; camera.top=fs/2; camera.bottom=-fs/2; camera.updateProjectionMatrix();
 }
 resize();
-target.copy(homeTarget()); want.copy(target);
-zoom=wantZoom=0.82;
-window.addEventListener("resize",function(){ resize(); if(!currentZone && !userMoved){ want.copy(homeTarget()); } });
-
+target.copy(frame0()).addScaledVector(FWD,-30); want.copy(frame0()); wantZoom=zoom0(); // arrivée en douceur
 var userMoved=false;
-window.__scene={
-  focus:function(id){
-    if(!id){ ring.visible=false; setHighlight(null); return; }
-    var z=zoneById[id]; var v=new THREE.Vector3(z.pos[0],0,z.pos[1]);
-    if(mobile) v.addScaledVector(FWD,-3.2); else v.addScaledVector(RIGHT,2.4);
-    want.copy(v); wantZoom=mobile?1.35:1.55;
-    ring.position.set(z.pos[0],F+0.03,z.pos[1]); ring.visible=true;
-    setHighlight(id);
-  }
-};
-document.getElementById("zoom-in").onclick=function(){ wantZoom=Math.min(3,wantZoom*1.25); hideHint(); };
-document.getElementById("zoom-out").onclick=function(){ wantZoom=Math.max(0.5,wantZoom/1.25); hideHint(); };
-document.getElementById("reset").onclick=function(){ userMoved=false; closeZone(); want.copy(homeTarget()); wantZoom=0.82; };
+window.addEventListener("resize",function(){ resize(); if(!userMoved && !current) want.copy(frame0()); wantZoom=current?wantZoom:zoom0(); });
 
 var highlighted=null, hovered=null;
-function paint(id,on,strength){ if(!id) return; zoneMats[id].forEach(function(m){ m.emissive.setHex(on?0xF7C449:0x000000); m.emissiveIntensity=on?strength:0; }); }
-function setHighlight(id){ if(highlighted) paint(highlighted,false); highlighted=id; if(id) paint(id,true,0.16); if(hovered && hovered!==id) paint(hovered,true,0.1); }
+function paint(id,on,s){ if(!id||!zoneMats[id]) return; zoneMats[id].forEach(function(m){ m.emissive.setHex(on?0xF7C449:0); m.emissiveIntensity=on?s:0; }); }
+S={
+  mode:function(m){
+    fadeWant = m==="shop"?1:0; userMoved=false;
+    want.copy(frame0()); wantZoom=zoom0();
+    ring.visible=false; if(highlighted){ paint(highlighted,false); highlighted=null; }
+  },
+  focus:function(kind,id){
+    if(highlighted){ paint(highlighted,false); highlighted=null; }
+    if(!kind){ ring.visible=false; want.copy(frame0()); wantZoom=zoom0(); return; }
+    var x,z;
+    if(kind==="zone"){ var zz=zoneById[id]; x=zz.pos[0]; z=zz.pos[1]; highlighted=id; paint(id,true,0.18); ring.scale.set(1.6,1.6,1.6); }
+    else { var m=staff[id].m; x=m.position.x; z=m.position.z; ring.scale.set(1,1,1); }
+    ring.position.set(x,F+0.02,z); ring.visible=true; ring.userData.follow = kind==="person"?staff[id].m:null;
+    var v=new THREE.Vector3(x,0,z);
+    if(mobile) v.addScaledVector(FWD,-7.5); else v.addScaledVector(RIGHT,3.4);
+    want.copy(v); wantZoom = mobile?1.45:1.85;
+  }
+};
+document.getElementById("zoom-in").onclick=function(){ wantZoom=Math.min(3.2,wantZoom*1.25); hideHint(); };
+document.getElementById("zoom-out").onclick=function(){ wantZoom=Math.max(0.3,wantZoom/1.25); hideHint(); };
+document.getElementById("reset").onclick=function(){ userMoved=false; if(current) closeDetail(); want.copy(frame0()); wantZoom=zoom0(); };
 
-// ---------- interactions pointeur ----------
-var ray=new THREE.Raycaster(), ndc=new THREE.Vector2();
-var drag=null, pointers={};
+/* ---------- pointeur ---------- */
+var ray=new THREE.Raycaster(), ndc=new THREE.Vector2(), drag=null, pointers={};
 function pick(cx,cy){
   var r=canvas.getBoundingClientRect(); ndc.set(((cx-r.left)/r.width)*2-1,-((cy-r.top)/r.height)*2+1);
-  ray.setFromCamera(ndc,camera); var hit=ray.intersectObjects(pickables,false)[0];
-  if(!hit) return null; var o=hit.object; while(o && !o.userData.zone) o=o.parent; return o?o.userData.zone:null;
+  ray.setFromCamera(ndc,camera);
+  if(MODE==="mall"){ return ray.intersectObjects(enterPick,false).length?{type:"enter"}:null; }
+  var hit=ray.intersectObjects(staffPick.concat(pickables),false)[0]; if(!hit) return null;
+  if(hit.object.userData.person) return {type:"person",id:hit.object.userData.person};
+  var o=hit.object; while(o && !o.userData.zone) o=o.parent; return o?{type:"zone",id:o.userData.zone}:null;
 }
 canvas.addEventListener("pointerdown",function(e){
-  pointers[e.pointerId]={x:e.clientX,y:e.clientY};
-  canvas.setPointerCapture(e.pointerId);
+  pointers[e.pointerId]={x:e.clientX,y:e.clientY}; canvas.setPointerCapture(e.pointerId);
   var ids=Object.keys(pointers);
-  if(ids.length===1){ drag={x:e.clientX,y:e.clientY,sx:e.clientX,sy:e.clientY,moved:false}; }
+  if(ids.length===1) drag={x:e.clientX,y:e.clientY,sx:e.clientX,sy:e.clientY,moved:false};
   else if(ids.length===2){ var a=pointers[ids[0]],b=pointers[ids[1]]; drag={pinch:Math.hypot(a.x-b.x,a.y-b.y),z0:wantZoom}; }
 });
 canvas.addEventListener("pointermove",function(e){
   if(pointers[e.pointerId]){ pointers[e.pointerId].x=e.clientX; pointers[e.pointerId].y=e.clientY; }
-  if(drag && drag.pinch){ var ids=Object.keys(pointers); if(ids.length===2){ var a=pointers[ids[0]],b=pointers[ids[1]]; wantZoom=Math.max(0.5,Math.min(3,drag.z0*Math.hypot(a.x-b.x,a.y-b.y)/drag.pinch)); } return; }
+  if(drag && drag.pinch){ var ids=Object.keys(pointers); if(ids.length===2){ var a=pointers[ids[0]],b=pointers[ids[1]]; wantZoom=Math.max(0.3,Math.min(3.2,drag.z0*Math.hypot(a.x-b.x,a.y-b.y)/drag.pinch)); } return; }
   if(drag){
     var dx=e.clientX-drag.x, dy=e.clientY-drag.y; drag.x=e.clientX; drag.y=e.clientY;
-    if(Math.abs(e.clientX-drag.sx)+Math.abs(e.clientY-drag.sy)>5){ drag.moved=true; canvas.classList.add("dragging"); userMoved=true; hideHint(); }
-    if(drag.moved){
-      var upp=(camera.right-camera.left)/zoom/W;
-      want.addScaledVector(RIGHT,-dx*upp); want.addScaledVector(FWD,dy*upp/SIN_E);
-      want.x=Math.max(-34,Math.min(30,want.x)); want.z=Math.max(-22,Math.min(34,want.z));
-      target.copy(want);
-    }
+    if(Math.abs(e.clientX-drag.sx)+Math.abs(e.clientY-drag.sy)>6){ drag.moved=true; canvas.classList.add("dragging"); userMoved=true; hideHint(); }
+    if(drag.moved){ var upp=(camera.right-camera.left)/zoom/W; want.addScaledVector(RIGHT,-dx*upp); want.addScaledVector(FWD,dy*upp/SIN_E); want.x=Math.max(-40,Math.min(40,want.x)); want.z=Math.max(-30,Math.min(40,want.z)); target.copy(want); }
     return;
   }
-  var z=pick(e.clientX,e.clientY);
-  if(z!==hovered){ if(hovered && hovered!==highlighted) paint(hovered,false); hovered=z; if(z && z!==highlighted) paint(z,true,0.1); canvas.classList.toggle("hovering",!!z); }
+  var p=pick(e.clientX,e.clientY), zid=p&&p.type==="zone"?p.id:null;
+  if(zid!==hovered){ if(hovered && hovered!==highlighted) paint(hovered,false); hovered=zid; if(zid && zid!==highlighted) paint(zid,true,0.1); }
+  canvas.classList.toggle("hovering",!!p);
 });
 function endPointer(e){
-  var wasClick = drag && !drag.pinch && !drag.moved && Object.keys(pointers).length===1;
+  var click=drag && !drag.pinch && !drag.moved && Object.keys(pointers).length===1;
   delete pointers[e.pointerId];
-  if(wasClick){ var z=pick(e.clientX,e.clientY); if(z) openZone(z); }
-  if(Object.keys(pointers).length===0){ drag=null; canvas.classList.remove("dragging"); }
+  if(click){ var p=pick(e.clientX,e.clientY);
+    if(p){ if(p.type==="enter") setMode("shop"); else if(p.type==="person") openPerson(p.id); else openZone(p.id); } }
+  if(!Object.keys(pointers).length){ drag=null; canvas.classList.remove("dragging"); }
 }
 canvas.addEventListener("pointerup",endPointer);
 canvas.addEventListener("pointercancel",endPointer);
 canvas.addEventListener("pointerleave",function(){ if(hovered && hovered!==highlighted) paint(hovered,false); hovered=null; canvas.classList.remove("hovering"); });
-canvas.addEventListener("wheel",function(e){
-  if(!(e.ctrlKey||e.metaKey)) return; // la molette seule fait défiler la page
-  e.preventDefault(); wantZoom=Math.max(0.5,Math.min(3,wantZoom*Math.exp(-e.deltaY*0.0025))); hideHint();
-},{passive:false});
+canvas.addEventListener("wheel",function(e){ if(!(e.ctrlKey||e.metaKey)) return; e.preventDefault(); wantZoom=Math.max(0.3,Math.min(3.2,wantZoom*Math.exp(-e.deltaY*0.0025))); hideHint(); },{passive:false});
 
-// ---------- boucle ----------
-var visible=true;
-if("IntersectionObserver" in window){ new IntersectionObserver(function(en){ visible=en[0].isIntersecting; if(visible) last=performance.now(); }).observe(stage); }
-var last=performance.now(), clock=0, tramX=-90, tramWait=0;
-var tmp=new THREE.Vector3();
-function frame(now){
-  requestAnimationFrame(frame);
+/* ---------- boucle ---------- */
+var visible=true, last=performance.now(), clock=0, tmp=new THREE.Vector3();
+if("IntersectionObserver" in window){ new IntersectionObserver(function(en){ visible=en[0].isIntersecting; last=performance.now(); }).observe(stage); }
+function loop(now){
+  requestAnimationFrame(loop);
   if(!visible) return;
   var dt=Math.min(0.05,(now-last)/1000); last=now; clock+=dt;
-  var k=1-Math.exp(-dt*(reduce?12:4.5));
-  target.lerp(want,k); zoom+= (wantZoom-zoom)*k;
+  var k=1-Math.exp(-dt*(reduce?14:3.6));
+  target.lerp(want,k); zoom+=(wantZoom-zoom)*k;
   camera.zoom=zoom; camera.updateProjectionMatrix();
   camera.position.copy(target).add(OFF); camera.lookAt(target);
-  sun.position.copy(target).add(new THREE.Vector3(18,34,10)); sun.target.position.copy(target);
-
+  sun.position.copy(target).add(new THREE.Vector3(18,36,12)); sun.target.position.copy(target);
+  // fondu toit / voisins
+  var nf=fade+(fadeWant-fade)*(1-Math.exp(-dt*(reduce?20:3.2)));
+  if(Math.abs(nf-fade)>0.0005){ fade=nf; applyFade(); } else if(fade!==fadeWant && Math.abs(fadeWant-fade)<0.002){ fade=fadeWant; applyFade(); }
+  mallRing.material.opacity=(1-fade)*(0.55+Math.sin(clock*2.5)*0.3); mallRing.visible=fade<0.98;
+  var ms=1+Math.sin(clock*2.5)*0.025; mallRing.scale.set(ms,ms,ms);
+  // personnages
   walkers.forEach(function(w){updateWalker(w,dt);});
-  seller.position.y=F+Math.sin(clock*1.3)*0.02;
+  TEAM.forEach(function(p){ var s=staff[p.id]; if(p.id==="kevin") return; s.m.rotation.y=s.base+Math.sin(clock*0.6+s.seed)*0.35; s.m.position.y=F+Math.sin(clock*1.4+s.seed)*0.015; });
+  // Kevin
+  kevinT=(kevinT+dt*0.9)%KEVIN_LOOP;
+  (function(){ var km=staff.kevin.m, t=kevinT, A=kevinPath;
+    var legs=[[A[0],A[1]],[A[1],A[2]],[A[2],A[0]]], d=t;
+    for(var i=0;i<3;i++){ var a=legs[i][0], b=legs[i][1], L=Math.hypot(b[0]-a[0],b[1]-a[1]);
+      if(d<a[2]){ km.position.set(a[0],F,a[1]); km.rotation.y=-1.35; return; } d-=a[2];
+      if(d<L){ var u=d/L; km.position.set(a[0]+(b[0]-a[0])*u,F+Math.abs(Math.sin(t*6))*0.04,a[1]+(b[1]-a[1])*u); km.rotation.y=Math.atan2(b[0]-a[0],b[1]-a[1]); return; } d-=L; }
+    km.position.set(A[0][0],F,A[0][1]);
+  })();
   updatePuffs(dt);
-  // tram
-  if(tramWait>0){ tramWait-=dt; } else { tramX+=dt*7; if(tramX>90){ tramX=-90; tramWait=4; } }
-  tram.position.x=tramX; tramTag.v.x=tramX+6.4;
-  ripples.forEach(function(r,i){ r.position.x+=dt*(0.6+(i%3)*0.2); if(r.position.x>70) r.position.x=-70; });
-  if(ring.visible){ var s=1+Math.sin(clock*3)*0.06; ring.scale.set(s,s,s); ring.material.opacity=0.7+Math.sin(clock*3)*0.25; }
+  if(ring.visible){ if(ring.userData.follow){ ring.position.x=ring.userData.follow.position.x; ring.position.z=ring.userData.follow.position.z; } ring.material.opacity=0.65+Math.sin(clock*3)*0.3; }
 
   renderer.render(scene,camera);
 
-  // projection des repères
-  for(var i=0;i<pinObjs.length;i++){
-    var p=pinObjs[i]; tmp.copy(p.v).project(camera);
-    var x=(tmp.x+1)/2*W, y=(1-tmp.y)/2*H;
-    var out = x<-60||x>W+60||y<-60||y>H+60;
-    p.el.style.visibility=out?"hidden":"visible";
-    if(p.tag) p.el.style.transform="translate("+(x-p.el.offsetWidth/2)+"px,"+(y-p.el.offsetHeight/2)+"px)";
-    else { var bob=reduce?0:Math.sin(clock*2.2+i)*3; p.el.style.transform="translate("+(x-15)+"px,"+(y-46+bob)+"px)"; }
+  for(var i=0;i<tags.length;i++){
+    var t=tags[i];
+    if(t.obj){ tmp.set(t.obj.position.x,t.v.y+F,t.obj.position.z); } else tmp.copy(t.v);
+    tmp.project(camera);
+    var x=(tmp.x+1)/2*W, y=(1-tmp.y)/2*H, out=x<-80||x>W+80||y<-80||y>H+80;
+    t.el.style.visibility=out?"hidden":"visible";
+    var ox=t.el.offsetWidth/2, oy= t.anchor==="bottom" ? t.el.offsetHeight+10 : t.el.offsetHeight/2;
+    t.el.style.transform="translate("+Math.round(x-ox)+"px,"+Math.round(y-oy)+"px)";
   }
 }
-requestAnimationFrame(frame);
+requestAnimationFrame(loop);
 })();
 </script>
 </body>
