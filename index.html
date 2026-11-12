@@ -269,6 +269,11 @@ footer{background:var(--navy-deep);color:#9fb1c6;font-size:14px;padding-block:36
 footer .wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:start}
 footer .legal{max-width:72ch}
 footer .legal b{color:#fff}
+footer .credit{grid-column:1 / -1;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.12);padding-top:18px;font-size:13.5px}
+footer .credit a{display:inline-flex;align-items:center;gap:7px;color:#c9d6e6;text-decoration:none;padding:8px 14px;border:1px solid rgba(255,255,255,.18);border-radius:999px;transition:background .2s ease,color .2s ease}
+footer .credit a b{color:#fff;font-family:var(--f-display);font-weight:900;letter-spacing:.02em}
+footer .credit a:hover{background:#fff;color:var(--navy-deep)}
+footer .credit a:hover b{color:var(--navy-deep)}
 footer .brand-word{color:#fff}
 .age18{display:inline-grid;place-items:center;width:50px;height:50px;border:2px solid var(--gold);color:var(--gold);border-radius:50%;font-family:var(--f-display);font-weight:900;font-size:15px;flex-shrink:0}
 
@@ -887,8 +892,14 @@ footer .brand-word{color:#fff}
       <p>Ce site présente la boutique et ne propose pas de vente en ligne. Le calculateur DIY est donné à titre indicatif. Boutique membre du réseau HappeSmoke.</p>
     </div>
     <span class="age18" aria-label="Réservé aux 18 ans et plus">18+</span>
+    <div class="credit">
+      <span>© <span id="year">2026</span> HappeSmoke Caen</span>
+      <a href="https://the-one-studio-ten.vercel.app/" target="_blank" rel="noopener">Site créé par <b>The One</b>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+    </div>
   </div>
 </footer>
+<script>try{document.getElementById("year").textContent=new Date().getFullYear();}catch(e){}</script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
