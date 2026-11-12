@@ -279,93 +279,101 @@ footer .brand-word{color:#fff}
 .gate-actions{display:flex;gap:10px;flex-wrap:wrap}
 
 
-/* ---------- Guide : le dépliant interactif ---------- */
-.guide-sec{--teal:#2b5b6a;--teal-deep:#1d434f;--orange:#f39c1f;--sky:#58b7d6;padding-top:40px}
-.fl-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;flex-wrap:wrap}
-.fl-tabs{display:flex;gap:4px;background:var(--paper);border:1px solid var(--line);padding:4px;border-radius:12px}
-.fl-tabs button{border:0;background:transparent;border-radius:9px;padding:9px 14px;font-weight:700;font-size:14px;color:var(--muted);cursor:pointer}
-.fl-tabs button[aria-pressed="true"]{background:var(--teal);color:#fff}
-.fl-close{border:1.5px solid var(--line);background:var(--paper);border-radius:11px;padding:9px 14px;font-weight:700;font-size:14px;color:var(--teal);cursor:pointer;display:inline-flex;gap:8px;align-items:center}
-.flyer[data-state="closed"] .fl-bar{visibility:hidden}
-.fl-scene{position:relative;perspective:2200px}
-.fl-spread{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));transform-style:preserve-3d}
-.fl-spread[hidden]{display:none!important}
-.fl-panel{position:relative;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.25,.8,.25,1),opacity .4s ease;transition-delay:var(--d,0s);min-width:0}
-.fl-face{position:relative;height:100%;background:#fdfdfb;backface-visibility:hidden;-webkit-backface-visibility:hidden;padding:26px 24px 30px;border-right:1px solid #e7ebee;overflow:hidden}
-.fl-face::after{content:"";position:absolute;left:0;right:0;bottom:0;height:8px;background:linear-gradient(var(--teal) 0 50%,var(--orange) 50% 100%)}
-.fl-panel:first-child .fl-face{border-radius:16px 0 0 16px}
-.fl-panel:last-child .fl-face{border-radius:0 16px 16px 0;border-right:0}
-.fl-back{position:absolute;inset:0;background:linear-gradient(160deg,var(--teal),var(--teal-deep));transform:rotateY(180deg);backface-visibility:hidden;-webkit-backface-visibility:hidden}
-.fl-panel:first-child .fl-back{border-radius:0 16px 16px 0}
-.fl-panel:last-child .fl-back{border-radius:16px 0 0 16px}
-/* repli (bureau) : volets gauche et droit rabattus sur le volet central */
-.fl-panel.p1{transform-origin:right center;transform:rotateY(179deg);--d:.25s}
-.fl-panel.p3{transform-origin:left center;transform:rotateY(-179deg);--d:.05s}
-.flyer.is-open .fl-panel{transform:none}
-.flyer.is-open .fl-panel.p1{--d:.18s}
-.flyer.is-open .fl-panel.p3{--d:.42s}
-.fl-spread{box-shadow:0 24px 50px rgba(20,36,58,.16);border-radius:16px}
-.flyer:not(.is-open) .fl-spread{box-shadow:none}
+/* ---------- Guide : la brochure feuilletable ---------- */
+.guide-sec{--teal:#2b5b6a;--teal-deep:#1d434f;--orange:#f39c1f;--sky:#58b7d6;padding-top:40px;overflow:hidden}
+.book{position:relative;margin:0 auto;max-width:1040px;outline:none}
+.book.desk{height:680px;perspective:2600px;transition:transform .8s cubic-bezier(.3,.7,.2,1)}
+.book.desk.s0{transform:translateX(-25%)}
+.book.desk.s3{transform:translateX(25%)}
+.leaf{position:absolute;top:0;left:50%;width:50%;height:100%;transform-origin:left center;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.3,.7,.2,1)}
+.leaf.flipped{transform:rotateY(-180deg)}
+.leaf .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:0 16px 16px 0;box-shadow:0 22px 44px rgba(20,36,58,.16)}
+.leaf .face.back{transform:rotateY(180deg);border-radius:16px 0 0 16px}
+.pg{position:relative;background:#fdfdfb;padding:30px 30px 40px;color:var(--ink)}
+.book.desk .pg{height:100%;overflow-y:auto;border-radius:inherit;scrollbar-width:thin}
+.book.desk .face.front .pg{background-image:linear-gradient(90deg,rgba(20,36,58,.10),rgba(20,36,58,0) 7%)}
+.book.desk .face.back .pg{background-image:linear-gradient(270deg,rgba(20,36,58,.10),rgba(20,36,58,0) 7%)}
+.pg::after{content:"";position:absolute;left:0;right:0;bottom:0;height:7px;background:linear-gradient(var(--teal) 0 50%,var(--orange) 50% 100%);border-radius:0 0 inherit inherit}
+.pg .num{position:absolute;bottom:16px;right:24px;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.face.back .pg .num{right:auto;left:24px}
+/* téléphone : une page à la fois */
+.book.mob{perspective:1600px}
+.book.mob .pg{display:none;border-radius:18px;box-shadow:0 10px 28px rgba(20,36,58,.12);transform-origin:left center}
+.book.mob .pg.cur{display:block}
+.book.mob .pg.cover.cur,.book.mob .pg.cover.leaving{display:flex}
+.book.mob .pg.leaving{display:block;position:absolute;top:0;left:0;right:0;z-index:2;pointer-events:none}
+.book.mob .pg.out-next{animation:outNext .55s cubic-bezier(.3,.7,.2,1) forwards}
+.book.mob .pg.in-next{animation:inNext .55s cubic-bezier(.3,.7,.2,1)}
+.book.mob .pg.out-prev{animation:outPrev .45s ease forwards}
+.book.mob .pg.in-prev{animation:inPrev .55s cubic-bezier(.3,.7,.2,1)}
+@keyframes outNext{to{transform:rotateY(-100deg);opacity:0}}
+@keyframes inNext{from{transform:scale(.97);opacity:.4}to{transform:none;opacity:1}}
+@keyframes outPrev{to{transform:translateX(30px);opacity:0}}
+@keyframes inPrev{from{transform:rotateY(-100deg);opacity:0}to{transform:none;opacity:1}}
+/* barre de navigation */
+.bk-nav{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:22px}
+.bk-nav button.arr{width:48px;height:48px;border-radius:50%;border:1.5px solid var(--line);background:var(--paper);cursor:pointer;display:grid;place-items:center;color:var(--teal)}
+.bk-nav button.arr:hover:not(:disabled){border-color:var(--teal)}
+.bk-nav button.arr:disabled{opacity:.3;cursor:default}
+.bk-mid{display:grid;justify-items:center;gap:6px;min-width:140px}
+.bk-mid b{font-size:14.5px;color:var(--teal)}
+.bk-dots{display:flex;gap:6px}
+.bk-dots button{width:8px;height:8px;border-radius:99px;border:0;padding:0;background:var(--line);cursor:pointer;transition:all .25s ease}
+.bk-dots button.on{width:22px;background:var(--orange)}
 /* couverture */
-.fl-cover{position:absolute;top:0;bottom:0;left:33.333%;width:33.334%;z-index:3;border-radius:16px;overflow:hidden;cursor:pointer;transform-origin:left center;transition:transform .7s cubic-bezier(.25,.8,.25,1),opacity .45s ease .15s,box-shadow .3s ease;background:radial-gradient(120% 70% at 70% 30%,#3d6f7f 0,var(--teal) 45%,var(--teal-deep) 100%);color:#fff;display:flex;flex-direction:column;box-shadow:0 26px 50px rgba(20,36,58,.28);border:0;padding:0;text-align:left;font:inherit}
-.fl-cover:hover{transform:rotateY(-14deg)}
-.flyer.is-open .fl-cover{transform:rotateY(-110deg);opacity:0;pointer-events:none}
-.fl-cover .logo{font-family:var(--f-display);font-weight:800;font-size:clamp(34px,3.4vw,44px);letter-spacing:-.01em;padding:30px 26px 0;line-height:1}
-.fl-cover .logo b{color:var(--orange);font-weight:900}
-.fl-cover .sub{font-size:12px;letter-spacing:.32em;color:var(--orange);font-weight:700;padding:10px 28px 0;display:flex;align-items:center;gap:10px}
-.fl-cover .sub::before,.fl-cover .sub::after{content:"";height:1px;width:34px;background:rgba(255,255,255,.4)}
-.fl-cover .art{flex:1;display:grid;place-items:center;min-height:150px}
-.fl-cover .art svg{width:46%;max-width:150px;height:auto;filter:drop-shadow(0 18px 24px rgba(0,0,0,.3))}
-.fl-cover .band{background:var(--orange);color:var(--teal-deep);font-family:var(--f-display);font-weight:900;font-size:clamp(24px,2.3vw,30px);line-height:1.08;padding:16px 26px;text-wrap:balance}
-.fl-cover .foot{padding:18px 26px 22px;display:grid;gap:12px}
-.fl-cover .foot strong{font-family:var(--f-display);font-size:19px;letter-spacing:.04em}
-.fl-cover .foot ul{list-style:none;margin:0;padding:0;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:#cfe0e6;display:grid;gap:3px}
-.fl-cover .open-cta{display:inline-flex;align-items:center;gap:10px;background:#fff;color:var(--teal-deep);border-radius:12px;padding:12px 16px;font-weight:800;font-size:15px;justify-self:start}
-.fl-cover .open-cta svg{animation:nudge 1.6s ease-in-out infinite}
+.pg.cover{background:radial-gradient(120% 70% at 70% 30%,#3d6f7f 0,var(--teal) 45%,var(--teal-deep) 100%)!important;color:#fff;display:flex;flex-direction:column;padding:0;cursor:pointer;overflow:hidden!important}
+.pg.cover::after,.pg.backc::after{display:none}
+.cover .logo{font-family:var(--f-display);font-weight:800;font-size:clamp(36px,4vw,46px);letter-spacing:-.01em;padding:32px 30px 0;line-height:1}
+.cover .logo b{color:var(--orange);font-weight:900}
+.cover .sub{font-size:12px;letter-spacing:.32em;color:var(--orange);font-weight:700;padding:10px 32px 0;display:flex;align-items:center;gap:10px}
+.cover .sub::before,.cover .sub::after{content:"";height:1px;width:34px;background:rgba(255,255,255,.4)}
+.cover .art{flex:1;display:grid;place-items:center;min-height:170px;padding:10px 0}
+.cover .art svg{width:34%;max-width:130px;height:auto;filter:drop-shadow(0 18px 24px rgba(0,0,0,.3))}
+.cover .band{background:var(--orange);color:var(--teal-deep);font-family:var(--f-display);font-weight:900;font-size:clamp(26px,2.6vw,32px);line-height:1.08;padding:18px 30px;text-wrap:balance}
+.cover .foot{padding:18px 30px 26px;display:grid;gap:12px}
+.cover .foot strong{font-family:var(--f-display);font-size:19px;letter-spacing:.04em}
+.cover .foot ul{list-style:none;margin:0;padding:0;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:#cfe0e6;display:grid;gap:3px}
+.cover .open-cta{display:inline-flex;align-items:center;gap:10px;background:#fff;color:var(--teal-deep);border-radius:12px;padding:12px 16px;font-weight:800;font-size:15px;justify-self:start;border:0;cursor:pointer}
+.cover .open-cta svg{animation:nudge 1.6s ease-in-out infinite}
 @keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
-.fl-side-note{position:absolute;top:50%;transform:translateY(-50%);width:28%;color:var(--muted);font-size:15px;transition:opacity .3s ease}
-.fl-side-note.l{left:2%;text-align:right}
-.fl-side-note.r{right:2%}
-.fl-side-note b{display:block;font-family:var(--f-display);font-size:20px;color:var(--teal);margin-bottom:4px}
-.flyer.is-open .fl-side-note,.flyer[data-state="opening"] .fl-side-note{opacity:0;pointer-events:none}
-
-/* contenu des volets */
-.fl-h{font-family:var(--f-display);font-weight:900;font-size:clamp(25px,2.2vw,30px);line-height:1.08;margin:0 0 6px;color:var(--teal);letter-spacing:-.01em}
+.book.desk.s0 .leaf:first-child{transition:transform .9s cubic-bezier(.3,.7,.2,1)}
+.book.desk.s0 .leaf:first-child:hover{transform:rotateY(-10deg)}
+/* contenu */
+.fl-h{font-family:var(--f-display);font-weight:900;font-size:clamp(26px,2.4vw,31px);line-height:1.08;margin:0;color:var(--teal);letter-spacing:-.01em;text-wrap:balance}
 .fl-h em{font-style:normal;color:var(--orange)}
 .fl-rule{width:46px;height:3px;border-radius:3px;background:var(--sky);margin:10px 0 16px}
 .fl-intro{font-size:14.5px;color:var(--muted);margin:0 0 14px}
 .fl-acc{border-top:1px solid #e3e8ec}
 .fl-acc:last-of-type{border-bottom:1px solid #e3e8ec}
-.fl-acc summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 0;font-weight:700;font-size:15.5px;color:var(--ink)}
+.fl-acc summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;font-weight:700;font-size:15.5px;color:var(--ink)}
 .fl-acc summary::-webkit-details-marker{display:none}
 .fl-acc summary .q{color:var(--teal)}
 .fl-acc summary .q i{font-style:normal;color:var(--sky)}
 .fl-acc summary .pm{width:26px;height:26px;border-radius:50%;background:var(--mist);display:grid;place-items:center;flex-shrink:0;color:var(--teal);transition:transform .25s ease,background .25s ease}
 .fl-acc[open] summary .pm{transform:rotate(45deg);background:var(--orange);color:#fff}
-.fl-acc .ans{font-size:14.5px;color:var(--muted);padding:0 0 14px;animation:drop .3s ease}
+.fl-acc .ans{font-size:14.5px;color:var(--muted);padding:0 0 12px;animation:drop .3s ease}
 .fl-acc .ans p{margin:0 0 8px}
 @keyframes drop{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
 .tips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
 .tips span{background:#eef6f9;color:var(--teal);font-size:12.5px;font-weight:700;padding:4px 9px;border-radius:99px}
-/* schéma */
-.anat{display:grid;grid-template-columns:118px 1fr;gap:14px;align-items:center;margin-bottom:12px}
+.anat{display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:center;margin-bottom:14px}
 .anat svg{width:100%;height:auto}
 .anat .hs{cursor:pointer}
-.anat .hs circle{fill:var(--orange);stroke:#fff;stroke-width:2;transition:r .2s ease}
+.anat .hs circle{fill:var(--orange);stroke:#fff;stroke-width:2}
 .anat .hs text{fill:#fff;font:800 11px var(--f-body);text-anchor:middle;dominant-baseline:central;pointer-events:none}
 .anat .hs.on circle{fill:var(--teal)}
 .anat .hs:focus{outline:none}
 .anat .hs:focus-visible circle{stroke:var(--sky);stroke-width:3}
-.anat-cap{background:var(--mist);border-radius:12px;padding:12px 14px;min-height:106px}
+.anat-cap{background:var(--mist);border-radius:12px;padding:12px 14px;min-height:110px}
 .anat-cap b{display:block;color:var(--teal);font-size:15.5px;margin-bottom:2px}
 .anat-cap span{font-size:14px;color:var(--muted)}
 .anat-cap small{display:block;font-size:12px;color:var(--orange);font-weight:700;margin-bottom:4px;letter-spacing:.04em;text-transform:uppercase}
-/* checklist */
+.anat-hint{font-size:12.5px;color:var(--muted);margin:-6px 0 12px}
 .check{margin-top:16px;border:2px solid var(--orange);border-radius:14px;overflow:hidden}
-.check h4{margin:0;background:var(--orange);color:#fff;font-family:var(--f-display);font-weight:900;font-size:16px;padding:9px 14px;display:flex;justify-content:space-between;align-items:center}
-.check h4 span{font-family:var(--f-mono);font-size:13px;background:rgba(255,255,255,.25);padding:2px 8px;border-radius:99px}
+.check h4{margin:0;background:var(--orange);color:#fff;font-family:var(--f-display);font-weight:900;font-size:16px;padding:9px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.check h4 span{font-family:var(--f-mono);font-size:13px;background:rgba(255,255,255,.25);padding:2px 8px;border-radius:99px;flex-shrink:0}
 .check ul{list-style:none;margin:0;padding:6px 10px 8px}
-.check label{display:flex;gap:10px;align-items:flex-start;padding:7px 4px;font-size:14px;cursor:pointer;border-radius:8px}
+.check label{display:flex;gap:10px;align-items:flex-start;padding:6px 4px;font-size:14px;cursor:pointer;border-radius:8px}
 .check label:hover{background:#fff8ec}
 .check input{appearance:none;-webkit-appearance:none;width:20px;height:20px;border:2px solid #d9c3a0;border-radius:6px;flex-shrink:0;margin:1px 0 0;display:grid;place-items:center;transition:all .2s ease;cursor:pointer}
 .check input:checked{background:var(--orange);border-color:var(--orange)}
@@ -373,52 +381,49 @@ footer .brand-word{color:#fff}
 .check input:checked + span{color:var(--muted);text-decoration:line-through}
 .check .done{display:none;padding:0 14px 12px;font-weight:700;color:var(--teal);font-size:14px}
 .check.all .done{display:block}
-/* tuiles e-liquide */
 .tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-.tile{perspective:800px;border:0;background:none;padding:0;cursor:pointer;height:118px;font:inherit;text-align:left}
+.tile{perspective:800px;border:0;background:none;padding:0;cursor:pointer;height:116px;font:inherit;text-align:left}
 .tile-in{display:block;position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.25,.8,.25,1)}
 .tile.flip .tile-in{transform:rotateY(180deg)}
 .tile .f,.tile .b{position:absolute;inset:0;border-radius:14px;backface-visibility:hidden;-webkit-backface-visibility:hidden;padding:12px}
 .tile .f{background:var(--teal);color:#fff;display:flex;flex-direction:column;justify-content:space-between}
 .tile:nth-child(3) .f{background:#3e8ea6}.tile:nth-child(4) .f{background:var(--sky)}
 .tile .f b{font-family:var(--f-display);font-size:28px;line-height:1}
-.tile .f span{font-size:13.5px;font-weight:700;display:flex;justify-content:space-between;align-items:center}
+.tile .f span{font-size:13.5px;font-weight:700;display:flex;justify-content:space-between;align-items:center;gap:6px}
 .tile .b{background:#eef6f9;color:var(--ink);transform:rotateY(180deg);font-size:13.5px;line-height:1.4;display:flex;align-items:center}
-.keynote{background:#fff6e8;border-left:4px solid var(--orange);border-radius:0 12px 12px 0;padding:12px 14px;font-size:14.5px;margin:0 0 12px}
+.keynote{background:#fff6e8;border-left:4px solid var(--orange);border-radius:0 12px 12px 0;padding:12px 14px;font-size:14.5px;margin:0 0 14px}
 .keynote b{color:var(--teal)}
-.fl-link{display:inline-flex;align-items:center;gap:8px;font-weight:800;color:var(--teal);text-decoration:none;font-size:14.5px;border-bottom:2px solid var(--orange);padding-bottom:1px;background:none;border-top:0;border-left:0;border-right:0;cursor:pointer}
-/* études */
+.fl-link{display:inline-flex;align-items:center;gap:8px;font-weight:800;color:var(--teal);text-decoration:none;font-size:14.5px;border-bottom:2px solid var(--orange);padding-bottom:1px}
 .stat{display:grid;grid-template-columns:96px 1fr;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid #e3e8ec}
 .ringv{position:relative;width:96px;height:96px}
 .ringv svg{width:100%;height:100%;transform:rotate(-90deg)}
 .ringv .bg{fill:none;stroke:#e3ecef;stroke-width:10}
 .ringv .fg{fill:none;stroke:var(--teal);stroke-width:10;stroke-linecap:round;stroke-dasharray:264;stroke-dashoffset:264;transition:stroke-dashoffset 1.4s cubic-bezier(.25,.8,.25,1) .5s}
-.flyer.is-open .ringv .fg{stroke-dashoffset:calc(264 - 264 * .95)}
+.pg.seen .ringv .fg{stroke-dashoffset:13.2}
 .ringv b{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--f-display);font-size:22px;color:var(--teal)}
 .bars{height:96px;display:flex;align-items:flex-end;gap:8px;padding:0 10px}
 .bars i{display:block;width:30px;border-radius:6px 6px 0 0;height:8%;transition:height 1.2s cubic-bezier(.25,.8,.25,1) .6s}
 .bars i:first-child{background:var(--sky)}.bars i:last-child{background:#9aa9b3}
-.flyer.is-open .bars i:first-child{height:100%}.flyer.is-open .bars i:last-child{height:60%}
+.pg.seen .bars i:first-child{height:100%}.pg.seen .bars i:last-child{height:60%}
 .stat p{margin:0;font-size:14.5px;line-height:1.45}
 .stat p b{color:var(--teal)}
 .stat cite{display:block;font-style:normal;font-size:12.5px;color:var(--muted);margin-top:4px}
-.quotes{margin-top:14px;position:relative;background:var(--teal);color:#fff;border-radius:14px;padding:16px 16px 12px;min-height:140px}
+.quotes{margin-top:14px;background:var(--teal);color:#fff;border-radius:14px;padding:16px 16px 12px;min-height:136px}
 .quotes blockquote{margin:0;font-size:15px;line-height:1.45;font-style:italic;display:none}
 .quotes blockquote.on{display:block;animation:drop .35s ease}
-.quotes blockquote .by{display:block;font-style:normal;font-size:12.5px;font-weight:700;color:var(--orange);margin-top:8px}
+.quotes .by{display:block;font-style:normal;font-size:12.5px;font-weight:700;color:var(--orange);margin-top:8px}
 .qdots{display:flex;gap:6px;margin-top:10px}
 .qdots button{width:9px;height:9px;border-radius:99px;border:0;background:rgba(255,255,255,.35);padding:0;cursor:pointer}
 .qdots button.on{background:var(--orange);width:22px}
-/* dos */
-.fl-face.dark{background:linear-gradient(170deg,var(--teal),var(--teal-deep));color:#fff}
-.fl-face.dark .fl-h{color:#fff}
+.pg.backc{background:linear-gradient(170deg,var(--teal),var(--teal-deep))!important;color:#fff}
+.pg.backc .fl-h{color:#fff}
 .backlinks{list-style:none;margin:0 0 18px;padding:0;display:grid;gap:8px}
-.backlinks button,.backlinks a{width:100%;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:#fff;border-radius:12px;padding:12px 14px;font-weight:700;font-size:14.5px;cursor:pointer;text-decoration:none;text-transform:uppercase;letter-spacing:.04em;text-align:left}
+.backlinks button,.backlinks a{width:100%;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:#fff;border-radius:12px;padding:12px 14px;font-weight:700;font-size:14.5px;cursor:pointer;text-decoration:none;text-transform:uppercase;letter-spacing:.04em;text-align:left;font-family:inherit}
 .backlinks button:hover,.backlinks a:hover{background:rgba(255,255,255,.18)}
 .visit{background:#fff;color:var(--ink);border-radius:14px;padding:14px 16px;font-size:14.5px}
 .visit b{color:var(--teal);font-family:var(--f-display);font-size:17px;display:block}
-.fl-face .flash-hl{animation:hl 1.6s ease}
-@keyframes hl{0%,100%{box-shadow:none}30%{box-shadow:0 0 0 4px var(--orange)}}
+.backc .logo2{font-family:var(--f-display);font-weight:800;font-size:28px;margin-top:22px;opacity:.9}
+.backc .logo2 b{color:var(--orange)}
 
 /* ---------- Responsive ---------- */
 @media (max-width:1180px){ .nav{display:none} .subnav{display:flex} }
@@ -476,21 +481,10 @@ footer .brand-word{color:#fff}
 
 @media (max-width:820px){
   .guide-sec{padding-top:30px}
-  .fl-side-note{display:none}
-  .fl-spread{grid-template-columns:1fr;box-shadow:none;gap:10px}
-  .flyer[data-state="closed"] .fl-spread{display:none}
-  .fl-cover{position:relative;left:auto;width:100%;top:auto;bottom:auto;min-height:540px}
-  .fl-cover:hover{transform:none}
-  .flyer.is-open .fl-cover,.flyer[data-state="opening"] .fl-cover{display:none}
-  .fl-face,.fl-panel:first-child .fl-face,.fl-panel:last-child .fl-face{border-radius:16px;border-right:0;box-shadow:0 8px 24px rgba(20,36,58,.1);padding:22px 18px 26px}
-  .fl-back{display:none}
-  .fl-panel.p1,.fl-panel.p2,.fl-panel.p3{transform-origin:top center;transform:rotateX(-92deg);opacity:0}
-  .fl-panel.p1{--d:0s}.fl-panel.p2{--d:.16s}.fl-panel.p3{--d:.32s}
-  .flyer.is-open .fl-panel{transform:none;opacity:1}
-  .flyer.is-open .fl-panel.p1{--d:0s}.flyer.is-open .fl-panel.p2{--d:.16s}.flyer.is-open .fl-panel.p3{--d:.32s}
-  .fl-bar{position:sticky;top:112px;z-index:5;background:var(--mist);padding:8px 0;margin-bottom:6px}
-  .fl-tabs button{padding:8px 11px;font-size:13.5px}
-  .fl-close{padding:8px 11px;font-size:13.5px}
+  .pg{padding:22px 18px 40px}
+  .cover .art{min-height:200px}
+  .bk-nav{position:sticky;bottom:10px;z-index:5;margin-top:14px;background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:999px;padding:6px;box-shadow:var(--shadow);max-width:320px;margin-inline:auto}
+  .bk-nav button.arr{width:44px;height:44px}
   .anat{grid-template-columns:100px 1fr}
 }
 
@@ -694,154 +688,145 @@ footer .brand-word{color:#fff}
   </section>
 
 
-  <!-- ======== Guide : dépliant interactif ======== -->
+  <!-- ======== Guide : brochure feuilletable ======== -->
   <section id="guide" class="guide-sec">
     <div class="wrap">
       <div class="sec-head">
         <div>
           <div class="eyebrow">Le guide de la boutique</div>
-          <h2>Savoir vaper, en un dépliant</h2>
-          <p>Le dépliant HappeSmoke en version interactive : ouvrez-le, touchez chaque point, retournez-le.</p>
+          <h2>Bien utiliser sa cig' électronique</h2>
+          <p>La brochure HappeSmoke en 4 pages. Feuilletez-la et touchez chaque point pour en savoir plus.</p>
         </div>
       </div>
 
-      <div class="flyer" id="flyer" data-state="closed" data-side="in">
-        <div class="fl-bar">
-          <div class="fl-tabs" role="group" aria-label="Face du dépliant">
-            <button type="button" data-side-btn="in" aria-pressed="true">Intérieur</button>
-            <button type="button" data-side-btn="out" aria-pressed="false">Extérieur</button>
-          </div>
-          <button type="button" class="fl-close" id="fl-close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14h6v6M20 10h-6V4M14 10l7-7M3 21l7-7"/></svg>Replier</button>
+      <div class="book" id="book" tabindex="0" aria-label="Brochure : bien utiliser sa cigarette électronique" aria-roledescription="brochure">
+        <!-- couverture -->
+        <div class="pg cover" data-label="Couverture">
+          <span class="logo">happ<b>e</b>smoke</span>
+          <span class="sub">CAEN</span>
+          <span class="art" aria-hidden="true">
+            <svg viewBox="0 0 120 220"><defs><linearGradient id="bt" x1="0" x2="1"><stop offset="0" stop-color="#bfe3ec"/><stop offset="1" stop-color="#6fb3c6"/></linearGradient></defs>
+              <rect x="44" y="6" width="32" height="36" rx="10" fill="#d7eef3"/><path d="M38 44h44l6 22v130a18 18 0 0 1-18 18H50a18 18 0 0 1-18-18V66z" fill="url(#bt)"/>
+              <path d="M32 150c22-28 44-36 56-30v12c-18 0-36 12-56 34z" fill="#f39c1f" opacity=".9"/><path d="M32 112c20-18 40-20 56-14v24c-20-10-38-6-56 10z" fill="#2b5b6a" opacity=".55"/></svg>
+          </span>
+          <span class="band">Bien utiliser sa cig' électronique</span>
+          <span class="foot">
+            <strong>SAVOIR VAPER…</strong>
+            <ul><li>Maîtriser votre matériel</li><li>Connaître son e-liquide</li><li>Adopter un sevrage efficace</li></ul>
+            <button type="button" class="open-cta" data-bk="next">Ouvrir la brochure <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          </span>
         </div>
 
-        <div class="fl-scene">
-          <div class="fl-side-note l"><b>Maîtriser son matériel</b>Le schéma, l'entretien, les accus.</div>
-          <div class="fl-side-note r"><b>Comprendre sa vape</b>Toux, maux de tête, fuites : les solutions.</div>
-
-          <button type="button" class="fl-cover" id="fl-cover" aria-label="Déplier le guide">
-            <span class="logo">happ<b>e</b>smoke</span>
-            <span class="sub">CAEN</span>
-            <span class="art" aria-hidden="true">
-              <svg viewBox="0 0 120 220"><defs><linearGradient id="bt" x1="0" x2="1"><stop offset="0" stop-color="#bfe3ec"/><stop offset="1" stop-color="#6fb3c6"/></linearGradient></defs>
-                <rect x="44" y="6" width="32" height="36" rx="10" fill="#d7eef3"/><path d="M38 44h44l6 22v130a18 18 0 0 1-18 18H50a18 18 0 0 1-18-18V66z" fill="url(#bt)"/>
-                <path d="M32 150c22-28 44-36 56-30v12c-18 0-36 12-56 34z" fill="#f39c1f" opacity=".9"/><path d="M32 112c20-18 40-20 56-14v24c-20-10-38-6-56 10z" fill="#2b5b6a" opacity=".55"/></svg>
-            </span>
-            <span class="band">Bien utiliser sa cig' électronique</span>
-            <span class="foot">
-              <strong>SAVOIR VAPER…</strong>
-              <ul><li>Maîtriser votre matériel</li><li>Connaître son e-liquide</li><li>Adopter un sevrage efficace</li></ul>
-              <span class="open-cta">Déplier le guide <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-            </span>
-          </button>
-
-          <!-- INTÉRIEUR -->
-          <div class="fl-spread" data-spread="in">
-            <div class="fl-panel p1"><div class="fl-face" id="fl-materiel">
-              <h3 class="fl-h"><em>Maîtriser</em> mon matériel</h3><div class="fl-rule"></div>
-              <div class="anat">
-                <svg viewBox="0 0 120 240" role="group" aria-label="Schéma d'une cigarette électronique">
-                  <rect x="48" y="10" width="20" height="22" rx="4" fill="#cfd8dc"/>
-                  <rect x="40" y="32" width="36" height="60" rx="6" fill="#e9f2f5" stroke="#9fb7c0" stroke-width="2"/>
-                  <rect x="44" y="56" width="28" height="34" rx="4" fill="#f6c27a" opacity=".85"/>
-                  <rect x="54" y="40" width="8" height="48" rx="3" fill="#c9d3d7"/>
-                  <rect x="40" y="92" width="36" height="10" rx="3" fill="#9fb7c0"/>
-                  <rect x="22" y="104" width="76" height="126" rx="14" fill="#e3e8eb" stroke="#9fb7c0" stroke-width="2"/>
-                  <rect x="62" y="116" width="26" height="100" rx="8" fill="#cfd8dc"/>
-                  <g class="hs" tabindex="0" role="button" data-part="0"><circle cx="58" cy="20" r="11"/><text x="58" y="20">1</text></g>
-                  <g class="hs" tabindex="0" role="button" data-part="1"><circle cx="30" cy="60" r="11"/><text x="30" y="60">2</text></g>
-                  <g class="hs" tabindex="0" role="button" data-part="2"><circle cx="30" cy="97" r="11"/><text x="30" y="97">3</text></g>
-                  <g class="hs" tabindex="0" role="button" data-part="3"><circle cx="86" cy="72" r="11"/><text x="86" y="72">4</text></g>
-                  <g class="hs" tabindex="0" role="button" data-part="4"><circle cx="42" cy="170" r="11"/><text x="42" y="170">5</text></g>
-                </svg>
-                <div class="anat-cap" id="anat-cap" aria-live="polite"></div>
-              </div>
-              <details class="fl-acc"><summary><span>Bien entretenir sa résistance</span><span class="pm">+</span></summary>
-                <div class="ans"><p>Plus sa valeur en ohms est élevée, plus la sensation en gorge est douce. Elle dure 10 à 20 jours selon l'usage. Gardez toujours le coton bien imbibé.</p></div></details>
-              <details class="fl-acc"><summary><span>Bien utiliser son clearo</span><span class="pm">+</span></summary>
-                <div class="ans"><p>La bague airflow règle l'aspiration : ouverte pour un tirage aérien et plus de vapeur, fermée pour un tirage serré, proche de la cigarette.</p></div></details>
-              <details class="fl-acc"><summary><span>Faire durer ses accus</span><span class="pm">+</span></summary>
-                <div class="ans"><p>Une batterie tient 200 à 300 cycles de charge. Chargez les accus séparés dans un chargeur externe. Évitez l'humidité, la chaleur et le contact avec du métal, et verrouillez votre cigarette électronique.</p></div></details>
-            </div><div class="fl-back"></div></div>
-
-            <div class="fl-panel p2"><div class="fl-face">
-              <h3 class="fl-h"><em>Comprendre</em> ma vape</h3><div class="fl-rule"></div>
-              <details class="fl-acc"><summary><span class="q">« Quand j'aspire, ça me fait <i>tousser</i> »</span><span class="pm">+</span></summary>
-                <div class="ans"><p>C'est fréquent au début : la gorge d'un ancien fumeur est sensible, et les anesthésiants de la cigarette ne sont plus là. Ça passe en quelques jours.</p>
-                  <div class="tips"><span>Aspirer doucement</span><span>Boire un verre d'eau</span><span>Tirage serré</span><span>50 % de PG max</span><span>Sels de nicotine</span><span>Baisser la puissance</span></div></div></details>
-              <details class="fl-acc"><summary><span class="q">« J'ai <i>mal à la tête</i> quand je vapote »</span><span class="pm">+</span></summary>
-                <div class="ans"><p>Le propylène glycol assèche : pensez à boire beaucoup d'eau. Votre corps se débarrasse aussi des substances du tabac et retrouve son fonctionnement normal.</p></div></details>
-              <div class="check" id="fl-check">
-                <h4>L'installation parfaite d'une résistance <span id="fl-check-n">0/5</span></h4>
-                <ul>
-                  <li><label><input type="checkbox"><span>Ne pas forcer sur le pas de vis</span></label></li>
-                  <li><label><input type="checkbox"><span>Laisser le coton s'imbiber quelques minutes</span></label></li>
-                  <li><label><input type="checkbox"><span>Déposer quelques gouttes de e-liquide sur le coton</span></label></li>
-                  <li><label><input type="checkbox"><span>Commencer par de petites aspirations</span></label></li>
-                  <li><label><input type="checkbox"><span>Ne pas vaper à pleine puissance sur une résistance neuve</span></label></li>
-                </ul>
-                <div class="done">Parfait, votre résistance est prête.</div>
-              </div>
-            </div><div class="fl-back"></div></div>
-
-            <div class="fl-panel p3"><div class="fl-face">
-              <h3 class="fl-h"><em>Régler</em> mes soucis</h3><div class="fl-rule"></div>
-              <details class="fl-acc"><summary><span class="q">« Mon <i>clearomiseur</i> fuit »</span><span class="pm">+</span></summary>
-                <div class="ans"><p>9 fois sur 10, ça vient de la résistance. Vérifiez trois choses :</p>
-                  <div class="tips"><span>Résistance usée ?</span><span>Ratio PG/VG adapté ?</span><span>Puissance dans la plage indiquée ?</span></div>
-                  <p style="margin-top:8px">La chaleur, le froid ou l'avion peuvent aussi faire fuir. Si ça se répète, choisissez un clearo avec l'airflow en haut.</p></div></details>
-              <details class="fl-acc"><summary><span class="q">« Je <i>vapote</i> trop souvent »</span><span class="pm">+</span></summary>
-                <div class="ans"><p>C'est normal au début : la vape délivre la nicotine plus lentement que la cigarette. Préférez un dosage plus fort au départ, et ne le baissez pas trop vite.</p></div></details>
-              <details class="fl-acc"><summary><span class="q">« Je ne sais pas quel <i>taux</i> choisir »</span><span class="pm">+</span></summary>
-                <div class="ans"><p>Commencez avec un taux qui correspond à votre consommation de cigarettes, puis baissez à votre rythme. Un conseiller vous aide à le régler.</p></div></details>
-              <p class="fl-intro" style="margin-top:16px">Une autre question ? On regarde votre matériel avec vous en boutique.</p>
-              <a class="fl-link" href="#infos">Venir à la boutique <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-            </div><div class="fl-back"></div></div>
+        <!-- page 1 -->
+        <div class="pg" data-label="Page 1">
+          <h3 class="fl-h"><em>Maîtriser</em> mon matériel</h3><div class="fl-rule"></div>
+          <div class="anat">
+            <svg viewBox="0 0 120 240" role="group" aria-label="Schéma d'une cigarette électronique">
+              <rect x="48" y="10" width="20" height="22" rx="4" fill="#cfd8dc"/>
+              <rect x="40" y="32" width="36" height="60" rx="6" fill="#e9f2f5" stroke="#9fb7c0" stroke-width="2"/>
+              <rect x="44" y="56" width="28" height="34" rx="4" fill="#f6c27a" opacity=".85"/>
+              <rect x="54" y="40" width="8" height="48" rx="3" fill="#c9d3d7"/>
+              <rect x="40" y="92" width="36" height="10" rx="3" fill="#9fb7c0"/>
+              <rect x="22" y="104" width="76" height="126" rx="14" fill="#e3e8eb" stroke="#9fb7c0" stroke-width="2"/>
+              <rect x="62" y="116" width="26" height="100" rx="8" fill="#cfd8dc"/>
+              <g class="hs" tabindex="0" role="button" data-part="0"><circle cx="58" cy="20" r="11"/><text x="58" y="20">1</text></g>
+              <g class="hs" tabindex="0" role="button" data-part="1"><circle cx="30" cy="60" r="11"/><text x="30" y="60">2</text></g>
+              <g class="hs" tabindex="0" role="button" data-part="2"><circle cx="30" cy="97" r="11"/><text x="30" y="97">3</text></g>
+              <g class="hs" tabindex="0" role="button" data-part="3"><circle cx="86" cy="72" r="11"/><text x="86" y="72">4</text></g>
+              <g class="hs" tabindex="0" role="button" data-part="4"><circle cx="42" cy="170" r="11"/><text x="42" y="170">5</text></g>
+            </svg>
+            <div class="anat-cap" id="anat-cap" aria-live="polite"></div>
           </div>
-
-          <!-- EXTÉRIEUR -->
-          <div class="fl-spread" data-spread="out" hidden>
-            <div class="fl-panel p1"><div class="fl-face" id="fl-liquide">
-              <h3 class="fl-h"><em>Connaître</em> mon e-liquide</h3><div class="fl-rule"></div>
-              <p class="fl-intro">Le « carburant » de votre cigarette électronique : 4 composants, contre plus de 4&nbsp;000 dans la fumée de cigarette. Touchez une carte.</p>
-              <div class="tiles">
-                <button type="button" class="tile"><span class="tile-in"><span class="f"><b>PG</b><span>Propylène glycol <i>↻</i></span></span><span class="b">Rehausse le goût, fluidifie le liquide et donne la sensation en gorge.</span></span></button>
-                <button type="button" class="tile"><span class="tile-in"><span class="f"><b>VG</b><span>Glycérine végétale <i>↻</i></span></span><span class="b">Légèrement sucrée, elle donne une vapeur dense et abondante.</span></span></button>
-                <button type="button" class="tile"><span class="tile-in"><span class="f"><b>Nic</b><span>La nicotine (ou pas) <i>↻</i></span></span><span class="b">De 0 à 20 mg/ml. Très addictive, mais pas cancérogène.</span></span></button>
-                <button type="button" class="tile"><span class="tile-in"><span class="f"><b>Arô</b><span>Les arômes <i>↻</i></span></span><span class="b">Ils donnent le goût : fruité, classic, menthe, gourmand…</span></span></button>
-              </div>
-              <p class="keynote"><b>Le bon départ :</b> un taux de nicotine équivalent à votre ancienne consommation, puis on baisse à son rythme jusqu'à en finir avec l'addiction.</p>
-              <a class="fl-link" href="#diy">Calculer mon e-liquide <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-            </div><div class="fl-back"></div></div>
-
-            <div class="fl-panel p2"><div class="fl-face">
-              <h3 class="fl-h"><em>Qu'en disent</em> les études ?</h3><div class="fl-rule"></div>
-              <div class="stat">
-                <div class="ringv"><svg viewBox="0 0 100 100"><circle class="bg" cx="50" cy="50" r="42"/><circle class="fg" cx="50" cy="50" r="42"/></svg><b>95 %</b></div>
-                <p><b>Moins nocif</b> que la cigarette, grâce à l'absence de combustion.<cite>Public Health England, 2015</cite></p>
-              </div>
-              <div class="stat">
-                <div class="bars" aria-hidden="true"><i></i><i></i></div>
-                <p><b>Plus efficace</b> que les substituts nicotiniques classiques pour arrêter de fumer.<cite>Cochrane, 2020</cite></p>
-              </div>
-              <div class="quotes" id="fl-quotes">
-                <blockquote class="on">« Fumer du tabac, c'est prendre l'autoroute à contre-sens… Vapoter, c'est rouler à 140 au lieu de 130 km/h. »<span class="by">Pr B. Dautzenberg, pneumologue</span></blockquote>
-                <blockquote>« La différence radicale entre fumer et vapoter : la réduction des risques et des milliers de vies sauvées. »<span class="by">Dr A. Morel, psychiatre addictologue</span></blockquote>
-                <div class="qdots"><button type="button" class="on" aria-label="Citation 1"></button><button type="button" aria-label="Citation 2"></button></div>
-              </div>
-            </div><div class="fl-back"></div></div>
-
-            <div class="fl-panel p3"><div class="fl-face dark">
-              <h3 class="fl-h">Savoir vaper…</h3><div class="fl-rule" style="background:var(--orange)"></div>
-              <p class="fl-intro" style="color:#cfe0e6">Un petit aide-mémoire pour ne pas perdre de vue l'essentiel :</p>
-              <ul class="backlinks">
-                <li><button type="button" data-fl-go="in:fl-materiel">Maîtriser votre matériel <span>→</span></button></li>
-                <li><button type="button" data-fl-go="out:fl-liquide">Connaître son e-liquide <span>→</span></button></li>
-                <li><a href="#parcours">Adopter un sevrage efficace <span>→</span></a></li>
-              </ul>
-              <div class="visit"><b>Passez nous voir</b>Centre commercial Les Rives de l'Orne, en face de E.Leclerc, à côté de Normal.</div>
-            </div><div class="fl-back"></div></div>
-          </div>
+          <p class="anat-hint">Touchez les numéros du schéma.</p>
+          <details class="fl-acc"><summary><span>Bien entretenir sa résistance</span><span class="pm">+</span></summary>
+            <div class="ans"><p>Plus sa valeur en ohms est élevée, plus la sensation en gorge est douce. Elle dure 10 à 20 jours selon l'usage. Gardez toujours le coton bien imbibé.</p></div></details>
+          <details class="fl-acc"><summary><span>Bien utiliser son clearo</span><span class="pm">+</span></summary>
+            <div class="ans"><p>La bague airflow règle l'aspiration : ouverte pour un tirage aérien et plus de vapeur, fermée pour un tirage serré, proche de la cigarette.</p></div></details>
+          <details class="fl-acc"><summary><span>Faire durer ses accus</span><span class="pm">+</span></summary>
+            <div class="ans"><p>Une batterie tient 200 à 300 cycles de charge. Chargez les accus séparés dans un chargeur externe. Évitez l'humidité, la chaleur et le contact avec du métal, et verrouillez votre cigarette électronique.</p></div></details>
+          <span class="num">1</span>
         </div>
+
+        <!-- page 2 -->
+        <div class="pg" data-label="Page 2">
+          <h3 class="fl-h"><em>Comprendre</em> ma vape</h3><div class="fl-rule"></div>
+          <details class="fl-acc"><summary><span class="q">« Quand j'aspire, ça me fait <i>tousser</i> »</span><span class="pm">+</span></summary>
+            <div class="ans"><p>Fréquent au début : la gorge d'un ancien fumeur est sensible, et les anesthésiants de la cigarette ne sont plus là. Ça passe en quelques jours.</p>
+              <div class="tips"><span>Aspirer doucement</span><span>Boire un verre d'eau</span><span>Tirage serré</span><span>50 % de PG max</span><span>Sels de nicotine</span><span>Baisser la puissance</span></div></div></details>
+          <details class="fl-acc"><summary><span class="q">« J'ai <i>mal à la tête</i> quand je vapote »</span><span class="pm">+</span></summary>
+            <div class="ans"><p>Le propylène glycol assèche : buvez beaucoup d'eau. Votre corps se débarrasse aussi des substances du tabac.</p></div></details>
+          <details class="fl-acc"><summary><span class="q">« Mon <i>clearomiseur</i> fuit »</span><span class="pm">+</span></summary>
+            <div class="ans"><p>9 fois sur 10, ça vient de la résistance.</p>
+              <div class="tips"><span>Résistance usée ?</span><span>Ratio PG/VG adapté ?</span><span>Puissance dans la plage ?</span></div>
+              <p style="margin-top:8px">Chaleur, froid ou avion peuvent aussi faire fuir. Si ça se répète : un clearo avec l'airflow en haut.</p></div></details>
+          <details class="fl-acc"><summary><span class="q">« Je <i>vapote</i> trop souvent »</span><span class="pm">+</span></summary>
+            <div class="ans"><p>Normal au début : la vape délivre la nicotine plus lentement que la cigarette. Prenez un dosage plus fort au départ, et ne le baissez pas trop vite.</p></div></details>
+          <div class="check" id="fl-check">
+            <h4>L'installation parfaite d'une résistance <span id="fl-check-n">0/5</span></h4>
+            <ul>
+              <li><label><input type="checkbox"><span>Ne pas forcer sur le pas de vis</span></label></li>
+              <li><label><input type="checkbox"><span>Laisser le coton s'imbiber quelques minutes</span></label></li>
+              <li><label><input type="checkbox"><span>Déposer quelques gouttes de e-liquide sur le coton</span></label></li>
+              <li><label><input type="checkbox"><span>Commencer par de petites aspirations</span></label></li>
+              <li><label><input type="checkbox"><span>Pas de pleine puissance sur une résistance neuve</span></label></li>
+            </ul>
+            <div class="done">Parfait, votre résistance est prête.</div>
+          </div>
+          <span class="num">2</span>
+        </div>
+
+        <!-- page 3 -->
+        <div class="pg" data-label="Page 3">
+          <h3 class="fl-h"><em>Connaître</em> mon e-liquide</h3><div class="fl-rule"></div>
+          <p class="fl-intro">Le « carburant » de votre cigarette électronique : 4 composants, contre plus de 4&nbsp;000 dans la fumée de cigarette. Touchez une carte.</p>
+          <div class="tiles">
+            <button type="button" class="tile"><span class="tile-in"><span class="f"><b>PG</b><span>Propylène glycol <i>↻</i></span></span><span class="b">Rehausse le goût, fluidifie le liquide et donne la sensation en gorge.</span></span></button>
+            <button type="button" class="tile"><span class="tile-in"><span class="f"><b>VG</b><span>Glycérine végétale <i>↻</i></span></span><span class="b">Légèrement sucrée, elle donne une vapeur dense et abondante.</span></span></button>
+            <button type="button" class="tile"><span class="tile-in"><span class="f"><b>Nic</b><span>La nicotine (ou pas) <i>↻</i></span></span><span class="b">De 0 à 20 mg/ml. Très addictive, mais pas cancérogène.</span></span></button>
+            <button type="button" class="tile"><span class="tile-in"><span class="f"><b>Arô</b><span>Les arômes <i>↻</i></span></span><span class="b">Ils donnent le goût : fruité, classic, menthe, gourmand…</span></span></button>
+          </div>
+          <p class="keynote"><b>Le bon départ :</b> un taux de nicotine équivalent à votre ancienne consommation, puis on baisse à son rythme jusqu'à en finir avec l'addiction.</p>
+          <a class="fl-link" href="#diy">Calculer mon e-liquide <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <span class="num">3</span>
+        </div>
+
+        <!-- page 4 -->
+        <div class="pg" data-label="Page 4">
+          <h3 class="fl-h"><em>Qu'en disent</em> les études ?</h3><div class="fl-rule"></div>
+          <div class="stat">
+            <div class="ringv"><svg viewBox="0 0 100 100"><circle class="bg" cx="50" cy="50" r="42"/><circle class="fg" cx="50" cy="50" r="42"/></svg><b>95 %</b></div>
+            <p><b>Moins nocif</b> que la cigarette, grâce à l'absence de combustion.<cite>Public Health England, 2015</cite></p>
+          </div>
+          <div class="stat">
+            <div class="bars" aria-hidden="true"><i></i><i></i></div>
+            <p><b>Plus efficace</b> que les substituts nicotiniques classiques pour arrêter de fumer.<cite>Cochrane, 2020</cite></p>
+          </div>
+          <div class="quotes" id="fl-quotes">
+            <blockquote class="on">« Fumer du tabac, c'est prendre l'autoroute à contre-sens… Vapoter, c'est rouler à 140 au lieu de 130 km/h. »<span class="by">Pr B. Dautzenberg, pneumologue</span></blockquote>
+            <blockquote>« La différence radicale entre fumer et vapoter : la réduction des risques et des milliers de vies sauvées. »<span class="by">Dr A. Morel, psychiatre addictologue</span></blockquote>
+            <div class="qdots"><button type="button" class="on" aria-label="Citation 1"></button><button type="button" aria-label="Citation 2"></button></div>
+          </div>
+          <span class="num">4</span>
+        </div>
+
+        <!-- dos -->
+        <div class="pg backc" data-label="Dos">
+          <h3 class="fl-h">Savoir vaper…</h3><div class="fl-rule" style="background:var(--orange)"></div>
+          <p class="fl-intro" style="color:#cfe0e6">Un petit aide-mémoire pour ne pas perdre de vue l'essentiel :</p>
+          <ul class="backlinks">
+            <li><button type="button" data-bk-page="1">Maîtriser votre matériel <span>→</span></button></li>
+            <li><button type="button" data-bk-page="3">Connaître son e-liquide <span>→</span></button></li>
+            <li><a href="#parcours">Adopter un sevrage efficace <span>→</span></a></li>
+          </ul>
+          <div class="visit"><b>Passez nous voir</b>Centre commercial Les Rives de l'Orne, en face de E.Leclerc, à côté de Normal.</div>
+          <div class="logo2">happ<b>e</b>smoke</div>
+        </div>
+      </div>
+
+      <div class="bk-nav">
+        <button type="button" class="arr" data-bk="prev" aria-label="Page précédente"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <div class="bk-mid"><b id="bk-label">Couverture</b><div class="bk-dots" id="bk-dots"></div></div>
+        <button type="button" class="arr" data-bk="next" aria-label="Page suivante"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
       </div>
     </div>
   </section>
@@ -1161,61 +1146,112 @@ function hideHint(){ hintEl.classList.add("gone"); }
 
 
 /* =========================================================
-   GUIDE : DÉPLIANT INTERACTIF
+   GUIDE : BROCHURE FEUILLETABLE
    ========================================================= */
 (function(){
-  var fl=document.getElementById("flyer"); if(!fl) return;
-  var cover=document.getElementById("fl-cover"), busy=false;
+  var book=document.getElementById("book"); if(!book) return;
+  var pages=[].slice.call(book.querySelectorAll(".pg")), N=pages.length; // 6 : couverture, 4 pages, dos
   var rm=window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var T=rm?0:950;
-  function spread(side){ return fl.querySelector('[data-spread="'+side+'"]'); }
-  function setSide(side){
-    fl.dataset.side=side;
-    spread("in").hidden= side!=="in"; spread("out").hidden= side!=="out";
-    fl.querySelectorAll("[data-side-btn]").forEach(function(b){ b.setAttribute("aria-pressed", b.dataset.sideBtn===side); });
+  var mode=null, idx=0, spread=0, leaves=[], busy=false;
+  var SPREADS=[[0],[1,2],[3,4],[5]], SLABEL=["Couverture","Pages 1 – 2","Pages 3 – 4","Dos"];
+  var label=document.getElementById("bk-label"), dotsEl=document.getElementById("bk-dots");
+  function pageToSpread(i){ return i===0?0: i>=5?3: Math.ceil(i/2); }
+
+  function build(){
+    var m = window.innerWidth<820 ? "mob" : "desk";
+    if(m===mode) return; var prev=mode; mode=m;
+    if(m==="desk"){
+      if(prev) spread=pageToSpread(idx);
+      leaves=[];
+      for(var i=0;i<3;i++){
+        var leaf=document.createElement("div"); leaf.className="leaf";
+        var f=document.createElement("div"); f.className="face front"; f.appendChild(pages[2*i]);
+        var b=document.createElement("div"); b.className="face back"; b.appendChild(pages[2*i+1]);
+        leaf.appendChild(f); leaf.appendChild(b); book.appendChild(leaf); leaves.push(leaf);
+      }
+      book.className="book desk";
+    } else {
+      if(prev) idx=SPREADS[spread][0];
+      pages.forEach(function(p){ p.classList.remove("leaving","out-next","in-next","out-prev","in-prev"); book.appendChild(p); });
+      leaves.forEach(function(l){ l.remove(); }); leaves=[];
+      book.className="book mob";
+    }
+    makeDots(); render(true);
   }
-  function open(side,then){
-    if(busy) return; busy=true;
-    setSide(side||fl.dataset.side); fl.dataset.state="opening";
-    requestAnimationFrame(function(){ requestAnimationFrame(function(){ fl.classList.add("is-open"); fl.dataset.state="open"; setTimeout(function(){ busy=false; if(then) then(); },T); }); });
+  function makeDots(){
+    dotsEl.innerHTML=""; var n= mode==="desk"?4:N;
+    for(var i=0;i<n;i++){ var d=document.createElement("button"); d.type="button"; d.setAttribute("aria-label", mode==="desk"?SLABEL[i]:(pages[i].dataset.label)); (function(j){ d.onclick=function(){ go(j); }; })(i); dotsEl.appendChild(d); }
   }
-  function fold(then){
-    busy=true; fl.classList.remove("is-open");
-    setTimeout(function(){ busy=false; then(); },rm?0:700);
+  function seen(list){ list.forEach(function(i){ pages[i].classList.add("seen"); }); }
+  function render(instant){
+    var cur = mode==="desk"? spread : idx, last = mode==="desk"? 3 : N-1;
+    if(mode==="desk"){
+      book.classList.toggle("s0",spread===0); book.classList.toggle("s3",spread===3);
+      leaves.forEach(function(l,i){
+        var fl=i<spread, was=l.classList.contains("flipped");
+        if(instant) l.style.transition="none";
+        l.classList.toggle("flipped",fl);
+        if(fl!==was && !instant){ l.style.zIndex=20; setTimeout(function(){ l.style.zIndex= fl? (i+1) : (10-i); },900); }
+        else l.style.zIndex= fl? (i+1) : (10-i);
+        if(instant){ void l.offsetWidth; l.style.transition=""; }
+      });
+      seen(SPREADS[spread]);
+      label.textContent=SLABEL[spread];
+    } else {
+      pages.forEach(function(p,i){ p.classList.toggle("cur",i===idx); });
+      seen([idx]);
+      label.textContent= idx===0?"Couverture": idx===N-1?"Dos":"Page "+idx+" sur 4";
+    }
+    [].forEach.call(dotsEl.children,function(d,i){ d.classList.toggle("on",i===cur); });
+    document.querySelector('.bk-nav [data-bk="prev"]').disabled = cur===0;
+    document.querySelector('.bk-nav [data-bk="next"]').disabled = cur===last;
   }
-  function close(){ if(busy) return; fold(function(){ fl.dataset.state="closed"; setSide("in"); }); }
-  function turn(side,then){
-    if(fl.dataset.state!=="open"){ open(side,then); return; }
-    if(side===fl.dataset.side){ if(then) then(); return; }
+  function go(target){
     if(busy) return;
-    fold(function(){ open(side,then); });
+    if(mode==="desk"){
+      target=Math.max(0,Math.min(3,target)); if(target===spread) return;
+      busy=true; var step=target>spread?1:-1;
+      (function stepTo(){ spread+=step; render(false); if(spread!==target) setTimeout(stepTo,rm?0:260); else setTimeout(function(){busy=false;},rm?0:500); })();
+    } else {
+      target=Math.max(0,Math.min(N-1,target)); if(target===idx) return;
+      var old=pages[idx], fwd=target>idx; idx=target;
+      if(!rm){ busy=true; old.classList.add("leaving",fwd?"out-next":"out-prev"); pages[idx].classList.add(fwd?"in-next":"in-prev");
+        setTimeout(function(){ old.classList.remove("leaving","out-next","out-prev"); pages[idx].classList.remove("in-next","in-prev"); busy=false; },560); }
+      render(false);
+      var top=book.getBoundingClientRect().top; if(top<0 || top>window.innerHeight*0.6) window.scrollTo({top:window.scrollY+top-130,behavior:rm?"auto":"smooth"});
+    }
   }
-  cover.addEventListener("click",function(){ open("in"); });
-  document.getElementById("fl-close").onclick=function(){ close(); fl.scrollIntoView({behavior:"smooth",block:"start"}); };
-  fl.querySelectorAll("[data-side-btn]").forEach(function(b){ b.onclick=function(){ turn(b.dataset.sideBtn); }; });
-  fl.querySelectorAll("[data-fl-go]").forEach(function(b){ b.onclick=function(){
-    var p=b.dataset.flGo.split(":"); turn(p[0],function(){ var el=document.getElementById(p[1]); if(!el) return; el.scrollIntoView({behavior:"smooth",block:"nearest"}); el.classList.remove("flash-hl"); void el.offsetWidth; el.classList.add("flash-hl"); });
-  }; });
+  function next(){ go((mode==="desk"?spread:idx)+1); }
+  function prev(){ go((mode==="desk"?spread:idx)-1); }
+  document.querySelectorAll('[data-bk="next"]').forEach(function(b){ b.addEventListener("click",function(e){ e.stopPropagation(); next(); }); });
+  document.querySelectorAll('[data-bk="prev"]').forEach(function(b){ b.addEventListener("click",function(e){ e.stopPropagation(); prev(); }); });
+  pages[0].addEventListener("click",function(){ if((mode==="desk"?spread:idx)===0) next(); });
+  book.querySelectorAll("[data-bk-page]").forEach(function(b){ b.onclick=function(){ var p=+b.dataset.bkPage; go(mode==="desk"?pageToSpread(p):p); }; });
+  book.addEventListener("keydown",function(e){ if(e.key==="ArrowRight"){ e.preventDefault(); next(); } if(e.key==="ArrowLeft"){ e.preventDefault(); prev(); } });
+  // glisser du doigt
+  var sx=null, sy=null;
+  book.addEventListener("touchstart",function(e){ sx=e.touches[0].clientX; sy=e.touches[0].clientY; },{passive:true});
+  book.addEventListener("touchend",function(e){ if(sx===null) return; var dx=e.changedTouches[0].clientX-sx, dy=e.changedTouches[0].clientY-sy; sx=null;
+    if(Math.abs(dx)>55 && Math.abs(dx)>Math.abs(dy)*1.4){ if(dx<0) next(); else prev(); } },{passive:true});
+  window.addEventListener("resize",build);
+  build();
 
   // schéma cliquable
   var PARTS=[["Embout","Drip tip","La partie que vous mettez en bouche."],["Réservoir","Tank","Il contient le e-liquide. Le clearomiseur, c'est l'ensemble réservoir + résistance."],["Airflow","Débit d'air","La bague qui règle l'arrivée d'air : tirage serré ou aérien."],["Résistance","Le cœur","Un coton chauffé par un fil résistif : c'est elle qui crée la vapeur."],["Batterie","Box ou accu","L'énergie de votre cigarette électronique."]];
-  var cap=document.getElementById("anat-cap"), hs=fl.querySelectorAll(".anat .hs");
+  var cap=document.getElementById("anat-cap"), hs=book.querySelectorAll(".anat .hs");
   function part(i){ hs.forEach(function(h){ h.classList.toggle("on",+h.dataset.part===i); }); cap.innerHTML="<small>"+(i+1)+" · "+PARTS[i][1]+"</small><b>"+PARTS[i][0]+"</b><span>"+PARTS[i][2]+"</span>"; }
   hs.forEach(function(h){ h.addEventListener("click",function(){ part(+h.dataset.part); }); h.addEventListener("keydown",function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); part(+h.dataset.part); } }); });
   part(3);
-
-  // checklist
+  // check-list
   var ck=document.getElementById("fl-check"), boxes=ck.querySelectorAll("input");
   boxes.forEach(function(x){ x.addEventListener("change",function(){ var n=[].filter.call(boxes,function(b){return b.checked;}).length; document.getElementById("fl-check-n").textContent=n+"/"+boxes.length; ck.classList.toggle("all",n===boxes.length); }); });
-
-  // tuiles
-  fl.querySelectorAll(".tile").forEach(function(t){ t.addEventListener("click",function(){ t.classList.toggle("flip"); }); });
-
+  // cartes e-liquide
+  book.querySelectorAll(".tile").forEach(function(t){ t.addEventListener("click",function(){ t.classList.toggle("flip"); }); });
   // citations
-  var qs=fl.querySelectorAll("#fl-quotes blockquote"), qd=fl.querySelectorAll("#fl-quotes .qdots button"), qi=0, qt=null;
+  var qs=book.querySelectorAll("#fl-quotes blockquote"), qd=book.querySelectorAll("#fl-quotes .qdots button"), qi=0, qt=null;
   function q(i){ qi=i; qs.forEach(function(b,j){ b.classList.toggle("on",j===i); }); qd.forEach(function(b,j){ b.classList.toggle("on",j===i); }); }
   qd.forEach(function(b,i){ b.onclick=function(){ q(i); clearInterval(qt); }; });
-  if(!rm) qt=setInterval(function(){ if(fl.dataset.side==="out" && fl.classList.contains("is-open")) q((qi+1)%qs.length); },6000);
+  if(!rm) qt=setInterval(function(){ if(pages[4].classList.contains("seen")) q((qi+1)%qs.length); },6000);
 })();
 
 /* =========================================================
