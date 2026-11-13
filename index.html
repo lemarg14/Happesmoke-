@@ -361,11 +361,13 @@ footer .brand-word{color:#fff}
 @keyframes drop{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
 .tips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
 .tips span{background:#eef6f9;color:var(--teal);font-size:12.5px;font-weight:700;padding:4px 9px;border-radius:99px}
-.anat{display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:center;margin-bottom:14px}
+.anat{display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:center;margin-bottom:14px}
 .anat svg{width:100%;height:auto}
 .anat .hs{cursor:pointer}
 .anat .hs circle{fill:var(--orange);stroke:#fff;stroke-width:2}
-.anat .hs text{fill:#fff;font:800 11px var(--f-body);text-anchor:middle;dominant-baseline:central;pointer-events:none}
+.anat .hs{transform-box:fill-box;transform-origin:center;transition:transform .2s ease}
+.anat .hs:hover{transform:scale(1.12)}
+.anat .hs text{fill:#fff;font:900 18px var(--f-display);text-anchor:middle;dominant-baseline:central;pointer-events:none}
 .anat .hs.on circle{fill:var(--teal)}
 .anat .hs:focus{outline:none}
 .anat .hs:focus-visible circle{stroke:var(--sky);stroke-width:3}
@@ -430,6 +432,44 @@ footer .brand-word{color:#fff}
 .backc .logo2{font-family:var(--f-display);font-weight:800;font-size:28px;margin-top:22px;opacity:.9}
 .backc .logo2 b{color:var(--orange)}
 
+
+/* ---------- Bandeau téléphone ---------- */
+.callband{background:var(--gold);color:var(--navy-deep);padding-block:40px;overflow:hidden;position:relative}
+.callband::before{content:"";position:absolute;right:-120px;top:-120px;width:360px;height:360px;border-radius:50%;background:rgba(255,255,255,.18)}
+.call-in{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:32px;align-items:center}
+.phone-ico{position:relative;width:88px;height:88px;display:grid;place-items:center}
+.phone-ico .core{position:relative;z-index:2;width:66px;height:66px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;box-shadow:0 12px 26px rgba(20,36,58,.3)}
+.phone-ico .core svg{transform-origin:50% 50%}
+.callband.in-view .phone-ico .core svg{animation:ring 2.6s ease-in-out infinite}
+.phone-ico i{position:absolute;inset:11px;border-radius:50%;border:3px solid var(--navy);opacity:0}
+.callband.in-view .phone-ico i{animation:wave 2.6s ease-out infinite}
+.callband.in-view .phone-ico i:nth-child(2){animation-delay:.35s}
+.callband.in-view .phone-ico i:nth-child(3){animation-delay:.7s}
+@keyframes ring{0%,40%,100%{transform:rotate(0)}5%,15%,25%{transform:rotate(-16deg)}10%,20%,30%{transform:rotate(16deg)}}
+@keyframes wave{0%{transform:scale(1);opacity:.55}60%,100%{transform:scale(1.7);opacity:0}}
+.call-tx h2{font-family:var(--f-display);font-weight:900;font-size:clamp(20px,2vw,24px);margin:2px 0 4px;color:var(--navy-deep)}
+.call-tx .eyebrow{color:var(--navy)}
+.num-big{display:inline-flex;gap:.28em;font-family:var(--f-display);font-weight:900;font-size:clamp(32px,4.4vw,50px);line-height:1.05;color:var(--navy-deep);text-decoration:none;perspective:600px;letter-spacing:.01em;font-variant-numeric:tabular-nums}
+.num-big .pair{display:inline-block;transform-origin:50% 100%;opacity:0;transform:rotateX(90deg) translateY(8px)}
+.callband.in-view .num-big .pair{animation:flipIn .55s cubic-bezier(.3,.7,.2,1.3) forwards;animation-delay:calc(var(--i) * .12s)}
+.num-big:hover .pair{color:var(--navy)}
+@keyframes flipIn{to{opacity:1;transform:none}}
+.call-status{margin:8px 0 0;font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px}
+.call-status .dot{width:9px;height:9px;border-radius:50%;background:var(--ok)}
+.call-status.closed .dot{background:var(--off)}
+.call-actions{display:grid;gap:10px}
+.call-actions .btn{min-width:200px}
+.callband .btn-ghost{background:rgba(255,255,255,.55);border-color:transparent;color:var(--navy-deep)}
+.callband .btn-ghost:hover{background:#fff}
+@media (max-width:820px){
+  .callband{padding-block:34px;text-align:center}
+  .call-in{grid-template-columns:1fr;justify-items:center;gap:18px}
+  .call-status{justify-content:center}
+  .call-actions{width:100%}
+  .call-actions .btn{width:100%;min-width:0}
+}
+@media (prefers-reduced-motion:reduce){ .num-big .pair{opacity:1;transform:none} }
+
 /* ---------- Responsive ---------- */
 @media (max-width:1180px){ .nav{display:none} .subnav{display:flex} }
 @media (max-width:1000px){
@@ -490,7 +530,7 @@ footer .brand-word{color:#fff}
   .cover .art{min-height:200px}
   .bk-nav{position:sticky;bottom:10px;z-index:5;margin-top:14px;background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:999px;padding:6px;box-shadow:var(--shadow);max-width:320px;margin-inline:auto}
   .bk-nav button.arr{width:44px;height:44px}
-  .anat{grid-template-columns:100px 1fr}
+  .anat{grid-template-columns:120px 1fr}
 }
 
 @media (prefers-reduced-motion:reduce){ *{transition:none!important;animation:none!important;scroll-behavior:auto!important} }
@@ -526,6 +566,7 @@ footer .brand-word{color:#fff}
       <a href="#guide">Le guide</a>
       <a href="#parcours">Arrêter le tabac</a>
       <a href="#infos">Horaires</a>
+      <a href="#appeler">Appeler</a>
     </nav>
     <span class="live" id="live"><span class="dot"></span><span id="live-text">…</span></span>
     <a class="btn btn-gold" href="https://www.google.com/maps/search/?api=1&query=Happesmoke%20Caen%20Les%20Rives%20de%20l%27Orne" target="_blank" rel="noopener" aria-label="Itinéraire vers la boutique">
@@ -534,7 +575,7 @@ footer .brand-word{color:#fff}
     </a>
   </div>
   <nav class="subnav" aria-label="Sections">
-    <a href="#top">Nous trouver</a><a href="#equipe">L'équipe</a><a href="#kits">Les kits</a><a href="#diy">Calculateur DIY</a><a href="#guide">Le guide</a><a href="#parcours">Arrêter le tabac</a><a href="#infos">Horaires</a>
+    <a href="#top">Nous trouver</a><a href="#equipe">L'équipe</a><a href="#kits">Les kits</a><a href="#diy">Calculateur DIY</a><a href="#guide">Le guide</a><a href="#parcours">Arrêter le tabac</a><a href="#infos">Horaires</a><a href="#appeler">Appeler</a>
   </nav>
 </header>
 
@@ -726,7 +767,7 @@ footer .brand-word{color:#fff}
         <div class="pg" data-label="Page 1">
           <h3 class="fl-h"><em>Maîtriser</em> mon matériel</h3><div class="fl-rule"></div>
           <div class="anat">
-            <svg viewBox="0 0 120 240" role="group" aria-label="Schéma d'une cigarette électronique">
+            <svg viewBox="0 -2 124 244" role="group" aria-label="Schéma d'une cigarette électronique">
               <rect x="48" y="10" width="20" height="22" rx="4" fill="#cfd8dc"/>
               <rect x="40" y="32" width="36" height="60" rx="6" fill="#e9f2f5" stroke="#9fb7c0" stroke-width="2"/>
               <rect x="44" y="56" width="28" height="34" rx="4" fill="#f6c27a" opacity=".85"/>
@@ -734,11 +775,11 @@ footer .brand-word{color:#fff}
               <rect x="40" y="92" width="36" height="10" rx="3" fill="#9fb7c0"/>
               <rect x="22" y="104" width="76" height="126" rx="14" fill="#e3e8eb" stroke="#9fb7c0" stroke-width="2"/>
               <rect x="62" y="116" width="26" height="100" rx="8" fill="#cfd8dc"/>
-              <g class="hs" tabindex="0" role="button" data-part="0"><circle cx="58" cy="20" r="11"/><text x="58" y="20">1</text></g>
-              <g class="hs" tabindex="0" role="button" data-part="1"><circle cx="30" cy="60" r="11"/><text x="30" y="60">2</text></g>
-              <g class="hs" tabindex="0" role="button" data-part="2"><circle cx="30" cy="97" r="11"/><text x="30" y="97">3</text></g>
-              <g class="hs" tabindex="0" role="button" data-part="3"><circle cx="86" cy="72" r="11"/><text x="86" y="72">4</text></g>
-              <g class="hs" tabindex="0" role="button" data-part="4"><circle cx="42" cy="170" r="11"/><text x="42" y="170">5</text></g>
+              <g class="hs" tabindex="0" role="button" data-part="0"><circle cx="58" cy="20" r="16"/><text x="58" y="20">1</text></g>
+              <g class="hs" tabindex="0" role="button" data-part="1"><circle cx="30" cy="60" r="16"/><text x="30" y="60">2</text></g>
+              <g class="hs" tabindex="0" role="button" data-part="2"><circle cx="30" cy="97" r="16"/><text x="30" y="97">3</text></g>
+              <g class="hs" tabindex="0" role="button" data-part="3"><circle cx="86" cy="72" r="16"/><text x="86" y="72">4</text></g>
+              <g class="hs" tabindex="0" role="button" data-part="4"><circle cx="42" cy="170" r="16"/><text x="42" y="170">5</text></g>
             </svg>
             <div class="anat-cap" id="anat-cap" aria-live="polite"></div>
           </div>
@@ -862,7 +903,7 @@ footer .brand-word{color:#fff}
       <div class="info">
         <div class="panel">
           <h3>Adresse</h3>
-          <div class="addr">Centre commercial Les Rives de l'Orne<br>Quai Amiral Hamelin, 14000 Caen</div>
+          <div class="addr">Centre commercial Les Rives de l'Orne<br>Quai Amiral Hamelin, 14000 Caen<br><a href="tel:+33261925960" style="color:var(--navy);text-decoration:none">Tél. 02 61 92 59 60</a></div>
           <ol class="howto">
             <li><span>Allez au centre <b>Les Rives de l'Orne</b>, entre l'Orne et la gare SNCF.</span></li>
             <li><span>Entrez dans le <b>bâtiment de droite</b>, celui de <b>E.Leclerc</b>.</span></li>
@@ -883,6 +924,24 @@ footer .brand-word{color:#fff}
     </div>
   </section>
 </main>
+
+<section class="callband" id="appeler" aria-label="Appeler la boutique">
+  <div class="wrap call-in">
+    <div class="phone-ico" aria-hidden="true"><i></i><i></i><i></i>
+      <span class="core"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"/></svg></span>
+    </div>
+    <div class="call-tx">
+      <div class="eyebrow">Une question ?</div>
+      <h2>Appelez la boutique</h2>
+      <a class="num-big" href="tel:+33261925960" aria-label="Appeler le 02 61 92 59 60"><span class="pair" style="--i:0">02</span><span class="pair" style="--i:1">61</span><span class="pair" style="--i:2">92</span><span class="pair" style="--i:3">59</span><span class="pair" style="--i:4">60</span></a>
+      <p class="call-status" id="call-status"><span class="dot"></span><span>…</span></p>
+    </div>
+    <div class="call-actions">
+      <a class="btn btn-navy" href="tel:+33261925960">Appeler maintenant</a>
+      <button class="btn btn-ghost" type="button" id="copy-num">Copier le numéro</button>
+    </div>
+  </div>
+</section>
 
 <footer>
   <div class="wrap">
@@ -1155,6 +1214,26 @@ function hideHint(){ hintEl.classList.add("gone"); }
   compute();
 })();
 
+
+
+/* =========================================================
+   BANDEAU TÉLÉPHONE
+   ========================================================= */
+(function(){
+  var band=document.getElementById("appeler"); if(!band) return;
+  function upd(){ var st=status(), el=document.getElementById("call-status");
+    el.className="call-status"+(st.open?"":" closed");
+    el.lastElementChild.textContent = st.open ? "Ouvert maintenant, jusqu'à "+fmt(HOURS[st.n.day][1]) : "Fermé pour l'instant · "+st.long; }
+  upd(); setInterval(upd,30000);
+  if("IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(en){ if(en[0].isIntersecting){ band.classList.add("in-view"); io.disconnect(); } },{threshold:.35});
+    io.observe(band);
+  } else band.classList.add("in-view");
+  document.getElementById("copy-num").onclick=function(){
+    var b=this; function done(t){ b.textContent=t; setTimeout(function(){ b.textContent="Copier le numéro"; },1800); }
+    try{ navigator.clipboard.writeText("02 61 92 59 60").then(function(){done("Numéro copié");},function(){done("02 61 92 59 60");}); }catch(e){ done("02 61 92 59 60"); }
+  };
+})();
 
 /* =========================================================
    GUIDE : BROCHURE FEUILLETABLE
